@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<project name="genometools-java" default="compile">
+
+    <description>
+        
+      Available options are:
+    	
+    	- compile
+    	- test
+    	- jar
+    	- clean 
+    	- cleanup
+    	
+    </description>
+	
+	<property name="SrcDir" value="src/"/>
+	<property name="LibDir" value="lib/"/>
+    <property name="TestDir" value="test/"/>
+	<property name="BinDir" value="bin/"/>
+	
+    <target name="clean" description="remove intermediate files">
+        <delete dir="${BinDir}"/>
+    </target>
+
+    <target name="cleanup" depends="clean" description="remove all artifact files">
+        <delete file="gt-java.jar"/>
+    </target>
+
+    <target name="compile" description="compile the Java source code to class files">
+        <mkdir dir="${BinDir}"/>
+		<javac classpath="${classpath}:${LibDir}/jna.jar" srcdir="${SrcDir}/" destdir="${BinDir}" verbose="on"/>
+    </target>
+
+    <target name="compile_test" depends="compile" description="compile unit test classes">
+        <javac classpath="${classpath}:${LibDir}/jna.jar:${LibDir}/junit-4.7.jar" srcdir="${TestDir}/" destdir="${BinDir}" verbose="on"/>
+    </target>
+	
+	<path id="test.classpath">
+		<pathelement location="${BinDir}" />
+		<pathelement location="${LibDir}/junit-4.7.jar" />
+		<fileset dir="${LibDir}">
+		  <include name="**/*.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="test" depends="compile_test" description="run unit tests">
+		<junit fork="yes" haltonfailure="yes">
+			<batchtest fork="yes">
+				<fileset dir="${TestDir}">
+					<include name="**/*Test.java" />
+	  	    	</fileset>
+	  	  	</batchtest>
+	    	<formatter type="plain" usefile="false" />
+	    	<classpath refid="test.classpath" />
+	  	</junit>
+	</target>
+
+    <target name="jar" depends="compile" description="create a Jar file containing the library">
+        <jar destfile="gt-java.jar">
+            <fileset dir="${BinDir}" includes="**/*.class"/>
+        </jar>
+    </target>
+	
+</project>
