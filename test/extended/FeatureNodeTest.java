@@ -110,4 +110,10 @@ public class FeatureNodeTest
     assertFalse(fn.equals(falseclone));
     assertFalse(falseclone.equals(fn));
   }
+  
+  @Test
+  public void test_genome_node_mark() throws GTerrorJava {
+	 fn.gt_genome_node_mark();
+	 assertTrue(fn.gt_genome_is_node_marked());
+  }
 }

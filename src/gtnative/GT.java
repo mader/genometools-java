@@ -45,6 +45,8 @@ public interface GT extends Library
 	void gt_feature_node_add_attribute(Pointer feature_node, String tag,
 			String value);
 	Pointer gt_feature_node_get_attribute_list(Pointer feature_node);
+	void gt_genome_node_mark(Pointer genome_node);
+	boolean gt_genome_node_is_marked(Pointer genome_node);
 
 	/*------------------------------GtLayout------------------------------*/
 	Pointer gt_layout_new(Pointer diagram, NativeLong width, Pointer gt_style, Pointer err);
