@@ -2,12 +2,7 @@ package annotationsketch;
 
 import java.util.AbstractList;
 
-import annotationsketch.Diagram.GT.TRACKSELECTOR;
-
-import com.sun.jna.Library;
-import com.sun.jna.Native;
 import com.sun.jna.Pointer;
-import com.sun.jna.Callback;
 
 import core.Array;
 import core.GTerror;
@@ -15,35 +10,18 @@ import core.GTerrorJava;
 import core.Range;
 import core.Str;
 import extended.FeatureNode;
+import gtnative.GT;
+import gtnative.GT.TRACKSELECTOR;;
 
 public class Diagram
 {
   protected Pointer diagram_ptr;
-  // these references are kept to avoid garbage collection 
+  // these references are kept to avoid garbage collection
   // of the track selector funcs as long as this object exists
   @SuppressWarnings("unused")
 private TRACKSELECTOR tsf;
   @SuppressWarnings("unused")
   private TrackSelector ts;
-
-  public interface GT extends Library
-  {
-    GT INSTANCE = (GT) Native.loadLibrary("genometools", GT.class);
-
-    Pointer gt_diagram_new(Pointer feat_index, String seqid, Range gt_range,
-        Pointer gt_style, Pointer gt_err);
-    Pointer gt_diagram_new_from_array(Pointer gt_array, Range gt_range,
-        Pointer gt_style);
-    void gt_diagram_set_track_selector_func(Pointer gt_diagram,
-        TRACKSELECTOR func);
-    void gt_diagram_reset_track_selector_func(Pointer diagram_ptr);
-    void gt_diagram_delete(Pointer gt_diagram);
-
-    interface TRACKSELECTOR extends Callback
-    {
-      void callback(Pointer block_ptr, Pointer str_ptr, Pointer data_ptr) throws GTerrorJava;
-    }
-  }
 
   public Diagram(AbstractList<FeatureNode> feats, Range rng, Style sty) throws GTerrorJava
   {
@@ -106,12 +84,12 @@ private TRACKSELECTOR tsf;
     this.ts = ts;
     GT.INSTANCE.gt_diagram_set_track_selector_func(diagram_ptr, tsf);
   }
-  
+
   public void reset_track_selector_func()
   {
     GT.INSTANCE.gt_diagram_reset_track_selector_func(diagram_ptr);
   }
-  
+
   protected synchronized void finalize() throws Throwable {
     try {
       GT.INSTANCE.gt_diagram_delete(diagram_ptr);
@@ -119,7 +97,7 @@ private TRACKSELECTOR tsf;
 	    super.finalize();
     }
   }
-  
+
   public Pointer to_ptr()
   {
     return diagram_ptr;

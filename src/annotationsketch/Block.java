@@ -1,8 +1,6 @@
 package annotationsketch;
 
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import com.sun.jna.NativeLong;
+import gtnative.GT;
 import com.sun.jna.Pointer;
 import core.GTerrorJava;
 import core.Range;
@@ -12,23 +10,6 @@ public class Block
 {
   private Pointer block_ptr;
   private final char STRANDCHARS[] = { '+', '-', '.', '?' };
-
-  public interface GT extends Library
-  {
-    GT INSTANCE = (GT) Native.loadLibrary("genometools", GT.class);
-
-    Pointer gt_block_ref(Pointer gt_block);
-    Range gt_block_get_range_ptr(Pointer gt_block);
-    String gt_block_get_type(Pointer gt_block);
-    boolean gt_block_has_only_one_fullsize_element(Pointer gt_block);
-    void gt_block_merge(Pointer gt_block, Pointer gt_block_sec);
-    Pointer gt_block_clone(Pointer gt_block);
-    void gt_block_set_strand(Pointer gt_block, int i);
-    Pointer gt_block_get_top_level_feature(Pointer gt_block);
-    int gt_block_get_strand(Pointer gt_block);
-    NativeLong gt_block_get_size(Pointer gt_block);
-    void gt_block_delete(Pointer gt_block);
-  }
 
   public Block(Pointer ptr) throws GTerrorJava
   {

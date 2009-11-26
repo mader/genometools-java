@@ -1,21 +1,11 @@
 package core;
 
 import com.sun.jna.*;
+import gtnative.*;
 
 public class StrArray
 {
   protected Pointer str_array;
-
-  public interface GT extends Library
-  {
-    GT INSTANCE = (GT) Native.loadLibrary("genometools", GT.class);
-
-    Pointer gt_str_array_new();
-    void gt_str_array_add_cstr(Pointer str_array, String cstr);
-    String gt_str_array_get(Pointer str_array, NativeLong strnum);
-    NativeLong gt_str_array_size(Pointer str_array);
-    void gt_str_array_delete(Pointer str_array);
-  }
 
   public StrArray()
   {

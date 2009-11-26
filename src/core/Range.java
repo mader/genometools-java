@@ -1,19 +1,13 @@
 package core;
 
 import com.sun.jna.*;
+import gtnative.*;
 
 public class Range extends Structure
 {
   public NativeLong start;
   public NativeLong end;
   
-  public interface GT extends Library
-  {
-    GT INSTANCE = (GT) Native.loadLibrary("genometools", GT.class);
-    
-    NativeLong gt_range_length(Range rng); 
-  }
-
   public Range() {
     this.start = new NativeLong(0);
     this.end = new NativeLong(0);

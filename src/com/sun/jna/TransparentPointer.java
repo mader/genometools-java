@@ -15,4 +15,3 @@ public class TransparentPointer extends Pointer {
    return this.peer;
   }
 }
-

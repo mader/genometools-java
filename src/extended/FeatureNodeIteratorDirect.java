@@ -1,4 +1,5 @@
 package extended;
+import gtnative.*;
 
 public class FeatureNodeIteratorDirect extends FeatureNodeIterator
 {

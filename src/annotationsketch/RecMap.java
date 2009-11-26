@@ -1,7 +1,6 @@
 package annotationsketch;
 
-import com.sun.jna.Library;
-import com.sun.jna.Native;
+import gtnative.GT;
 import com.sun.jna.Pointer;
 
 import extended.FeatureNode;
@@ -9,19 +8,6 @@ import extended.FeatureNode;
 public class RecMap 
 {
   protected Pointer rec_map;
-  public interface GT extends Library
-  {
-    GT INSTANCE = (GT) Native.loadLibrary("genometools", GT.class);
-    double gt_rec_map_get_northwest_x(Pointer rec_map);
-    double gt_rec_map_get_northwest_y(Pointer rec_map);
-    double gt_rec_map_get_southeast_x(Pointer rec_map);
-    double gt_rec_map_get_southeast_y(Pointer rec_map);
-    Pointer gt_rec_map_get_genome_feature(Pointer rec_map);
-    Pointer gt_rec_map_ref(Pointer rec_map);
-    void gt_rec_map_delete(Pointer rec_map);
-    boolean gt_rec_map_has_omitted_children(Pointer rec_map);
-  }
-
   public RecMap(Pointer rm){
 	synchronized(rm)  {
 		this.rec_map = GT.INSTANCE.gt_rec_map_ref(rm);

@@ -1,23 +1,15 @@
 package annotationsketch;
 
-import com.sun.jna.Library;
-import com.sun.jna.Native;
+import gtnative.GT;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
-
 import core.GTerror;
 import core.GTerrorJava;
 
 import extended.FeatureNode;
 
 public class FeatureIndexMemory extends FeatureIndex {
-  public interface GT extends Library
-  {
-    GT INSTANCE = (GT) Native.loadLibrary("genometools", GT.class);
-    Pointer gt_feature_index_memory_new();
-    Pointer gt_feature_index_memory_get_node_by_ptr(Pointer fim, NativeLong id, Pointer err);
-  }
-  
+
   
   public FeatureIndexMemory() {
     synchronized(this) {

@@ -3,6 +3,7 @@ package extended;
 import java.util.ArrayList;
 
 import com.sun.jna.*;
+import gtnative.GT;
 
 import core.GTerrorJava;
 import core.Str;
@@ -12,31 +13,6 @@ import extended.GenomeNode;
 public class FeatureNode extends GenomeNode
 {
   private char[] STRANDCHARS = { '+','-','.','?' };
-  
-  public interface GT extends Library
-  {
-    GT INSTANCE = (GT) Native.loadLibrary("genometools", GT.class);
-
-    Pointer gt_feature_node_new(Pointer seqid, String type, NativeLong start,
-        NativeLong end, int strand);
-    void gt_feature_node_add_child(Pointer parent, Pointer child);
-    String gt_feature_node_get_source(Pointer feature_node);
-    void gt_feature_node_set_source(Pointer feature_node, Pointer source);
-    String gt_feature_node_get_type(Pointer feature_node);
-    Boolean gt_feature_node_has_type(Pointer feature_node, String type);
-    Boolean gt_feature_node_score_is_defined(Pointer feature_node);
-    float gt_feature_node_get_score(Pointer feature_node);
-    void gt_feature_node_set_score(Pointer feature_node, float score);
-    void gt_feature_node_unset_score(Pointer feature_node);
-    int gt_feature_node_get_strand(Pointer feature_node);
-    void gt_feature_node_set_strand(Pointer feature_node, int strand);
-    int gt_feature_node_get_phase(Pointer feature_node);
-    void gt_feature_node_set_phase(Pointer feature_node, int strand);
-    String gt_feature_node_get_attribute(Pointer feature_node, String name);
-    void gt_feature_node_add_attribute(Pointer feature_node, String tag,
-        String value);
-    Pointer gt_feature_node_get_attribute_list(Pointer feature_node);
-  }
   
   public FeatureNode(Pointer node_ptr) 
   {
@@ -91,7 +67,7 @@ public class FeatureNode extends GenomeNode
   {
     GT.INSTANCE.gt_feature_node_set_source(this.genome_node_ptr, source);
   }
-
+  
   public String get_type()
   {
     return GT.INSTANCE.gt_feature_node_get_type(this.genome_node_ptr);
@@ -180,5 +156,4 @@ public class FeatureNode extends GenomeNode
 	}
 	return arr;
   }
-  
 }

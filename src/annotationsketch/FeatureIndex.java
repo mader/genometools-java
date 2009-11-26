@@ -1,11 +1,8 @@
 package annotationsketch;
 
 import java.util.ArrayList;
-
-import com.sun.jna.Library;
-import com.sun.jna.Native;
+import gtnative.GT;
 import com.sun.jna.Pointer;
-
 import core.GTerror;
 import core.Array;
 import core.GTerrorJava;
@@ -17,21 +14,6 @@ import extended.FeatureNode;
 public abstract class FeatureIndex
 {
   protected Pointer feat_index;
-
-  public interface GT extends Library
-  {
-    GT INSTANCE = (GT) Native.loadLibrary("genometools", GT.class);
-    void gt_feature_index_delete(Pointer fi);
-    void gt_feature_index_add_feature_node(Pointer feature_index,
-        Pointer feature_node);
-    int gt_feature_index_add_gff3file(Pointer fi, String gff3file, Pointer err);
-    Pointer gt_feature_index_get_features_for_seqid(Pointer fi, String seqid);
-    String gt_feature_index_get_first_seqid(Pointer fi);
-    Pointer gt_feature_index_get_seqids(Pointer fi);
-    void gt_feature_index_get_range_for_seqid(Pointer fi, Range rng,
-        String seqid);
-    Boolean gt_feature_index_has_seqid(Pointer fi, String seqid);
-  }
 
   protected synchronized void finalize() throws Throwable {
     GT.INSTANCE.gt_feature_index_delete(feat_index);

@@ -1,7 +1,6 @@
 package extended;
 
-import com.sun.jna.Library;
-import com.sun.jna.Native;
+import gtnative.*;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.PointerByReference;
 
@@ -11,12 +10,6 @@ import core.GTerror;
 public class GenomeStream
 {
   Pointer genome_stream = null;
-  
-  public interface GT extends Library
-  {
-    GT INSTANCE = (GT) Native.loadLibrary("genometools", GT.class);
-    int gt_node_stream_next(Pointer node_stream, PointerByReference genome_node, Pointer err);
-  }
   
   public FeatureNode next_tree() throws GTerrorJava {
     GTerror err = new GTerror();
