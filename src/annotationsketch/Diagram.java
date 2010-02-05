@@ -19,7 +19,7 @@ public class Diagram
   // these references are kept to avoid garbage collection
   // of the track selector funcs as long as this object exists
   @SuppressWarnings("unused")
-private TRACKSELECTOR tsf;
+  private TRACKSELECTOR tsf;
   @SuppressWarnings("unused")
   private TrackSelector ts;
 
@@ -33,10 +33,8 @@ private TRACKSELECTOR tsf;
     for (int i = 0; i < feats.size(); i++) {
       gtarr.add(feats.get(i).to_ptr());
     }
-    synchronized (this) {
-      dia = GT.INSTANCE.gt_diagram_new_from_array(gtarr.to_ptr(), rng,
+    dia = GT.INSTANCE.gt_diagram_new_from_array(gtarr.to_ptr(), rng,
           sty.to_ptr());
-    }
     if (dia == null) {
       throw new GTerrorJava("Diagram pointer was NULL");
     } else {
@@ -90,7 +88,7 @@ private TRACKSELECTOR tsf;
     GT.INSTANCE.gt_diagram_reset_track_selector_func(diagram_ptr);
   }
 
-  protected synchronized void finalize() throws Throwable {
+  protected void finalize() throws Throwable {
     try {
       GT.INSTANCE.gt_diagram_delete(diagram_ptr);
     } finally {

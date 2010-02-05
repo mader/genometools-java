@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.junit.*;
 
-import core.Allocators;
 import core.GTerrorJava;
 import core.Range;
 import extended.FeatureNode;
@@ -14,10 +13,9 @@ public class FeatureIndexTest
 {
   static FeatureIndexMemory fi;
   static ArrayList<FeatureNode> feats;
-  
+
   @BeforeClass
   public static void init() throws GTerrorJava {
-    Allocators.init();
     fi =  new FeatureIndexMemory();
     feats = new ArrayList<FeatureNode>();
     String seqid = "foo";
@@ -38,7 +36,7 @@ public class FeatureIndexTest
     fi.add_feature_node(reverse_gene);
     feats.add(reverse_gene);
   }
-  
+
   @Test
   public void test_get_first_seqid() {
     assertTrue(fi.get_first_seqid().equals("foo"));
@@ -48,9 +46,9 @@ public class FeatureIndexTest
   public void test_get_seqids() {
    ArrayList<String> arr = fi.get_seqids();
    assertTrue(arr.size() == 1);
-   assertTrue(arr.get(0).equals("foo"));   
+   assertTrue(arr.get(0).equals("foo"));
   }
-  
+
   @Test
   public void test_get_range_for_seqid() throws GTerrorJava {
     Range r = new Range();
@@ -59,7 +57,7 @@ public class FeatureIndexTest
     assertTrue(r.get_end() == 900);
     assertTrue(r.length() == 801);
   }
-  
+
   @Test
   public void test_get_features_for_seqid() {
     ArrayList<FeatureNode> nodes;
@@ -74,7 +72,7 @@ public class FeatureIndexTest
       assertTrue(nodes.contains(n));
     }
   }
-  
+
   @Test
   public void test_to_ptr() {
     assertTrue(fi.to_ptr() == fi.feat_index);

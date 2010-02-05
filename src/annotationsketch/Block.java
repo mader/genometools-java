@@ -35,15 +35,15 @@ public class Block
 
   public Boolean has_only_one_fullsize_element()
   {
-    return GT.INSTANCE.gt_block_has_only_one_fullsize_element(this.block_ptr);
+    return (GT.INSTANCE.gt_block_has_only_one_fullsize_element(this.block_ptr) == 1);
   }
 
-  public synchronized void merge(Block block2)
+  public void merge(Block block2)
   {
-    GT.INSTANCE.gt_block_merge(this.block_ptr, block2.to_ptr());	
+    GT.INSTANCE.gt_block_merge(this.block_ptr, block2.to_ptr());
   }
 
-  public synchronized Block clone_block() throws GTerrorJava
+  public Block clone_block() throws GTerrorJava
   {
     return new Block(GT.INSTANCE.gt_block_clone(block_ptr));
   }
@@ -94,7 +94,7 @@ public class Block
     return block_ptr;
   }
 
-  protected synchronized void finalize() throws Throwable {
+  protected void finalize() throws Throwable {
     try {
         GT.INSTANCE.gt_block_delete(block_ptr);
     } finally {

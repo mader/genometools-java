@@ -13,8 +13,8 @@ import extended.GenomeNode;
 public class FeatureNode extends GenomeNode
 {
   private char[] STRANDCHARS = { '+','-','.','?' };
-  
-  public FeatureNode(Pointer node_ptr) 
+
+  public FeatureNode(Pointer node_ptr)
   {
     super(node_ptr);
   }
@@ -53,7 +53,7 @@ public class FeatureNode extends GenomeNode
     this.genome_node_ptr = new TransparentPointer(newfn);
   }
 
-  public synchronized void add_child(FeatureNode child)
+  public void add_child(FeatureNode child)
   {
     GT.INSTANCE.gt_feature_node_add_child(this.genome_node_ptr, child.to_ptr());
   }
@@ -67,7 +67,7 @@ public class FeatureNode extends GenomeNode
   {
     GT.INSTANCE.gt_feature_node_set_source(this.genome_node_ptr, source);
   }
-  
+
   public String get_type()
   {
     return GT.INSTANCE.gt_feature_node_get_type(this.genome_node_ptr);
@@ -75,12 +75,12 @@ public class FeatureNode extends GenomeNode
 
   public Boolean has_type(String type)
   {
-    return GT.INSTANCE.gt_feature_node_has_type(this.genome_node_ptr, type);
+    return (GT.INSTANCE.gt_feature_node_has_type(this.genome_node_ptr, type) == 1);
   }
 
   public Boolean score_is_defined()
   {
-    return GT.INSTANCE.gt_feature_node_score_is_defined(this.genome_node_ptr);
+    return (GT.INSTANCE.gt_feature_node_score_is_defined(this.genome_node_ptr) == 1);
   }
 
   public float get_score()
@@ -111,7 +111,7 @@ public class FeatureNode extends GenomeNode
   {
     char strand = stra.charAt(0);
     switch (strand) {
-    case '+': strand = 0; 
+    case '+': strand = 0;
       break;
     case '-': strand = 1;
       break;
@@ -150,18 +150,18 @@ public class FeatureNode extends GenomeNode
   }
   public ArrayList<String> get_attribute_list() {
 	StrArray str_arr = new StrArray(GT.INSTANCE.gt_feature_node_get_attribute_list(genome_node_ptr));
-	ArrayList<String> arr = new ArrayList<String>(); 
+	ArrayList<String> arr = new ArrayList<String>();
 	for(int i =0; i < str_arr.length(); i++) {
 		arr.add(str_arr.get(i));
 	}
 	return arr;
   }
-  
+
   public void gt_genome_node_mark()
   {
     GT.INSTANCE.gt_genome_node_mark(this.genome_node_ptr);
   }
-  
+
   public boolean gt_genome_is_node_marked()
   {
     return GT.INSTANCE.gt_genome_node_is_marked(this.genome_node_ptr);

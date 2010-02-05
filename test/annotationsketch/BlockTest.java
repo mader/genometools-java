@@ -21,10 +21,9 @@ public class BlockTest
   static FeatureNode top1, top2;
   static Diagram d;
   static Layout l;
-  
+
   @BeforeClass
   public static void init() throws GTerrorJava {
-    Allocators.init();
     s = new Style();
     s.set_bool("exon", "collapse_to_parent", true);
     s.set_bool("intron", "collapse_to_parent", true);
@@ -60,13 +59,13 @@ public class BlockTest
     d.set_track_selector_func(tsf);
     l = new Layout(d, 800, s);
   }
-  
+
   @Test
   public void test_get_type() {
     assertTrue(blist.get(0).get_type().equals("gene"));
     assertTrue(blist.get(1).get_type().equals("gene"));
   }
-  
+
   @Test
   public void test_get_range() {
     Range r = blist.get(0).get_range();
@@ -76,7 +75,7 @@ public class BlockTest
     assertTrue(r.get_start() == 400);
     assertTrue(r.get_end() == 600);
   }
-  
+
   @Test
   public void test_get_size() {
     // 4 exons, 1 intron, 1 gene
@@ -84,7 +83,7 @@ public class BlockTest
     // 1 gene
     assertTrue(blist.get(1).get_size() == 1);
   }
-  
+
   @Test
   public void test_has_only_one_fullsize_element() {
     assertFalse(blist.get(0).has_only_one_fullsize_element());
@@ -98,7 +97,7 @@ public class BlockTest
     b = blist.get(1).clone_block();
     assertTrue(blist.get(1).get_size() == b.get_size());
   }
-  
+
   @Test
   public void test_merge() throws GTerrorJava {
     Block b = blist.get(0).clone_block();
@@ -106,13 +105,13 @@ public class BlockTest
     b.merge(blist.get(0));
     assertTrue(b.get_size() == 12);
   }
-  
+
   @Test
   public void test_get_strand() {
     assertTrue(blist.get(0).get_strand() == '+');
     assertTrue(blist.get(1).get_strand() == '-');
   }
-  
+
   @Test
   public void test_set_strand() throws GTerrorJava {
     Block b;
@@ -125,7 +124,7 @@ public class BlockTest
     b.set_strand('.');
     assertTrue(b.get_strand() == '.');
   }
-  
+
   @Test(expected=GTerrorJava.class)
   public void test_set_strand_fail() throws GTerrorJava {
     Block b = blist.get(0).clone_block();

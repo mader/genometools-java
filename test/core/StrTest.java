@@ -5,26 +5,25 @@ import static org.junit.Assert.*;
 
 public class StrTest
 {
-  
+
   @BeforeClass
   public static void init() {
-    Allocators.init();   
   }
-  
+
   @Test
   public void test_to_ptr()
   {
     Str s = new Str("ATATAT");
     assertTrue(s.to_ptr() != null);
   }
-  
+
   @Test
   public void test_length()
   {
     Str s = new Str("ATATAT");
     assertTrue(s.length() == 6);
   }
-  
+
   @Test
   public void test_to_s()
   {
@@ -34,7 +33,7 @@ public class StrTest
     assertTrue(string.equals("ATATAT"));
     assertTrue(!s.to_s().equals("GCGCGC"));
   }
-  
+
   @Test
   public void test_append_str()
   {
@@ -45,7 +44,7 @@ public class StrTest
     assertTrue(!s.to_s().equals("GCGCGCATATAT"));
     assertTrue(s.length() == 12);
   }
-  
+
   @Test
   public void testStrPointer()
   {
@@ -55,7 +54,7 @@ public class StrTest
     assertTrue(!s2.to_s().equals("ATAT"));
     assertTrue(s.to_ptr().equals(s2.to_ptr()));
   }
-  
+
   @Test
   public void testStrString()
   {

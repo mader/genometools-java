@@ -19,7 +19,6 @@ public class SketchTest
 
   @BeforeClass
   public static void init() throws GTerrorJava {
-    Allocators.init();
     // construct a gene on the forward strand with two exons
     String seqid = "chromosome21";
     FeatureNode gene = new FeatureNode(seqid, "gene", 100, 900, "+");
@@ -79,7 +78,7 @@ public class SketchTest
   public void test_multi_sketch() throws GTerrorJava {
 
     ArrayList<Thread> threads = new ArrayList<Thread>();
-    
+
     class SketchThread extends Thread implements Runnable {
       public void run() {
         File f;
@@ -123,15 +122,15 @@ public class SketchTest
       threads.add(s);
       s.start();
     }
-    
+
     for (Thread t : threads) {
       try {
         t.join();
       } catch (InterruptedException e) {
-      } 
+      }
     }
-  }  
-  
+  }
+
   @Test
   public void test_multi_sketch_serial() throws GTerrorJava {
         File f;
@@ -147,7 +146,7 @@ public class SketchTest
             return b.get_type() + b.get_strand();
           }
         };
-          
+
         for (i=0;i<10;i++) {
           Diagram dia = new Diagram(arr, rng, sty);
           dia.set_track_selector_func(ts);

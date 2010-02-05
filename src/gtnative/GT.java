@@ -2,7 +2,6 @@ package gtnative;
 
 import com.sun.jna.Callback;
 import com.sun.jna.Library;
-import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.DoubleByReference;
@@ -14,8 +13,8 @@ import core.Range;
 
 public interface GT extends Library
 {
-	GT INSTANCE = (GT) Native.synchronizedLibrary( (GT) Native.loadLibrary("genometools", GT.class));
-	
+	GT INSTANCE = new GTMapping();
+
 	/*------------------------------GtGenomeNode------------------------------*/
 	int gt_genome_node_accept(Pointer gn, Pointer gv, Pointer err);
 	Pointer gt_genome_node_ref(Pointer gn);
@@ -32,8 +31,8 @@ public interface GT extends Library
 	String gt_feature_node_get_source(Pointer feature_node);
 	void gt_feature_node_set_source(Pointer feature_node, Pointer source);
 	String gt_feature_node_get_type(Pointer feature_node);
-	Boolean gt_feature_node_has_type(Pointer feature_node, String type);
-	Boolean gt_feature_node_score_is_defined(Pointer feature_node);
+	int gt_feature_node_has_type(Pointer feature_node, String type);
+	int gt_feature_node_score_is_defined(Pointer feature_node);
 	float gt_feature_node_get_score(Pointer feature_node);
 	void gt_feature_node_set_score(Pointer feature_node, float score);
 	void gt_feature_node_unset_score(Pointer feature_node);
@@ -73,7 +72,7 @@ public interface GT extends Library
 	Pointer gt_block_ref(Pointer gt_block);
 	Range gt_block_get_range_ptr(Pointer gt_block);
 	String gt_block_get_type(Pointer gt_block);
-	boolean gt_block_has_only_one_fullsize_element(Pointer gt_block);
+	int gt_block_has_only_one_fullsize_element(Pointer gt_block);
 	void gt_block_merge(Pointer gt_block, Pointer gt_block_sec);
 	Pointer gt_block_clone(Pointer gt_block);
 	void gt_block_set_strand(Pointer gt_block, int i);
@@ -81,12 +80,12 @@ public interface GT extends Library
 	int gt_block_get_strand(Pointer gt_block);
 	NativeLong gt_block_get_size(Pointer gt_block);
 	void gt_block_delete(Pointer gt_block);
-	
+
 	/*CanvasCairoFile*/
     Pointer gt_canvas_cairo_file_new(Pointer style, int output_type, NativeLong width, NativeLong height, Pointer image_info);
     int gt_canvas_cairo_file_to_file(Pointer canvas, String filename, Pointer err);
 	void gt_canvas_delete(Pointer canvas);
-	
+
 	/*------------------------------GtFeatureIndex------------------------------*/
     Pointer gt_feature_index_memory_new();
     Pointer gt_feature_index_memory_get_node_by_ptr(Pointer fim, NativeLong id, Pointer err);
@@ -99,15 +98,15 @@ public interface GT extends Library
     Pointer gt_feature_index_get_seqids(Pointer fi);
     void gt_feature_index_get_range_for_seqid(Pointer fi, Range rng,
         String seqid);
-    Boolean gt_feature_index_has_seqid(Pointer fi, String seqid);
-    
+    int gt_feature_index_has_seqid(Pointer fi, String seqid);
+
     /*------------------------------GtImageInfo------------------------------*/
     Pointer gt_image_info_new();
     NativeLong gt_image_info_get_height(Pointer ii_ptr);
     NativeLong gt_image_info_num_of_rec_maps(Pointer ii_ptr);
     Pointer gt_image_info_get_rec_map(Pointer ii_ptr, NativeLong i);
     void gt_image_info_delete(Pointer ii_ptr);
-    
+
     /*------------------------------GtRecMap------------------------------*/
     double gt_rec_map_get_northwest_x(Pointer rec_map);
     double gt_rec_map_get_northwest_y(Pointer rec_map);
@@ -116,8 +115,8 @@ public interface GT extends Library
     Pointer gt_rec_map_get_genome_feature(Pointer rec_map);
     Pointer gt_rec_map_ref(Pointer rec_map);
     void gt_rec_map_delete(Pointer rec_map);
-    boolean gt_rec_map_has_omitted_children(Pointer rec_map);
-    
+    int gt_rec_map_has_omitted_children(Pointer rec_map);
+
     /*------------------------------GtStyle------------------------------*/
     Pointer gt_style_new(Pointer err);
     int gt_style_load_file(Pointer style, String str, Pointer err);
@@ -143,7 +142,7 @@ public interface GT extends Library
     void gt_style_set_bool(Pointer style, String sect, String key, int b);
     void gt_style_unset(Pointer style, String sect, String key);
     void gt_style_delete(Pointer style);
-    
+
     /*------------------------------GtArray------------------------------*/
     Pointer gt_array_new(NativeLong size_of_elem);
     Pointer gt_array_get(Pointer array, NativeLong index);
@@ -151,14 +150,14 @@ public interface GT extends Library
     NativeLong gt_array_size(Pointer array);
     void gt_array_delete(Pointer array);
     Pointer gt_array_ref(Pointer array);
-    
+
     /*------------------------------GtError------------------------------*/
     Pointer gt_error_new();
     String gt_error_get(Pointer err);
     Boolean gt_error_is_set(Pointer err);
     void gt_error_unset(Pointer err);
     void gt_error_delete(Pointer err);
-    
+
     /*------------------------------GtStr------------------------------*/
     Pointer gt_str_new();
     Pointer gt_str_new_cstr(String cstr);
@@ -168,27 +167,27 @@ public interface GT extends Library
     String gt_str_get(Pointer s);
     NativeLong gt_str_length(Pointer str);
     void gt_str_delete(Pointer str);
-    
+
     /*------------------------------GtStrArray------------------------------*/
     Pointer gt_str_array_new();
     void gt_str_array_add_cstr(Pointer str_array, String cstr);
     String gt_str_array_get(Pointer str_array, NativeLong strnum);
     NativeLong gt_str_array_size(Pointer str_array);
     void gt_str_array_delete(Pointer str_array);
-    
+
     /*------------------------------GtRange------------------------------*/
-    NativeLong gt_range_length(Range rng); 
-    
+    NativeLong gt_range_length(Range rng);
+
     /*------------------------------GtFeatureNodeIterator------------------------------*/
     Pointer gt_feature_node_iterator_next(Pointer gn);
     void gt_feature_node_iterator_delete(Pointer gn);
     Pointer gt_feature_node_iterator_new(Pointer gn);
     Pointer gt_feature_node_iterator_new_direct(Pointer gn);
-    
+
     /*------------------------------GtGenomeStream------------------------------*/
     int gt_node_stream_next(Pointer node_stream, PointerByReference genome_node, Pointer err);
-    
+
     /*------------------------------GtGFF3InStream------------------------------*/
     Pointer gt_gff3_in_stream_new_sorted(String filename);
-    Pointer gt_gff3_in_stream_get_used_types(Pointer node_stream); 
+    Pointer gt_gff3_in_stream_get_used_types(Pointer node_stream);
 }

@@ -1,19 +1,12 @@
 package core;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
+import gtnative.*;
 
 public abstract class Allocators {
-  
-  private static boolean hasrun = false;
-  
-  public interface GT extends Library
-  {
-    GT INSTANCE = (GT) Native.loadLibrary("genometools", GT.class);
 
-    void gt_allocators_init();
-    void gt_allocators_reg_atexit_func();
-  }
-  
+  private static boolean hasrun = false;
+
   public static void init() {
     if (!hasrun) {
       GT.INSTANCE.gt_allocators_init();
