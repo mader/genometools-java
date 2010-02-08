@@ -1,7 +1,6 @@
 package extended;
 import org.junit.*;
 
-import core.Allocators;
 import core.GTerrorJava;
 import core.Range;
 import static org.junit.Assert.*;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.junit.*;
 
-import core.Allocators;
 import core.GTerrorJava;
 import core.Range;
 import extended.FeatureNode;
