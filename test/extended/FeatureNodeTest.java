@@ -10,8 +10,8 @@ public class FeatureNodeTest
   static FeatureNode fn;
   static FeatureNode fn2;
 
-  @BeforeClass
-  public static void init() throws GTerrorJava {
+  @Before
+  public void setUp() throws GTerrorJava {
     fn = new FeatureNode("test", "type", 1000, 8000, ".");
     fn2 = new FeatureNode("test", "type2", 600, 700, "+");
     fn.add_attribute("test", "testval");
@@ -20,6 +20,7 @@ public class FeatureNodeTest
 
   @Test
   public void test_score_defined() {
+    assertFalse(fn.score_is_defined());
     fn.set_score(2);
     assertTrue(fn.score_is_defined());
   }
@@ -111,7 +112,8 @@ public class FeatureNodeTest
 
   @Test
   public void test_genome_node_mark() throws GTerrorJava {
-	 fn.gt_genome_node_mark();
-	 assertTrue(fn.gt_genome_is_node_marked());
+   assertFalse(fn.is_marked());
+   fn.mark();
+   assertTrue(fn.is_marked());
   }
 }

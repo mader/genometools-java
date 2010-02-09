@@ -61,10 +61,10 @@ public class Style {
     public Color get_color(String sect, String key) {
 	Pointer feat_node = null;
 	Color color = new Color();
-	boolean rval = GT.INSTANCE.gt_style_get_color(style_ptr, sect, key,
+	int rval = GT.INSTANCE.gt_style_get_color(style_ptr, sect, key,
 		color.getPointer(), feat_node);
 	// true == 1
-	if (rval == true) {
+	if (rval == 1) {
 	    return color;
 	} else {
 	    return null;
@@ -80,9 +80,9 @@ public class Style {
     public Str get_cstr(String sect, String key, String value) {
 	Pointer feat_node = null;
 	Str string = new Str(value);
-	boolean rval = GT.INSTANCE.gt_style_get_str(style_ptr, sect, key,
+	int rval = GT.INSTANCE.gt_style_get_str(style_ptr, sect, key,
 		string.to_ptr(), feat_node);
-	if (rval == true) {
+	if (rval == 1) {
 	    return string;
 	} else {
 	    return null;
@@ -99,9 +99,9 @@ public class Style {
 	double number = 0;
 	DoubleByReference num_byref = new DoubleByReference(number);
 	// number should be given by Reference
-	boolean rval = GT.INSTANCE.gt_style_get_num(style_ptr, sect, key,
+	int rval = GT.INSTANCE.gt_style_get_num(style_ptr, sect, key,
 		num_byref, feat_node);
-	if (rval == true) {
+	if (rval == 1) {
 	    return number;
 	} else {
 	    return 0;
@@ -117,9 +117,9 @@ public class Style {
 	Pointer feat_node = null;
 	int bool = 2;
 	IntByReference i_bool = new IntByReference(bool);
-	boolean rval = GT.INSTANCE.gt_style_get_bool(style_ptr, sect, key,
+	int rval = GT.INSTANCE.gt_style_get_bool(style_ptr, sect, key,
 		i_bool, feat_node);
-	if (rval == true) {
+	if (rval == 1) {
 	    if (bool == 1) {
 		return true;
 	    } else {

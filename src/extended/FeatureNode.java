@@ -153,11 +153,11 @@ public class FeatureNode extends GenomeNode {
 	return arr;
     }
 
-    public void gt_genome_node_mark() {
+    public void mark() {
 	GT.INSTANCE.gt_genome_node_mark(this.genome_node_ptr);
     }
 
-    public boolean gt_genome_is_node_marked() {
-	return GT.INSTANCE.gt_genome_node_is_marked(this.genome_node_ptr);
+    public boolean is_marked() {
+	return (GT.INSTANCE.gt_genome_node_is_marked(this.genome_node_ptr) == 1);
     }
 }

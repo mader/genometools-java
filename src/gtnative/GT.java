@@ -12,7 +12,7 @@ import core.GTerrorJava;
 import core.Range;
 
 public interface GT extends Library {
-    GT INSTANCE = new GTMapping();
+    public static final GT INSTANCE = new GTMapping();
 
     /*------------------------------GtGenomeNode------------------------------*/
     int gt_genome_node_accept(Pointer gn, Pointer gv, Pointer err);
@@ -68,7 +68,7 @@ public interface GT extends Library {
 
     void gt_genome_node_mark(Pointer genome_node);
 
-    boolean gt_genome_node_is_marked(Pointer genome_node);
+    int gt_genome_node_is_marked(Pointer genome_node);
 
     /*------------------------------GtLayout------------------------------*/
     Pointer gt_layout_new(Pointer diagram, NativeLong width, Pointer gt_style,
@@ -193,27 +193,27 @@ public interface GT extends Library {
     int gt_style_to_str(Pointer style, Pointer str, Pointer err);
 
     // feature_node Object should be set to null as long as it isn't used
-    boolean gt_style_get_color(Pointer style, String sect, String key,
+    int gt_style_get_color(Pointer style, String sect, String key,
 	    Pointer color, Pointer feat_node);
 
     void gt_style_set_color(Pointer style, String sect, String key,
 	    Pointer color);
 
     // feature_node Object should be set to null as long as it isn't used
-    boolean gt_style_get_str(Pointer style, String sect, String key,
+    int gt_style_get_str(Pointer style, String sect, String key,
 	    Pointer str, Pointer feat_node);
 
     void gt_style_set_str(Pointer style, String sect, String key, Pointer str);
 
     // feature_node Object should be set to null as long as it isn't used
-    boolean gt_style_get_num(Pointer style, String sect, String key,
+    int gt_style_get_num(Pointer style, String sect, String key,
 	    DoubleByReference i, Pointer feat_node);
 
     void gt_style_set_num(Pointer style, String sect, String key,
 	    DoubleByReference i);
 
     // feature_node Object should be set to null as long as it isn't used
-    boolean gt_style_get_bool(Pointer style, String sect, String key,
+    int gt_style_get_bool(Pointer style, String sect, String key,
 	    IntByReference b, Pointer feat_node);
 
     void gt_style_set_bool(Pointer style, String sect, String key, int b);

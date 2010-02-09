@@ -73,7 +73,7 @@ public class GTMapping implements GT {
 
     public native void gt_genome_node_mark(Pointer genome_node);
 
-    public native boolean gt_genome_node_is_marked(Pointer genome_node);
+    public native int gt_genome_node_is_marked(Pointer genome_node);
 
     public native Pointer gt_layout_new(Pointer diagram, NativeLong width,
 	    Pointer gt_style, Pointer err);
@@ -192,28 +192,28 @@ public class GTMapping implements GT {
     public native int gt_style_to_str(Pointer style, Pointer str, Pointer err);
 
     // feature_node Object should be set to null as long as it isn't used
-    public native boolean gt_style_get_color(Pointer style, String sect,
+    public native int gt_style_get_color(Pointer style, String sect,
 	    String key, Pointer color, Pointer feat_node);
 
     public native void gt_style_set_color(Pointer style, String sect,
 	    String key, Pointer color);
 
     // feature_node Object should be set to null as long as it isn't used
-    public native boolean gt_style_get_str(Pointer style, String sect,
+    public native int gt_style_get_str(Pointer style, String sect,
 	    String key, Pointer str, Pointer feat_node);
 
     public native void gt_style_set_str(Pointer style, String sect, String key,
 	    Pointer str);
 
     // feature_node Object should be set to null as long as it isn't used
-    public native boolean gt_style_get_num(Pointer style, String sect,
+    public native int gt_style_get_num(Pointer style, String sect,
 	    String key, DoubleByReference i, Pointer feat_node);
 
     public native void gt_style_set_num(Pointer style, String sect, String key,
 	    DoubleByReference i);
 
     // feature_node Object should be set to null as long as it isn't used
-    public native boolean gt_style_get_bool(Pointer style, String sect,
+    public native int gt_style_get_bool(Pointer style, String sect,
 	    String key, IntByReference b, Pointer feat_node);
 
     public native void gt_style_set_bool(Pointer style, String sect,

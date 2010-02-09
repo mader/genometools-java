@@ -17,7 +17,7 @@ public class SketchTest
   String tmpDir = System.getProperty("java.io.tmpdir");
 
   @BeforeClass
-  public static void init() throws GTerrorJava {
+  public static void setUp() throws GTerrorJava {
     // construct a gene on the forward strand with two exons
     String seqid = "chromosome21";
     FeatureNode gene = new FeatureNode(seqid, "gene", 100, 900, "+");
