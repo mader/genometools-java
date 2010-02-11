@@ -46,7 +46,7 @@ public class GTerror {
     }
 
     public Boolean is_set() {
-	return GT.INSTANCE.gt_error_is_set(this.err);
+	return (GT.INSTANCE.gt_error_is_set(this.err) != 0);
     }
 
     public void unset() {

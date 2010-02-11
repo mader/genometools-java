@@ -76,7 +76,7 @@ public class FeatureNode extends GenomeNode {
 
     public Boolean score_is_defined() {
 	return (GT.INSTANCE
-		.gt_feature_node_score_is_defined(this.genome_node_ptr) == 1);
+		.gt_feature_node_score_is_defined(this.genome_node_ptr) != 0);
     }
 
     public float get_score() {

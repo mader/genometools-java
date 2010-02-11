@@ -241,7 +241,7 @@ public class GTMapping implements GT {
 
     public native String gt_error_get(Pointer err);
 
-    public native Boolean gt_error_is_set(Pointer err);
+    public native int gt_error_is_set(Pointer err);
 
     public native void gt_error_unset(Pointer err);
 

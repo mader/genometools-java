@@ -31,7 +31,7 @@ public class Block {
 
     public Boolean has_only_one_fullsize_element() {
 	return (GT.INSTANCE
-		.gt_block_has_only_one_fullsize_element(this.block_ptr) == 1);
+		.gt_block_has_only_one_fullsize_element(this.block_ptr) != 0);
     }
 
     public void merge(Block block2) {

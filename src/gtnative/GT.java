@@ -240,7 +240,7 @@ public interface GT extends Library {
 
     String gt_error_get(Pointer err);
 
-    Boolean gt_error_is_set(Pointer err);
+    int gt_error_is_set(Pointer err);
 
     void gt_error_unset(Pointer err);
 
