@@ -276,9 +276,9 @@ public class GTMapping implements GT {
     public native void gt_str_array_delete(Pointer str_array);
 
     /*------------------------------Allocators------------------------------*/
-    private native void gt_lib_init();
+    private static native void gt_lib_init();
 
-    private native void gt_lib_reg_atexit_func();
+    private static native void gt_lib_reg_atexit_func();
 
     /*------------------------------GtRange------------------------------*/
     public native NativeLong gt_range_length(Range rng);
@@ -303,7 +303,9 @@ public class GTMapping implements GT {
 
     public GTMapping() {
 	/* initialize globals in this library instance */
+      synchronized(this) {
 	gt_lib_init();
 	gt_lib_reg_atexit_func();
+      }
     }
 }
