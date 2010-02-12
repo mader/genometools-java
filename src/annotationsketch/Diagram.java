@@ -19,7 +19,7 @@
 
 package annotationsketch;
 
-import java.util.AbstractList;
+import java.util.List;
 
 import com.sun.jna.Pointer;
 
@@ -41,7 +41,7 @@ public class Diagram {
   @SuppressWarnings("unused")
   private TrackSelector ts;
 
-  public Diagram(AbstractList<FeatureNode> feats, Range rng, Style sty)
+  public Diagram(List<FeatureNode> feats, Range rng, Style sty)
       throws GTerrorJava {
     Pointer dia;
     if (rng.get_start() > rng.get_end()) {
