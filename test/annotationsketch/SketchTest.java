@@ -11,8 +11,7 @@ import core.Range;
 
 import extended.FeatureNode;
 
-public class SketchTest
-{
+public class SketchTest {
   static ArrayList<FeatureNode> arr;
   String tmpDir = System.getProperty("java.io.tmpdir");
 
@@ -53,24 +52,25 @@ public class SketchTest
     Diagram dia = new Diagram(arr, rng, sty);
     TrackSelector ts = new TrackSelector() {
       @Override
-      public String getTrackId(Block b)
-      {
+      public String getTrackId(Block b) {
         return b.get_type() + b.get_strand();
-      }};
-      dia.set_track_selector_func(ts);
+      }
+    };
+    dia.set_track_selector_func(ts);
 
-      Layout lay = new Layout(dia, 800, sty);
-      long height = lay.get_height();
-      CanvasCairoFile can = new CanvasCairoFile(sty, 800, (int) height);
-      lay.sketch(can);
-      f = new File(tmpDir + File.separator + "test_sketch.png");
-      if (f.exists()) f.delete();
-      can.to_file(tmpDir + File.separator + "test_sketch.png");
-      f = new File(tmpDir + File.separator + "test_sketch.png");
-      assertTrue(f.exists());
-      assertTrue(f.length() > 0);
+    Layout lay = new Layout(dia, 800, sty);
+    long height = lay.get_height();
+    CanvasCairoFile can = new CanvasCairoFile(sty, 800, (int) height);
+    lay.sketch(can);
+    f = new File(tmpDir + File.separator + "test_sketch.png");
+    if (f.exists())
       f.delete();
-      assertFalse(f.exists());
+    can.to_file(tmpDir + File.separator + "test_sketch.png");
+    f = new File(tmpDir + File.separator + "test_sketch.png");
+    assertTrue(f.exists());
+    assertTrue(f.length() > 0);
+    f.delete();
+    assertFalse(f.exists());
   }
 
   @Test
@@ -90,8 +90,7 @@ public class SketchTest
           rng.set_end(1000);
           TrackSelector ts = new TrackSelector() {
             @Override
-            public String getTrackId(Block b)
-            {
+            public String getTrackId(Block b) {
               return b.get_type() + b.get_strand();
             }
           };
@@ -102,21 +101,23 @@ public class SketchTest
           height = lay.get_height();
           CanvasCairoFile can = new CanvasCairoFile(sty, 800, (int) height);
           lay.sketch(can);
-          String filename = tmpDir + File.separator + "test_sketch" + Math.random() * 10 + ".png";
+          String filename = tmpDir + File.separator + "test_sketch"
+              + Math.random() * 10 + ".png";
           f = new File(filename);
-          if (f.exists()) f.delete();
+          if (f.exists())
+            f.delete();
           can.to_file(filename);
           assertTrue(f.exists());
           assertTrue(f.length() > 100);
           assertTrue(f.delete());
           assertFalse(f.exists());
-        } catch(GTerrorJava e) {
+        } catch (GTerrorJava e) {
           throw new Error();
         }
       }
     }
 
-    for (int i=0;i<100;i++) {
+    for (int i = 0; i < 100; i++) {
       SketchThread s = new SketchThread();
       threads.add(s);
       s.start();
@@ -132,35 +133,36 @@ public class SketchTest
 
   @Test
   public void test_multi_sketch_serial() throws GTerrorJava {
-        File f;
-        Style sty = new Style();
-        Range rng = new Range();
-        rng.set_start(1);
-        rng.set_end(1000);
-        int i;
-        TrackSelector ts = new TrackSelector() {
-          @Override
-          public String getTrackId(Block b)
-          {
-            return b.get_type() + b.get_strand();
-          }
-        };
+    File f;
+    Style sty = new Style();
+    Range rng = new Range();
+    rng.set_start(1);
+    rng.set_end(1000);
+    int i;
+    TrackSelector ts = new TrackSelector() {
+      @Override
+      public String getTrackId(Block b) {
+        return b.get_type() + b.get_strand();
+      }
+    };
 
-        for (i=0;i<10;i++) {
-          Diagram dia = new Diagram(arr, rng, sty);
-          dia.set_track_selector_func(ts);
+    for (i = 0; i < 10; i++) {
+      Diagram dia = new Diagram(arr, rng, sty);
+      dia.set_track_selector_func(ts);
 
-          Layout lay = new Layout(dia, 800, sty);
-          long height = lay.get_height();
-          CanvasCairoFile can = new CanvasCairoFile(sty, 800, (int) height);
-          lay.sketch(can);
-          f = new File(tmpDir + File.separator + "test_sketch" + i + ".png");
-          if (f.exists()) f.delete();
-          can.to_file(tmpDir + File.separator + "test_sketch" + i + ".png");
-          assertTrue(f.exists());
-          assertTrue(f.length() > 0);
-          f.delete();
-          assertFalse(f.exists());
-        }
-     }
+      Layout lay = new Layout(dia, 800, sty);
+      long height = lay.get_height();
+      ImageInfo ii = new ImageInfo();
+      CanvasCairoFile can = new CanvasCairoFile(sty, 800, (int) height, ii);
+      lay.sketch(can);
+      f = new File(tmpDir + File.separator + "test_sketch" + i + ".png");
+      if (f.exists())
+        f.delete();
+      can.to_file(tmpDir + File.separator + "test_sketch" + i + ".png");
+      assertTrue(f.exists());
+      assertTrue(f.length() > 0);
+      f.delete();
+      assertFalse(f.exists());
+    }
   }
+}

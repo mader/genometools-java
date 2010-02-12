@@ -1,17 +1,17 @@
 package extended;
+
 import org.junit.*;
 
 import core.GTerrorJava;
 import core.Range;
 import static org.junit.Assert.*;
 
-public class FeatureNodeTest
-{
+public class FeatureNodeTest {
   static FeatureNode fn;
   static FeatureNode fn2;
 
-  @Before
-  public void setUp() throws GTerrorJava {
+  @BeforeClass
+  public static void setUp() throws GTerrorJava {
     fn = new FeatureNode("test", "type", 1000, 8000, ".");
     fn2 = new FeatureNode("test", "type2", 600, 700, "+");
     fn.add_attribute("test", "testval");
@@ -49,18 +49,19 @@ public class FeatureNodeTest
   }
 
   @Test
-  public void test_set_strand() {
-    try {
-      fn.set_strand("+");
-    } catch (GTerrorJava e) {
-      e.printStackTrace();
-    }
+  public void test_set_strand() throws GTerrorJava{
+    fn.set_strand("+");
     assertTrue(fn.get_strand() == '+');
+  }
+  
+  @Test(expected=GTerrorJava.class)
+  public void test_set_strand_failure() throws GTerrorJava {
+    fn.set_strand("X");
   }
 
   @Test
   public void test_get_phase() {
-    assertTrue(fn.get_phase() == 3 );
+    assertTrue(fn.get_phase() == 3);
   }
 
   @Test
@@ -85,7 +86,6 @@ public class FeatureNodeTest
     assertTrue(fn.get_attribute("test").equals("testval"));
   }
 
-  // This is the beginning of the tests for the Underlying GenomeNode class
   @Test
   public void test_get_range() {
     Range r = new Range();
@@ -96,6 +96,11 @@ public class FeatureNodeTest
   @Test
   public void test_get_filename() {
     assertTrue(fn.get_filename().equals("generated"));
+  }
+  
+  @Test
+  public void test_get_seqid() {
+    assertEquals(fn.get_seqid(), "test");
   }
 
   @Test
@@ -112,8 +117,8 @@ public class FeatureNodeTest
 
   @Test
   public void test_genome_node_mark() throws GTerrorJava {
-   assertFalse(fn.is_marked());
-   fn.mark();
-   assertTrue(fn.is_marked());
+    assertFalse(fn.is_marked());
+    fn.mark();
+    assertTrue(fn.is_marked());
   }
 }
