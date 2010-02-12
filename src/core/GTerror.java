@@ -7,12 +7,23 @@ import gtnative.*;
 // Therefore it has four Constructos which can be used to attach a cause to the GTerror Object
 public class GTerror {
     private static final long serialVersionUID = 813149150202370867L;
+    private boolean own_err;
     private Pointer err;
 
     public GTerror() {
-	this.err = GT.INSTANCE.gt_error_new();
+	    this.err = GT.INSTANCE.gt_error_new();
+    	own_err = true;
+    }
+    
+    public GTerror(Pointer err_p) {
+      this.err = err_p;
+      own_err = false;
     }
 
+    public void set(String msg) {
+      GT.INSTANCE.gt_error_set(this.err, msg);
+    }
+    
     // public GTerror(String err_mess)
     // {
     // super(err_mess);
@@ -37,8 +48,9 @@ public class GTerror {
     // this.err = err;
     // }
     protected void finalize() {
-	GT.INSTANCE.gt_error_delete(this.err);
-	this.err = null;
+      if (own_err)
+	      GT.INSTANCE.gt_error_delete(this.err);
+	    this.err = null;
     }
 
     public String get_err() {
