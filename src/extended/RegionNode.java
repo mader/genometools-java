@@ -6,6 +6,7 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.TransparentPointer;
 
+import core.GTerrorJava;
 import core.Str;
 
 public class RegionNode extends GenomeNode {
@@ -17,7 +18,15 @@ public class RegionNode extends GenomeNode {
     super(node.to_ptr());
   }
 
-  public RegionNode(String seqid, long start, long end) {
+  public RegionNode(String seqid, long start, long end)
+      throws NullPointerException, GTerrorJava {
+    if (seqid == null) {
+      throw new NullPointerException("trying to pass null as seqid");
+    }
+    if (start > end) {
+      throw new GTerrorJava("start position (" + start
+          + ") is after end position (" + end + ")");
+    }
     Str s = new Str(seqid);
     NativeLong nl_start = new NativeLong(start), nl_end = new NativeLong(end);
     Pointer newfn = GT.INSTANCE

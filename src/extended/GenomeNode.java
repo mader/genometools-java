@@ -39,11 +39,10 @@ class GenomeNode {
 
   public void accept(NodeVisitor visitor) throws GTerrorJava {
     GTerror err = new GTerror();
-    int rval = GT.INSTANCE.gt_genome_node_accept(this.genome_node_ptr,
-                                                 visitor.to_ptr(),
-                                                 err.to_ptr());
+    int rval = GT.INSTANCE.gt_genome_node_accept(this.genome_node_ptr, visitor
+        .to_ptr(), err.to_ptr());
     if (rval != 0) {
-      throw new GTerrorJava(err.get_err()); 
+      throw new GTerrorJava(err.get_err());
     }
   }
 

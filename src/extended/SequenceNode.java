@@ -17,6 +17,10 @@ public class SequenceNode extends GenomeNode {
   }
 
   public SequenceNode(String description, String sequence) {
+    if (description == null || sequence == null) {
+      throw new NullPointerException(
+          "trying to pass null description or sequence");
+    }
     Str s = new Str(sequence);
     Pointer newfn = GT.INSTANCE.gt_sequence_node_new(description, s.to_ptr());
     this.genome_node_ptr = new TransparentPointer(newfn);

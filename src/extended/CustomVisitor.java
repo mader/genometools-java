@@ -25,10 +25,10 @@ public abstract class CustomVisitor extends NodeVisitor {
     comment_node_visit_func = new VISITORFUNC() {
       @Override
       public int callback(Pointer nodep, Pointer errp) {
-        CommentNode fn = new CommentNode(nodep);
         GTerror err = new GTerror(errp);
         int rval = 0;
         try {
+          CommentNode fn = new CommentNode(nodep);
           visit_comment_node(fn);
         } catch (Exception e) {
           err.set(e.toString());
@@ -40,10 +40,10 @@ public abstract class CustomVisitor extends NodeVisitor {
     feature_node_visit_func = new VISITORFUNC() {
       @Override
       public int callback(Pointer nodep, Pointer errp) {
-        FeatureNode fn = new FeatureNode(nodep);
         GTerror err = new GTerror(errp);
         int rval = 0;
         try {
+          FeatureNode fn = new FeatureNode(nodep);
           visit_feature_node(fn);
         } catch (Exception e) {
           err.set(e.toString());
@@ -55,10 +55,10 @@ public abstract class CustomVisitor extends NodeVisitor {
     region_node_visit_func = new VISITORFUNC() {
       @Override
       public int callback(Pointer nodep, Pointer errp) {
-        RegionNode fn = new RegionNode(nodep);
         GTerror err = new GTerror(errp);
         int rval = 0;
         try {
+          RegionNode fn = new RegionNode(nodep);
           visit_region_node(fn);
         } catch (Exception e) {
           err.set(e.toString());
@@ -70,10 +70,10 @@ public abstract class CustomVisitor extends NodeVisitor {
     sequence_node_visit_func = new VISITORFUNC() {
       @Override
       public int callback(Pointer nodep, Pointer errp) {
-        SequenceNode fn = new SequenceNode(nodep);
         GTerror err = new GTerror(errp);
         int rval = 0;
         try {
+          SequenceNode fn = new SequenceNode(nodep);
           visit_sequence_node(fn);
         } catch (Exception e) {
           err.set(e.toString());

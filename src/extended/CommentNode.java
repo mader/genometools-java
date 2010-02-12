@@ -16,8 +16,12 @@ public class CommentNode extends GenomeNode {
   }
   
   public CommentNode(String comment) {
-    Pointer newfn = GT.INSTANCE.gt_comment_node_new(comment);
-    this.genome_node_ptr = new TransparentPointer(newfn);
+    if (comment == null) {
+      throw new NullPointerException("trying to pass null comment");
+    } else {
+      Pointer newfn = GT.INSTANCE.gt_comment_node_new(comment);
+      this.genome_node_ptr = new TransparentPointer(newfn);
+    }
   }
   
   public String get_comment() {
