@@ -316,4 +316,21 @@ public interface GT extends Library {
   public interface VISITORFUNC extends Callback {
     int callback(Pointer nodepp, Pointer err);
   }
+
+  /*------------------------------GtCommentNode------------------------------*/
+  Pointer gt_comment_node_new(String comment);
+  
+  String gt_comment_node_get_comment(Pointer node);
+  
+  /*------------------------------GtRegionNode------------------------------*/
+  Pointer gt_region_node_new(Pointer seqid, NativeLong start, NativeLong end);
+
+  /*------------------------------GtSequenceNode------------------------------*/
+  Pointer gt_sequence_node_new(String description, Pointer seq_ptr);
+  
+  String gt_sequence_node_get_description(Pointer node);
+  
+  String gt_sequence_node_get_sequence(Pointer node);
+  
+  NativeLong gt_sequence_node_get_sequence_length(Pointer node);
 }

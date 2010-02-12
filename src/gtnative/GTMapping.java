@@ -320,6 +320,25 @@ public class GTMapping implements GT {
                                                       GT.VISITORFUNC sequence_node_visit_func,
                                                       Pointer ffunc);
   
+  /*------------------------------GtNodeVisitor------------------------------*/
+  public native Pointer gt_comment_node_new(String comment);
+  
+  public native String gt_comment_node_get_comment(Pointer node);
+  
+  /*------------------------------GtRegionNode------------------------------*/
+  public native Pointer gt_region_node_new(Pointer seqid, NativeLong start, NativeLong end);
+  
+  /*------------------------------GtSequenceNode------------------------------*/
+  public native Pointer gt_sequence_node_new(String description, Pointer seq_ptr);
+  
+  public native String gt_sequence_node_get_description(Pointer node);
+  
+  public native String gt_sequence_node_get_sequence(Pointer node);
+  
+  public native NativeLong gt_sequence_node_get_sequence_length(Pointer node);
+  
+  
+  
   public GTMapping() {
     /* initialize globals in this library instance */
     synchronized (this) {

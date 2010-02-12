@@ -17,8 +17,8 @@ public class FeatureNode extends GenomeNode {
     super(node_ptr);
   }
 
-  public FeatureNode(FeatureNode node_ptr) {
-    super(node_ptr.to_ptr());
+  public FeatureNode(FeatureNode node) {
+    super(node.to_ptr());
   }
 
   public FeatureNode(String seqid, String type, int start, int end, String stra)
