@@ -28,7 +28,7 @@ import gtnative.GT.STREAMNEXTFUNC;
 public abstract class CustomStream extends GenomeStream {
   private STREAMNEXTFUNC next_func;
  
-  protected abstract GenomeNode next();
+  protected abstract GenomeNode next() throws Exception;
 
   public CustomStream() {
     final CustomStream cs = this;
