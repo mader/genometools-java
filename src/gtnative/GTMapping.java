@@ -13,8 +13,7 @@
   WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
   ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-*/
-
+ */
 
 package gtnative;
 
@@ -332,11 +331,11 @@ public class GTMapping implements GT {
   public native void gt_node_visitor_delete(Pointer visitor);
 
   /*------------------------------GtScriptWrapperVisitor------------------------------*/
-  public native Pointer gt_script_wrapper_visitor_new(GT.VISITORFUNC comment_node_visit_func,
-                                                      GT.VISITORFUNC feature_node_visit_func,
-                                                      GT.VISITORFUNC region_node_visit_func,
-                                                      GT.VISITORFUNC sequence_node_visit_func,
-                                                      Pointer ffunc);
+  public native Pointer gt_script_wrapper_visitor_new(
+      GT.VISITORFUNC comment_node_visit_func,
+      GT.VISITORFUNC feature_node_visit_func,
+      GT.VISITORFUNC region_node_visit_func,
+      GT.VISITORFUNC sequence_node_visit_func, Pointer ffunc);
 
   /*------------------------------GtNodeVisitor------------------------------*/
   public native Pointer gt_comment_node_new(String comment);
@@ -344,7 +343,8 @@ public class GTMapping implements GT {
   public native String gt_comment_node_get_comment(Pointer node);
 
   /*------------------------------GtRegionNode------------------------------*/
-  public native Pointer gt_region_node_new(Pointer seqid, NativeLong start, NativeLong end);
+  public native Pointer gt_region_node_new(Pointer seqid, NativeLong start,
+      NativeLong end);
 
   /*------------------------------GtSequenceNode------------------------------*/
   public native Pointer gt_sequence_node_new(String description, Pointer seq_ptr);
@@ -355,7 +355,15 @@ public class GTMapping implements GT {
 
   public native NativeLong gt_sequence_node_get_sequence_length(Pointer node);
 
+  /*------------------------------GtBioseq------------------------------*/
+  public native Pointer gt_bioseq_new(String sequence_file, Pointer err_p);
 
+  public native NativeLong gt_bioseq_number_of_sequences(Pointer bioseq);
+
+  public native String gt_bioseq_get_description(Pointer bioseq, NativeLong idx);
+
+  public native NativeLong gt_bioseq_get_sequence_length(Pointer bioseq,
+      NativeLong idx);
 
   public GTMapping() {
     /* initialize globals in this library instance */

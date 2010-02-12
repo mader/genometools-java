@@ -13,8 +13,7 @@
   WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
   ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-*/
-
+ */
 
 package gtnative;
 
@@ -326,10 +325,9 @@ public interface GT extends Library {
 
   /*------------------------------GtScriptWrapperVisitor------------------------------*/
   Pointer gt_script_wrapper_visitor_new(GT.VISITORFUNC comment_node_visit_func,
-                                     GT.VISITORFUNC feature_node_visit_func,
-                                     GT.VISITORFUNC region_node_visit_func,
-                                     GT.VISITORFUNC sequence_node_visit_func,
-                                     Pointer ffunc);
+      GT.VISITORFUNC feature_node_visit_func,
+      GT.VISITORFUNC region_node_visit_func,
+      GT.VISITORFUNC sequence_node_visit_func, Pointer ffunc);
 
   public interface VISITORFUNC extends Callback {
     int callback(Pointer nodepp, Pointer err);
@@ -351,4 +349,14 @@ public interface GT extends Library {
   String gt_sequence_node_get_sequence(Pointer node);
 
   NativeLong gt_sequence_node_get_sequence_length(Pointer node);
+
+  /*------------------------------GtBioseq------------------------------*/
+  Pointer gt_bioseq_new(String sequence_file, Pointer err_p);
+
+  NativeLong gt_bioseq_number_of_sequences(Pointer bioseq);
+
+  String gt_bioseq_get_description(Pointer bioseq, NativeLong idx);
+
+  NativeLong gt_bioseq_get_sequence_length(Pointer bioseq, NativeLong idx);
+
 }
