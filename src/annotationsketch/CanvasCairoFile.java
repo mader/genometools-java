@@ -13,14 +13,14 @@
   WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
   ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-*/
-
+ */
 
 package annotationsketch;
 
 import gtnative.GT;
 
 import com.sun.jna.NativeLong;
+import com.sun.jna.Pointer;
 
 import core.GTerror;
 import core.GTerrorJava;
@@ -30,13 +30,15 @@ public class CanvasCairoFile extends CanvasCairo {
       ImageInfo image_info) throws GTerrorJava {
     NativeLong n_width = new NativeLong(width);
     NativeLong n_height = new NativeLong(height);
+    Pointer ii_ptr;
 
     if (image_info == null) {
-      throw new GTerrorJava("ImageInfo is not initialized");
+      ii_ptr = Pointer.NULL;
     } else {
-      canvas_ptr = GT.INSTANCE.gt_canvas_cairo_file_new(style.to_ptr(), 1,
-          n_width, n_height, image_info.to_ptr());
+      ii_ptr = image_info.to_ptr();
     }
+    canvas_ptr = GT.INSTANCE.gt_canvas_cairo_file_new(style.to_ptr(), 1,
+        n_width, n_height, ii_ptr);
   }
 
   public CanvasCairoFile(Style style, int width, int height) {
