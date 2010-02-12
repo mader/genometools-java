@@ -11,69 +11,68 @@ import core.StrArray;
 import extended.FeatureNode;
 
 public abstract class FeatureIndex {
-    protected Pointer feat_index;
+  protected Pointer feat_index;
 
-    protected void finalize() throws Throwable {
-	GT.INSTANCE.gt_feature_index_delete(feat_index);
-    }
+  protected void finalize() throws Throwable {
+    GT.INSTANCE.gt_feature_index_delete(feat_index);
+  }
 
-    public ArrayList<FeatureNode> get_features_for_seqid(String seqid) {
-	Pointer rval = GT.INSTANCE.gt_feature_index_get_features_for_seqid(
-		this.feat_index, seqid);
-	if (!(rval == null)) {
-	    Array a = new Array(rval);
-	    ArrayList<FeatureNode> results = new ArrayList<FeatureNode>();
-	    for (int i = 0; i < a.size(); i++) {
-		FeatureNode fn = new FeatureNode(a.get(i));
-		results.add(fn);
-	    }
-	    return results;
-	}
-	return null;
+  public ArrayList<FeatureNode> get_features_for_seqid(String seqid) {
+    Pointer rval = GT.INSTANCE.gt_feature_index_get_features_for_seqid(
+        this.feat_index, seqid);
+    if (!(rval == null)) {
+      Array a = new Array(rval);
+      ArrayList<FeatureNode> results = new ArrayList<FeatureNode>();
+      for (int i = 0; i < a.size(); i++) {
+        FeatureNode fn = new FeatureNode(a.get(i));
+        results.add(fn);
+      }
+      return results;
     }
+    return null;
+  }
 
-    public void add_feature_node(FeatureNode fn) throws GTerrorJava {
-	if (fn.to_ptr() == null)
-	    throw new GTerrorJava("feature node must not be NULL");
-	GT.INSTANCE.gt_feature_index_add_feature_node(this.feat_index, fn
-		.to_ptr());
-    }
+  public void add_feature_node(FeatureNode fn) throws GTerrorJava {
+    if (fn.to_ptr() == null)
+      throw new GTerrorJava("feature node must not be NULL");
+    GT.INSTANCE.gt_feature_index_add_feature_node(this.feat_index, fn.to_ptr());
+  }
 
-    public void add_gff3file(String filename) throws GTerrorJava {
-	GTerror err = new GTerror();
-	int rval = GT.INSTANCE.gt_feature_index_add_gff3file(this.feat_index,
-		filename, err.to_ptr());
-	if (rval != 0) {
-	    throw new GTerrorJava(err.get_err());
-	}
+  public void add_gff3file(String filename) throws GTerrorJava {
+    GTerror err = new GTerror();
+    int rval = GT.INSTANCE.gt_feature_index_add_gff3file(this.feat_index,
+        filename, err.to_ptr());
+    if (rval != 0) {
+      throw new GTerrorJava(err.get_err());
     }
+  }
 
-    public String get_first_seqid() {
-	return GT.INSTANCE.gt_feature_index_get_first_seqid(this.feat_index);
-    }
+  public String get_first_seqid() {
+    return GT.INSTANCE.gt_feature_index_get_first_seqid(this.feat_index);
+  }
 
-    public ArrayList<String> get_seqids() {
-	ArrayList<String> results = new ArrayList<String>();
-	StrArray stra = new StrArray(GT.INSTANCE
-		.gt_feature_index_get_seqids(this.feat_index));
-	for (int i = 0; i < stra.length(); i++) {
-	    results.add(stra.get(i));
-	}
-	return results;
+  public ArrayList<String> get_seqids() {
+    ArrayList<String> results = new ArrayList<String>();
+    StrArray stra = new StrArray(GT.INSTANCE
+        .gt_feature_index_get_seqids(this.feat_index));
+    for (int i = 0; i < stra.length(); i++) {
+      results.add(stra.get(i));
     }
+    return results;
+  }
 
-    public Range get_range_for_seqid(String seqid) throws GTerrorJava {
-	if (GT.INSTANCE.gt_feature_index_has_seqid(this.feat_index, seqid) == 0) {
-	    throw new GTerrorJava("FeatureIndex does not contain seqid");
-	}
-	Range ran = new Range();
-	GT.INSTANCE.gt_feature_index_get_range_for_seqid(this.feat_index, ran,
-		seqid);
-	return ran;
+  public Range get_range_for_seqid(String seqid) throws GTerrorJava {
+    if (GT.INSTANCE.gt_feature_index_has_seqid(this.feat_index, seqid) == 0) {
+      throw new GTerrorJava("FeatureIndex does not contain seqid");
     }
+    Range ran = new Range();
+    GT.INSTANCE.gt_feature_index_get_range_for_seqid(this.feat_index, ran,
+        seqid);
+    return ran;
+  }
 
-    public Pointer to_ptr() {
-	return feat_index;
-    }
+  public Pointer to_ptr() {
+    return feat_index;
+  }
 
 }

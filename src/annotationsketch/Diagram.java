@@ -70,7 +70,7 @@ public class Diagram {
         try {
           s = ts.getTrackId(b);
         } catch (Exception e) {
-          s = "<not a string or error: " + e.toString() + ">"; 
+          s = "<not a string or error: " + e.toString() + ">";
         }
         Str str = new Str(str_ptr);
         str.append_str(s);
