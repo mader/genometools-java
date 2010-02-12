@@ -1,3 +1,21 @@
+/*
+  Copyright (c) 2010 Sascha Steinbiss <steinbiss@zbh.uni-hamburg.de>
+  Copyright (c) 2010 Center for Bioinformatics, University of Hamburg
+
+  Permission to use, copy, modify, and distribute this software for any
+  purpose with or without fee is hereby granted, provided that the above
+  copyright notice and this permission notice appear in all copies.
+
+  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+*/
+
+
 package gtnative;
 
 import com.sun.jna.Native;
@@ -23,7 +41,7 @@ public class GTMapping implements GT {
   public native NativeLong gt_genome_node_get_end(Pointer gn);
 
   public native String gt_genome_node_get_filename(Pointer gn);
-  
+
   public native Pointer gt_genome_node_get_seqid(Pointer gn);
 
   public native void gt_genome_node_delete(Pointer gn);
@@ -279,7 +297,7 @@ public class GTMapping implements GT {
 
   @SuppressWarnings("unused")
   private static native void gt_lib_reg_atexit_func();
-  
+
   private static native void gt_lib_clean();
 
   /*------------------------------GtRange------------------------------*/
@@ -309,7 +327,7 @@ public class GTMapping implements GT {
 
   /*------------------------------GtGFF3OutStream------------------------------*/
   public native Pointer gt_gff3_out_stream_new(Pointer in, Pointer ptr);
-  
+
   /*------------------------------GtNodeVisitor------------------------------*/
   public native void gt_node_visitor_delete(Pointer visitor);
 
@@ -319,33 +337,33 @@ public class GTMapping implements GT {
                                                       GT.VISITORFUNC region_node_visit_func,
                                                       GT.VISITORFUNC sequence_node_visit_func,
                                                       Pointer ffunc);
-  
+
   /*------------------------------GtNodeVisitor------------------------------*/
   public native Pointer gt_comment_node_new(String comment);
-  
+
   public native String gt_comment_node_get_comment(Pointer node);
-  
+
   /*------------------------------GtRegionNode------------------------------*/
   public native Pointer gt_region_node_new(Pointer seqid, NativeLong start, NativeLong end);
-  
+
   /*------------------------------GtSequenceNode------------------------------*/
   public native Pointer gt_sequence_node_new(String description, Pointer seq_ptr);
-  
+
   public native String gt_sequence_node_get_description(Pointer node);
-  
+
   public native String gt_sequence_node_get_sequence(Pointer node);
-  
+
   public native NativeLong gt_sequence_node_get_sequence_length(Pointer node);
-  
-  
-  
+
+
+
   public GTMapping() {
     /* initialize globals in this library instance */
     synchronized (this) {
       gt_lib_init();
     }
   }
-  
+
   protected synchronized void finalize() {
     /* finalize globals in this library instance */
     gt_lib_clean();

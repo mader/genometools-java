@@ -1,3 +1,21 @@
+/*
+  Copyright (c) 2010 Sascha Steinbiss <steinbiss@zbh.uni-hamburg.de>
+  Copyright (c) 2010 Center for Bioinformatics, University of Hamburg
+
+  Permission to use, copy, modify, and distribute this software for any
+  purpose with or without fee is hereby granted, provided that the above
+  copyright notice and this permission notice appear in all copies.
+
+  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+*/
+
+
 package gtnative;
 
 import com.sun.jna.Callback;
@@ -23,7 +41,7 @@ public interface GT extends Library {
   NativeLong gt_genome_node_get_end(Pointer gn);
 
   String gt_genome_node_get_filename(Pointer gn);
-  
+
   Pointer gt_genome_node_get_seqid(Pointer gn);
 
   void gt_genome_node_delete(Pointer gn);
@@ -302,7 +320,7 @@ public interface GT extends Library {
 
   /*------------------------------GtGFF3InStream------------------------------*/
   Pointer gt_gff3_out_stream_new(Pointer in, Pointer ptr);
-  
+
   /*------------------------------GtNodeVisitor------------------------------*/
   void gt_node_visitor_delete(Pointer visitor);
 
@@ -312,25 +330,25 @@ public interface GT extends Library {
                                      GT.VISITORFUNC region_node_visit_func,
                                      GT.VISITORFUNC sequence_node_visit_func,
                                      Pointer ffunc);
-  
+
   public interface VISITORFUNC extends Callback {
     int callback(Pointer nodepp, Pointer err);
   }
 
   /*------------------------------GtCommentNode------------------------------*/
   Pointer gt_comment_node_new(String comment);
-  
+
   String gt_comment_node_get_comment(Pointer node);
-  
+
   /*------------------------------GtRegionNode------------------------------*/
   Pointer gt_region_node_new(Pointer seqid, NativeLong start, NativeLong end);
 
   /*------------------------------GtSequenceNode------------------------------*/
   Pointer gt_sequence_node_new(String description, Pointer seq_ptr);
-  
+
   String gt_sequence_node_get_description(Pointer node);
-  
+
   String gt_sequence_node_get_sequence(Pointer node);
-  
+
   NativeLong gt_sequence_node_get_sequence_length(Pointer node);
 }
