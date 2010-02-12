@@ -28,7 +28,7 @@ import core.GTerrorJava;
 import core.GTerror;
 
 public abstract class GenomeStream {
-  Pointer genome_stream = null;
+  protected Pointer genome_stream = null;
 
   public GenomeNode next_tree() throws GTerrorJava {
     GTerror err = new GTerror();
