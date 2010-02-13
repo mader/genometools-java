@@ -1,0 +1,50 @@
+This directory contains the source code for the GenomeTools Java bindings.
+
+Copyright (c) 2009-2010 Philipp L. Carpus, Malte Mader, and Sascha Steinbiss
+Copyright (c) 2009-2010 Center for Bioinformatics, University of Hamburg
+
+The GenomeTools genome analysis system (http://www.genometools.org) is a
+collection of bioinformatics tools (in the realm of genome informatics).
+This library makes some of the functionality of the GenomeTools available
+to Java programs.
+
+lib/                   libraries needed to use the bindings
+src/                   Java source code
+src/annotationsketch/  Java source code for AnnotationSketch
+src/com/               Java source code extending com.sun.jna.* JNA base classes
+src/core/              Java source code for the ``core'' part
+src/gtnative/          Java source code necessary to call the GenomeTools lib
+src/extended/          Java source code for the ``extended'' part
+src/helpers/           accessory Java source code
+src/ltr/               Java source code for the ``ltr'' part
+test/                  JUnit unit tests
+
+
+REQUIREMENTS
+------------
+This code was tested using the Sun JRE, version 1.6.
+For the Java bindings to work, one needs to have the GenomeTools shared objects
+(e.g. libgenometools.{so,dylib} and libgtunstable.{so,dylib}) accessible to the
+dynamic loader. For example, this can be done by using ``make install'' in the
+GenomeTools package to a system-wide location or by setting the LD_LIBRARY_PATH
+environment variable.
+Please make sure you are using the latest GenomeTools version (1.3.5 or later).
+Also, make sure that you have compiled a thread-safe version of GenomeTools
+(use the ``threads=yes'' make switch).
+To compile the source code conveniently, use of the ``ant'' tool is advised (see
+below).
+
+BUILDING
+--------
+In the root directory, type
+
+  ``ant build''        to compile the code
+  ``ant test''         to run the unit tests
+  ``ant jar''          to build a JAR-file containing the classfiles
+  ``ant clean''        to remove all compiled binaries
+
+CONTACT
+-------
+For further questions about the GenomeTools Java bindings, please contact
+Sascha Steinbiss (steinbiss@zbh.uni-hamburg.de). For questions about GenomeTools
+in general, please refer to the mailing list (gt-users@genometools.org).
