@@ -84,4 +84,11 @@ public class PPTOptions extends Structure {
     this.bkg_g_prob = g;
     this.bkg_t_prob = t;
   }
+
+  public void set_radius(int radius) throws GTerrorJava {
+    if (radius < 1) {
+      throw new GTerrorJava("radius must not be zero or negative");
+    }
+    this.radius = radius;
+  }
 }
