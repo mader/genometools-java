@@ -17,6 +17,8 @@
 
 package ltr;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 
 import com.sun.jna.Pointer;
@@ -31,10 +33,20 @@ public class PdomOptions extends Structure {
   public int nof_threads, chain_max_gap_length, write_alignments, write_aaseqs,
       cutoff;
 
-  public PdomOptions(StrArray pdomfiles) throws GTerrorJava {
+  private void checkpdomfiles(StrArray pdomfiles) throws IOException {
+    for (String filename : pdomfiles.to_a()) {
+      File f = new File(filename);
+      if (!f.exists()) {
+        throw new IOException("HMM file '" + filename + "' does not exist");
+      }
+    }
+  }
+  
+  public PdomOptions(StrArray pdomfiles) throws IOException {
     if (pdomfiles == null) {
       throw new NullPointerException("received a null pHMM file array");
     }
+    checkpdomfiles(pdomfiles);
     this.nof_threads = 2;
     this.chain_max_gap_length = 50;
     this.evalue_cutoff = 0.0001;
@@ -59,16 +71,17 @@ public class PdomOptions extends Structure {
   }
 
   public void set_number_of_threads(int nof_threads) throws GTerrorJava {
-    if (nof_threads < 0) {
-      throw new GTerrorJava("number of threads must not be negative!");
+    if (nof_threads < 1) {
+      throw new GTerrorJava("number of threads must not <1");
     }
     this.nof_threads = nof_threads;
   }
 
-  public void set_pdomfiles(StrArray pdomfiles) {
+  public void set_pdomfiles(StrArray pdomfiles) throws IOException {
     if (pdomfiles == null) {
       throw new NullPointerException("received a null pHMM file array");
     }
+    checkpdomfiles(pdomfiles);
     this.hmm_files = pdomfiles.to_ptr();
   }
   
