@@ -27,7 +27,7 @@ import core.GTerrorJava;
 import core.Range;
 import core.Str;
 
-class GenomeNode {
+public class GenomeNode {
   protected TransparentPointer genome_node_ptr;
 
   public GenomeNode() {
