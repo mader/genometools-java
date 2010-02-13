@@ -83,11 +83,17 @@ public class PBSOptions extends Structure {
     this.ali_score_deletion = deletion;
   }
 
-  public void set_radius(int radius) {
+  public void set_radius(int radius) throws GTerrorJava {
+    if (radius < 1) {
+      throw new GTerrorJava("radius must not be zero or negative");
+    }
     this.radius = radius;
   }
 
-  public void set_max_edist(int dist) {
+  public void set_max_edist(int dist) throws GTerrorJava {
+    if (dist < 0) {
+      throw new GTerrorJava("maximum edist must not be negative");
+    }
     this.max_edist = dist;
   }
 
