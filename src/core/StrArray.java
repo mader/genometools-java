@@ -31,6 +31,11 @@ public class StrArray {
   public StrArray(Pointer str_array) {
     this.str_array = str_array;
   }
+  
+  public StrArray(String[] stra) {
+    this.str_array = GT.INSTANCE.gt_str_array_new();
+    this.add_array(stra);
+  }
 
   public String get(int index) {
     NativeLong itmp = new NativeLong(index);
