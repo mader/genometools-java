@@ -8,16 +8,15 @@ collection of bioinformatics tools (in the realm of genome informatics).
 This library makes some of the functionality of the GenomeTools available
 to Java programs.
 
-lib/                   libraries needed to use the bindings
+lib/                   JNA and JUnit libraries
 src/                   Java source code
 src/annotationsketch/  Java source code for AnnotationSketch
 src/com/               Java source code extending com.sun.jna.* JNA base classes
 src/core/              Java source code for the ``core'' part
 src/gtnative/          Java source code necessary to call the GenomeTools lib
 src/extended/          Java source code for the ``extended'' part
-src/helpers/           accessory Java source code
 src/ltr/               Java source code for the ``ltr'' part
-test/                  JUnit unit tests
+test/                  JUnit unit tests and test data
 
 
 REQUIREMENTS
