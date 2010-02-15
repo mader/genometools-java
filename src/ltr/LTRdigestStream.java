@@ -53,8 +53,6 @@ public class LTRdigestStream extends GenomeStream {
     /* check if index already exists, if not: create it! */
     File f = new File(indexname + ".prj");
     if (!f.exists()) {
-      throw new IOException("Invalid indexname: " + indexname);
-    } else {
       String[] argv = { "gt suffixerator", "-db", indexname, "-indexname",
           indexname, "-tis", "-des", "-ssp", "-sds" };
       int ret = GTDynUnstable.INSTANCE.parseargsandcallsuffixerator(1,

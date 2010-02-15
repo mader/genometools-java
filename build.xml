@@ -44,6 +44,10 @@
   </path>
 
   <target name="test" depends="compile_test" description="run unit tests">
+    <mkdir dir="${BinDir}/ltr/testdata"/>
+    <copy todir="${BinDir}/ltr/testdata">
+      <fileset dir="${TestDir}/ltr/testdata" includes="**" />
+    </copy>
     <junit fork="yes" haltonfailure="yes">
       <batchtest fork="yes">
         <fileset dir="${TestDir}">
