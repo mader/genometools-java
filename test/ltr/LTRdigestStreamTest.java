@@ -19,6 +19,7 @@ package ltr;
 
 import junit.framework.TestCase;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import core.StrArray;
@@ -26,14 +27,23 @@ import extended.GFF3InStream;
 import extended.GenomeStream;
 
 public class LTRdigestStreamTest extends TestCase {
-  String gff3filename = this.getClass().getResource(
-      "testdata/dmel_test_Run9_4.gff3").getPath();
-  String indexname = this.getClass().getResource(
-      "testdata/4_genomic_dmel_RELEASE3-1.FASTA.gz").getPath();
-  String trnalibfile = this.getClass().getResource("testdata/Dm-tRNAs-uniq.fa")
-      .getPath();
-  String[] arr = { this.getClass().getResource("testdata/RVT_1_fs.hmm")
-      .getPath() };
+  static String gff3filename;
+  static String indexname;
+  static String trnalibfile;
+  static String[] arr;
+
+  @Before
+  public void setUp() {
+    gff3filename = this.getClass().getResource(
+        "testdata/dmel_test_Run9_4.gff3").getPath();
+    indexname = this.getClass().getResource(
+        "testdata/4_genomic_dmel_RELEASE3-1.FASTA.gz").getPath();
+    trnalibfile = this.getClass().getResource(
+        "testdata/Dm-tRNAs-uniq.fa").getPath();
+    arr = new String[1];
+    arr[0] = this.getClass().getResource("testdata/RVT_1_fs.hmm")
+        .getPath();
+  }
 
   @Test
   public void test_ltrdigest_stream_create() throws Exception {
