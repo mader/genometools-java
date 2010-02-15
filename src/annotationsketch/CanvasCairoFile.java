@@ -45,7 +45,7 @@ public class CanvasCairoFile extends CanvasCairo {
     NativeLong n_width = new NativeLong(width);
     NativeLong n_height = new NativeLong(height);
     canvas_ptr = GT.INSTANCE.gt_canvas_cairo_file_new(style.to_ptr(), 1,
-        n_width, n_height, null);
+        n_width, n_height, Pointer.NULL);
   }
 
   protected void finalize() {
