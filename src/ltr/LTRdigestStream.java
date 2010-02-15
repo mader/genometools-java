@@ -20,6 +20,8 @@ package ltr;
 import java.io.File;
 import java.io.IOException;
 
+import com.sun.jna.Library;
+import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.PointerByReference;
 
@@ -35,16 +37,32 @@ public class LTRdigestStream extends GenomeStream {
   private Str indexname_str;
   private int tests_to_run = 0;
 
+  private interface GTDynUnstable extends Library {
+    GTDynUnstable INSTANCE = (GTDynUnstable) Native.loadLibrary("gtunstable",
+        GTDynUnstable.class);
+
+    public int parseargsandcallsuffixerator(int doesa, int argc, String[] argv,
+        Pointer err);
+  }
+
   public LTRdigestStream(GenomeStream instream, String indexname,
       PBSOptions pbs_opts, PPTOptions ppt_opts, PdomOptions pdom_opts)
       throws GTerrorJava, IOException {
-    
-    File f = new File(indexname+".prj");
+
+    GTerror err = new GTerror();
+    /* check if index already exists, if not: create it! */
+    File f = new File(indexname + ".prj");
     if (!f.exists()) {
       throw new IOException("Invalid indexname: " + indexname);
+    } else {
+      String[] argv = { "gt suffixerator", "-db", indexname, "-indexname",
+          indexname, "-tis", "-des", "-ssp", "-sds" };
+      int ret = GTDynUnstable.INSTANCE.parseargsandcallsuffixerator(1,
+          argv.length, argv, err.to_ptr());
+      if (ret < 0)
+        throw new GTerrorJava(err.get_err());
     }
-    
-    GTerror err = new GTerror();
+
     indexname_str = new Str(indexname);
 
     if (pdom_opts != null) {
