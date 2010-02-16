@@ -51,7 +51,21 @@
     <junit fork="yes" haltonfailure="yes">
       <batchtest fork="yes">
         <fileset dir="${TestDir}">
-          <include name="**/*Test.java" />
+          <include name="annotationsketch/*Test.java" />
+          <include name="core/*Test.java"/>
+          <include name="extended/*Test.java"/>
+        </fileset>
+      </batchtest>
+      <formatter type="plain" usefile="false" />
+      <classpath refid="test.classpath" />
+    </junit>
+  </target>
+
+  <target name="test-ltr" depends="compile_test,test" description="run hmmer tests if the gt binary has been compiled with 'with-hmmer=yes'">
+    <junit fork="yes" haltonfailure="yes">
+      <batchtest fork="yes">
+        <fileset dir="${TestDir}">
+          <include name="ltr/*Test.java" />
         </fileset>
       </batchtest>
       <formatter type="plain" usefile="false" />
