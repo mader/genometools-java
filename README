@@ -29,7 +29,8 @@ REQUIREMENTS
   of these libraries.
 - the Java Native Access (JNA, https://jna.dev.java.net) jarfile in the
   classpath (3.2.4 or later).
-- the ``ant'' tool to compile the source
+- the ``ant'' tool to compile the source and the junit optional package
+  for ant to run the unit tests
 
 GENOMETOOLS BUILD OPTIONS
 -------------------------
