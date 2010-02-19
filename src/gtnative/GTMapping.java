@@ -253,7 +253,7 @@ public class GTMapping implements GT {
   /*------------------------------GtError------------------------------*/
   public native Pointer gt_error_new();
 
-  public native void gt_error_set(Pointer err, String msg);
+  public native void gt_error_set_nonvariadic(Pointer err, String msg);
 
   public native String gt_error_get(Pointer err);
 

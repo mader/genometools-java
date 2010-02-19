@@ -262,7 +262,7 @@ public interface GT extends Library {
 
   int gt_error_is_set(Pointer err);
 
-  void gt_error_set(Pointer err, String msg);
+  void gt_error_set_nonvariadic(Pointer err, String msg);
 
   void gt_error_unset(Pointer err);
 

@@ -21,8 +21,6 @@ package core;
 import com.sun.jna.*;
 import gtnative.*;
 
-// The GtError class is a Throwable that is able to communicate low level genometools API Errors to the user of the Api
-// Therefore it has four Constructos which can be used to attach a cause to the GTerror Object
 public class GTerror {
   private static final long serialVersionUID = 813149150202370867L;
   private boolean own_err;
@@ -32,6 +30,12 @@ public class GTerror {
     this.err = GT.INSTANCE.gt_error_new();
     own_err = true;
   }
+  
+  public GTerror(String msg) {
+    this.err = GT.INSTANCE.gt_error_new();
+    own_err = true;
+    this.set(msg);
+  }
 
   public GTerror(Pointer err_p) {
     this.err = err_p;
@@ -39,32 +43,9 @@ public class GTerror {
   }
 
   public void set(String msg) {
-    GT.INSTANCE.gt_error_set(this.err, msg);
+    GT.INSTANCE.gt_error_set_nonvariadic(this.err, msg);
   }
 
-  // public GTerror(String err_mess)
-  // {
-  // super(err_mess);
-  // this.err = GT.INSTANCE.gt_error_new();
-  // }
-  //
-  // public GTerror(String err_mess, Throwable cause)
-  // {
-  // super(err_mess, cause);
-  // this.err = GT.INSTANCE.gt_error_new();
-  // }
-  //
-  // public GTerror(String err_mess, Pointer err)
-  // {
-  // super(err_mess);
-  // this.err = err;
-  // }
-  //
-  // public GTerror(String err_mess, Throwable cause, Pointer err)
-  // {
-  // super(err_mess, cause);
-  // this.err = err;
-  // }
   protected void finalize() {
     if (own_err)
       GT.INSTANCE.gt_error_delete(this.err);
@@ -82,17 +63,6 @@ public class GTerror {
   public void unset() {
     GT.INSTANCE.gt_error_unset(this.err);
   }
-
-  // public static void gtexcept(GTerror err) throws GTerror
-  // {
-  // if (err instanceof GTerror) {
-  // throw new GTerror("Genometools Error " + err.get() + "");
-  // }
-  // }
-  // public static void gtexcept(String err) throws GTerror
-  // {
-  // throw new GTerror("Java Wrapper Exception: " + err + "");
-  // }
 
   public Pointer to_ptr() {
     return err;
