@@ -27,6 +27,8 @@ REQUIREMENTS
   source directory to install it into a system-wide location or
   by setting the LD_LIBRARY_PATH environment variable to point to the location
   of these libraries.
+- all GenomeTools requirements, e.g. cairo (http://cairographics.org) for
+  AnnotationSketch.
 - the Java Native Access (JNA, https://jna.dev.java.net) jarfile in the
   classpath (3.2.4 or later).
 - the ``ant'' tool to compile the source and the junit optional package
@@ -45,12 +47,15 @@ option.
 
 BUILDING THE JAVA BINDINGS
 --------------------------
-In the root directory of source tree, type
+In the root directory of source tree, run
 
-  ``ant build''        to compile the code
+  ``ant'' or
+  ``ant compile''      to compile the code
   ``ant test''         to run the unit tests
+  ``ant test-ltr''     to run additional unit tests (requires HMMER support in
+                       the local GenomeTools library, see above)
   ``ant jar''          to build a JAR-file containing the classfiles
-  ``ant clean''        to remove all compiled binaries
+  ``ant clean''        to remove all compiled binaries.
 
 CONTACT
 -------
