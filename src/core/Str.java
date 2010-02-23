@@ -23,6 +23,7 @@ import gtnative.*;
 
 public class Str {
   private Pointer str_ptr;
+  private Boolean disposed;
 
   public Str(String cstr) {
     if (cstr.equals(null)) {
@@ -30,14 +31,22 @@ public class Str {
     } else {
       str_ptr = GT.INSTANCE.gt_str_new_cstr(cstr);
     }
+    disposed = false;
   }
 
   public Str(Pointer str) {
     str_ptr = GT.INSTANCE.gt_str_ref(str);
+    disposed = false;
+  }
+
+  public synchronized void dispose() {
+    GT.INSTANCE.gt_str_delete(str_ptr);
   }
 
   protected void finalize() {
-    GT.INSTANCE.gt_str_delete(str_ptr);
+    if (!disposed) {
+      dispose();
+    }
   }
 
   public void append_str(Str str) {
