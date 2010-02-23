@@ -40,7 +40,10 @@ public class Str {
   }
 
   public synchronized void dispose() {
-    GT.INSTANCE.gt_str_delete(str_ptr);
+    if (!disposed) {
+      GT.INSTANCE.gt_str_delete(str_ptr);
+      disposed = true;
+    }
   }
 
   protected void finalize() {
