@@ -62,5 +62,6 @@ public class LTRdigestStreamTest extends TestCase {
       i++;
     }
     assertEquals(i, 13); // 11 features, region, comment
+    ltrd_stream.dispose();
   }
 }

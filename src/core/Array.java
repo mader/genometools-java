@@ -25,20 +25,32 @@ import extended.FeatureNode;
 
 public class Array {
   private Pointer array_ptr;
+  private boolean disposed;
 
   // Size of Element is meant to be the size of a Pointer on the Target system
   public Array(int size_of_elem) {
     NativeLong tmp = new NativeLong(size_of_elem);
     array_ptr = GT.INSTANCE.gt_array_new(tmp);
     array_ptr = GT.INSTANCE.gt_array_ref(this.array_ptr);
+    disposed = false;
   }
 
   public Array(Pointer elem) {
     array_ptr = elem;
+    disposed = false;
   }
 
+  public synchronized void dispose() {
+    if (!disposed) {
+      GT.INSTANCE.gt_array_delete(this.array_ptr);
+      disposed = true;
+    }
+  }
+  
   protected void finalize() {
-    GT.INSTANCE.gt_array_delete(this.array_ptr);
+    if (!disposed) {
+      dispose();
+    }
   }
 
   public Pointer get(int index) {

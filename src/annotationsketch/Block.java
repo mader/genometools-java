@@ -27,11 +27,13 @@ import extended.FeatureNode;
 public class Block {
   private Pointer block_ptr;
   private static char STRANDCHARS[] = { '+', '-', '.', '?' };
+  private boolean disposed;
 
   public Block(Pointer ptr) {
     synchronized (this) {
       block_ptr = GT.INSTANCE.gt_block_ref(ptr);
     }
+    disposed = false;
   }
 
   public Range get_range() {
@@ -46,10 +48,6 @@ public class Block {
 
   public Boolean has_only_one_fullsize_element() {
     return (GT.INSTANCE.gt_block_has_only_one_fullsize_element(this.block_ptr) != 0);
-  }
-
-  public void merge(Block block2) {
-    GT.INSTANCE.gt_block_merge(this.block_ptr, block2.to_ptr());
   }
 
   public Block clone_block() throws GTerrorJava {
@@ -97,9 +95,18 @@ public class Block {
     return block_ptr;
   }
 
+  public synchronized void dispose() {
+    if(!disposed){
+      GT.INSTANCE.gt_block_delete(block_ptr);
+      disposed = true;
+    }
+  }
+  
   protected void finalize() throws Throwable {
     try {
-      GT.INSTANCE.gt_block_delete(block_ptr);
+      if(!disposed){
+        dispose();
+      }
     } finally {
       super.finalize();
     }

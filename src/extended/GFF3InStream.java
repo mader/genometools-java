@@ -34,6 +34,7 @@ public class GFF3InStream extends GenomeStream {
     } else {
       genome_stream = GT.INSTANCE.gt_gff3_in_stream_new_sorted(filename);
     }
+    set_disposed(false);
   }
 
   public StrArray used_types() {

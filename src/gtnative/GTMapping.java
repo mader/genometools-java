@@ -314,6 +314,8 @@ public class GTMapping implements GT {
   /*------------------------------GtGenomeStream------------------------------*/
   public native int gt_node_stream_next(Pointer node_stream,
       PointerByReference genome_node, Pointer err);
+  
+  public native void gt_node_stream_delete(Pointer node_stream);
 
   /*------------------------------GtGFF3InStream------------------------------*/
   public native Pointer gt_gff3_in_stream_new_sorted(String filename);
@@ -364,7 +366,10 @@ public class GTMapping implements GT {
 
   public native NativeLong gt_bioseq_get_sequence_length(Pointer bioseq,
       NativeLong idx);
-
+  
+  public native void gt_bioseq_delete(Pointer bioseq_ptr);
+  
+  
   public GTMapping() {
     /* initialize globals in this library instance */
     synchronized (this) {

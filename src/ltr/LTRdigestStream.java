@@ -36,7 +36,8 @@ public class LTRdigestStream extends GenomeStream {
   private Pointer verboseinfo;
   private Str indexname_str;
   private int tests_to_run = 0;
-
+  private boolean disposed_extensions = true;
+  
   private interface GTDynUnstable extends Library {
     GTDynUnstable INSTANCE = (GTDynUnstable) Native.loadLibrary("gtunstable",
         GTDynUnstable.class);
@@ -96,14 +97,23 @@ public class LTRdigestStream extends GenomeStream {
       PointerByReference encseq_pp = new PointerByReference(this.encodedseq);
       GTunstable.INSTANCE.freeverboseinfo(vbi_pp);
       GTunstable.INSTANCE.encodedsequence_free(encseq_pp);
+      disposed_extensions = false;
       throw new GTerrorJava(err.get_err());
     }
   }
 
-  public synchronized void finalize() {
-    PointerByReference vbi_pp = new PointerByReference(this.verboseinfo);
-    PointerByReference encseq_pp = new PointerByReference(this.encodedseq);
-    GTunstable.INSTANCE.freeverboseinfo(vbi_pp);
-    GTunstable.INSTANCE.encodedsequence_free(encseq_pp);
+  public synchronized void dispose() {
+    if (!disposed_extensions) {
+  	  PointerByReference vbi_pp = new PointerByReference(this.verboseinfo);
+      PointerByReference encseq_pp = new PointerByReference(this.encodedseq);
+      GTunstable.INSTANCE.freeverboseinfo(vbi_pp);
+      GTunstable.INSTANCE.encodedsequence_free(encseq_pp);
+      disposed_extensions = true;
+    }
+    super.dispose();
+  }
+  
+  public void finalize() {
+    dispose();
   }
 }

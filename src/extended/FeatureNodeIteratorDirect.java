@@ -26,5 +26,6 @@ public class FeatureNodeIteratorDirect extends FeatureNodeIterator {
 	    feat_ptr = GT.INSTANCE.gt_feature_node_iterator_new_direct(node
 		    .to_ptr());
 	}
+	set_disposed(false);
     }
 }

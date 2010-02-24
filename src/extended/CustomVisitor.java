@@ -103,5 +103,6 @@ public abstract class CustomVisitor extends NodeVisitor {
     visitor = GT.INSTANCE.gt_script_wrapper_visitor_new(
         comment_node_visit_func, feature_node_visit_func,
         region_node_visit_func, sequence_node_visit_func, null);
+    set_disposed(false);
   }
 }

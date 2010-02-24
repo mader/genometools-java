@@ -28,7 +28,7 @@ public class SequenceNodeTest extends TestCase {
 
   @Test
   public void test_create() {
-    new SequenceNode(testDesc, testSequence);
+    new SequenceNode(testDesc, testSequence).dispose();
   }
 
   @Test
@@ -55,11 +55,13 @@ public class SequenceNodeTest extends TestCase {
   public void test_get_description() {
     SequenceNode sn = new SequenceNode(testDesc, testSequence);
     assertEquals(sn.get_description(), testDesc);
+    sn.dispose();
   }
 
   @Test
   public void test_get_sequence() {
     SequenceNode sn = new SequenceNode(testDesc, testSequence);
     assertEquals(sn.get_sequence(), testSequence);
+    sn.dispose();
   }
 }

@@ -27,7 +27,7 @@ public class CommentNodeTest extends TestCase {
 
   @Test
   public void test_create() throws Exception {
-    new CommentNode(testString);
+    new CommentNode(testString).dispose();
   }
 
   @Test
@@ -42,6 +42,8 @@ public class CommentNodeTest extends TestCase {
 
   @Test
   public void test_get_comment() throws Exception {
-    assertEquals((new CommentNode(testString)).get_comment(), testString);
+    CommentNode cn = new CommentNode(testString);
+    assertEquals(cn.get_comment(), testString);
+    cn.dispose();
   }
 }

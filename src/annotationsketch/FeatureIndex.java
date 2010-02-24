@@ -30,9 +30,23 @@ import extended.FeatureNode;
 
 public abstract class FeatureIndex {
   protected Pointer feat_index;
+  private boolean disposed;
 
+  protected void set_disposed(boolean bool) {
+    disposed = bool;
+  }
+  
+  public synchronized void dispose() {
+    if(!disposed){
+      GT.INSTANCE.gt_feature_index_delete(feat_index);
+      disposed = true;
+    }
+  }
+  
   protected void finalize() throws Throwable {
-    GT.INSTANCE.gt_feature_index_delete(feat_index);
+    if(!disposed){
+      dispose();
+    }
   }
 
   public ArrayList<FeatureNode> get_features_for_seqid(String seqid) {

@@ -24,13 +24,24 @@ import com.sun.jna.Pointer;
 
 public class ImageInfo {
   private Pointer image_info_ptr;
+  private boolean disposed;
 
   public ImageInfo() {
     image_info_ptr = GT.INSTANCE.gt_image_info_new();
+    disposed = false;
   }
 
+  public synchronized void dispose() {
+    if(!disposed){
+      GT.INSTANCE.gt_image_info_delete(image_info_ptr);
+      disposed = true;
+    }
+  }
+  
   protected void finalize() {
-    GT.INSTANCE.gt_image_info_delete(image_info_ptr);
+    if(!disposed){
+      dispose();
+    }
   }
 
   public int get_height() {

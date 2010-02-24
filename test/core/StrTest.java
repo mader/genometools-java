@@ -33,6 +33,7 @@ public class StrTest
   {
     Str s = new Str("ATATAT");
     assertTrue(s.to_ptr() != null);
+    s.dispose();
   }
 
   @Test
@@ -40,6 +41,7 @@ public class StrTest
   {
     Str s = new Str("ATATAT");
     assertTrue(s.length() == 6);
+    s.dispose();
   }
 
   @Test
@@ -50,6 +52,7 @@ public class StrTest
     String string = s.to_s();
     assertTrue(string.equals("ATATAT"));
     assertTrue(!s.to_s().equals("GCGCGC"));
+    s.dispose();
   }
 
   @Test
@@ -61,6 +64,8 @@ public class StrTest
     assertTrue(s.to_s().equals("ATATATGCGCGC"));
     assertTrue(!s.to_s().equals("GCGCGCATATAT"));
     assertTrue(s.length() == 12);
+    s.dispose();
+    s2.dispose();
   }
 
   @Test
@@ -71,6 +76,8 @@ public class StrTest
     assertTrue(s2.to_s().equals("ATATAT"));
     assertTrue(!s2.to_s().equals("ATAT"));
     assertTrue(s.to_ptr().equals(s2.to_ptr()));
+    s.dispose();
+    s2.dispose();
   }
 
   @Test
@@ -79,5 +86,6 @@ public class StrTest
     Str s = new Str("ATATAT");
     assertTrue(s.length() == 6);
     assertTrue(s.to_s().equals("ATATAT"));
+    s.dispose();
   }
 }

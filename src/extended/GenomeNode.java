@@ -29,19 +29,34 @@ import core.Str;
 
 public class GenomeNode {
   protected TransparentPointer genome_node_ptr;
+  private boolean disposed;
 
   public GenomeNode() {
   }
 
+  protected void set_disposed(boolean bool) {
+    disposed = bool;
+  }
+  
   public GenomeNode(Pointer node_ptr) {
     synchronized (this) {
       genome_node_ptr = new TransparentPointer(GT.INSTANCE
           .gt_genome_node_ref(node_ptr));
     }
+    disposed = false;
   }
 
-  protected synchronized void finalize() {
-    GT.INSTANCE.gt_genome_node_delete(this.genome_node_ptr);
+  public synchronized void dispose() {
+    if (!disposed) {
+      GT.INSTANCE.gt_genome_node_delete(this.genome_node_ptr);
+      disposed = true;
+    }
+  }
+  
+  protected void finalize() {
+    if (!disposed) {
+      dispose();
+    }
   }
 
   public Range get_range() {

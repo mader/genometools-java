@@ -27,6 +27,7 @@ import gtnative.GT;
 
 public class Layout {
   protected Pointer layout_ptr;
+  private boolean disposed;
 
   public Layout(Diagram diagram, int width, Style style) throws GTerrorJava {
     GTerror err = new GTerror();
@@ -38,12 +39,21 @@ public class Layout {
     if (layout_ptr == null) {
       throw new GTerrorJava(err.get_err());
     }
-
+    disposed = false;
   }
 
-  protected synchronized void finalize() throws Throwable {
-    try {
+  public synchronized void dispose() {
+    if (!disposed) {
       GT.INSTANCE.gt_layout_delete(layout_ptr);
+      disposed = true;
+    }
+  }
+  
+  protected void finalize() throws Throwable {
+    try {
+      if (!disposed) {
+        dispose();
+      }
     } finally {
       super.finalize();
     }

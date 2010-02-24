@@ -50,5 +50,6 @@ public class RegionNode extends GenomeNode {
     Pointer newfn = GT.INSTANCE
         .gt_region_node_new(s.to_ptr(), nl_start, nl_end);
     this.genome_node_ptr = new TransparentPointer(newfn);
+    set_disposed(false);
   }
 }

@@ -50,5 +50,13 @@ public class AllNodeTypesStreamTest extends TestCase {
     assertEquals(result_nodes.get(1), cn);
     assertEquals(result_nodes.get(2), fn);
     assertEquals(result_nodes.get(3), sn);
+    
+    testvisitor.dispose();
+    instream.dispose();
+    simplestream.dispose();
+    
+    for(int i=0; i < nodes.size(); i++){
+        nodes.get(i).dispose();
+      }
   }
 }

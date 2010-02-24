@@ -50,5 +50,6 @@ public abstract class CustomStream extends GenomeStream {
       }
     };
     genome_stream = GT.INSTANCE.gt_script_wrapper_stream_new(next_func, Pointer.NULL);
+    set_disposed(false);
   }
 }

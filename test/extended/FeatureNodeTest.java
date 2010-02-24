@@ -37,6 +37,12 @@ public class FeatureNodeTest {
     fn.add_attribute("test2", "testval");
   }
 
+  @AfterClass
+  public static void tearDown() {
+    fn.dispose();
+    fn2.dispose();
+  }
+  
   @Test
   public void test_score_defined() {
     assertFalse(fn.score_is_defined());
@@ -132,6 +138,8 @@ public class FeatureNodeTest {
     assertTrue(clone.equals(fn));
     assertFalse(fn.equals(falseclone));
     assertFalse(falseclone.equals(fn));
+    falseclone.dispose();
+    clone.dispose();
   }
 
   @Test

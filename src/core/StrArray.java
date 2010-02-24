@@ -23,18 +23,22 @@ import gtnative.*;
 
 public class StrArray {
   protected Pointer str_array;
+  private boolean disposed;
 
   public StrArray() {
     this.str_array = GT.INSTANCE.gt_str_array_new();
+    disposed = false;
   }
 
   public StrArray(Pointer str_array) {
     this.str_array = str_array;
+    disposed = false;
   }
   
   public StrArray(String[] stra) {
     this.str_array = GT.INSTANCE.gt_str_array_new();
     this.add_array(stra);
+    disposed = false;
   }
 
   public String get(int index) {
@@ -42,8 +46,17 @@ public class StrArray {
     return GT.INSTANCE.gt_str_array_get(this.str_array, itmp);
   }
 
+  public synchronized void dispose() {
+    if (!disposed) {
+      GT.INSTANCE.gt_str_array_delete(this.str_array);
+      disposed = true;
+    }
+  }
+  
   protected void finalize() {
-    GT.INSTANCE.gt_str_array_delete(this.str_array);
+    if (!disposed) {
+      dispose();
+    }
   }
 
   public void add_array(String[] array) {

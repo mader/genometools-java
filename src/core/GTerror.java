@@ -25,31 +25,44 @@ public class GTerror {
   private static final long serialVersionUID = 813149150202370867L;
   private boolean own_err;
   private Pointer err;
+  private boolean disposed;
 
   public GTerror() {
     this.err = GT.INSTANCE.gt_error_new();
     own_err = true;
+    disposed = false;
   }
   
   public GTerror(String msg) {
     this.err = GT.INSTANCE.gt_error_new();
     own_err = true;
     this.set(msg);
+    disposed = false;
   }
 
   public GTerror(Pointer err_p) {
     this.err = err_p;
     own_err = false;
+    disposed = false;
   }
 
   public void set(String msg) {
     GT.INSTANCE.gt_error_set_nonvariadic(this.err, msg);
   }
 
+  public synchronized void dispose() {
+    if (!disposed) {
+      if (own_err)
+        GT.INSTANCE.gt_error_delete(this.err);
+      this.err = null;
+      disposed = true;
+    }
+  }
+  
   protected void finalize() {
-    if (own_err)
-      GT.INSTANCE.gt_error_delete(this.err);
-    this.err = null;
+    if (!disposed){
+      dispose();
+    }
   }
 
   public String get_err() {

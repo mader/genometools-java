@@ -29,7 +29,12 @@ import core.GTerror;
 
 public abstract class GenomeStream {
   protected Pointer genome_stream = null;
+  private boolean disposed;
 
+  public void set_disposed(boolean bool) {
+    disposed = bool;
+  }
+  
   public GenomeNode next_tree() throws GTerrorJava {
     GTerror err = new GTerror();
     PointerByReference genome_node = new PointerByReference();
@@ -46,6 +51,19 @@ public abstract class GenomeStream {
     }
   }
 
+  public synchronized void dispose() {
+    if (!disposed) {
+      GT.INSTANCE.gt_node_stream_delete(genome_stream);
+      disposed = true;
+    }
+  }
+ 
+  protected  void finalize() {
+    if (!disposed) {
+      dispose();
+    }
+  }
+  
   public Pointer to_ptr() {
     return genome_stream;
   }

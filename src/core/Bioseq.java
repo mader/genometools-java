@@ -24,6 +24,7 @@ import com.sun.jna.Pointer;
 
 public class Bioseq {
   private Pointer bioseq_ptr;
+  private boolean disposed;
 
   public Bioseq(String filename) throws GTerrorJava {
     if (filename == null) {
@@ -34,8 +35,22 @@ public class Bioseq {
     if (bioseq_ptr == Pointer.NULL) {
       throw new GTerrorJava(err.get_err());
     }
+    disposed = false;
   }
 
+  public synchronized void dispose() {
+    if (!disposed) {
+    	GT.INSTANCE.gt_bioseq_delete(bioseq_ptr);
+      disposed = true;
+    }
+  }
+  
+  protected void finalize() {
+    if (!disposed) {
+      dispose();
+    }
+  }
+  
   public long get_number_of_sequences() {
     NativeLong l = GT.INSTANCE.gt_bioseq_number_of_sequences(this.bioseq_ptr);
     return l.longValue();

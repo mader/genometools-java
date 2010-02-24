@@ -51,6 +51,12 @@ public class AllNodeTypesVisitorTest extends TestCase {
     fn.accept(testvisitor);
     assertTrue(nodes.size() == 4);
     assertEquals(nodes.get(3), fn);
+    
+    testvisitor.dispose();
+    rn.dispose();
+    sn.dispose();
+    cn.dispose();
+    fn.dispose();
   }
 
 }

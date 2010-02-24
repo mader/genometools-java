@@ -25,15 +25,26 @@ import extended.FeatureNode;
 
 public class RecMap {
   protected Pointer rec_map;
+  private boolean disposed;
 
   public RecMap(Pointer rm) {
     synchronized (rm) {
       this.rec_map = GT.INSTANCE.gt_rec_map_ref(rm);
     }
+    disposed = false;
   }
 
-  public synchronized void finalize() {
-    GT.INSTANCE.gt_rec_map_delete(rec_map);
+  public synchronized void dispose() {
+    if (!disposed) {
+      GT.INSTANCE.gt_rec_map_delete(rec_map);
+      disposed = true;
+    }
+  }
+  
+  public void finalize() {
+    if (!disposed) {
+      dispose();
+    }
   }
 
   public double get_northwest_x() {

@@ -32,11 +32,17 @@ public class ArrayTest
   public static void init() throws GTerrorJava {
     fn = new FeatureNode("test","type",1000,8000,".");
   }
-
+  
+  @AfterClass
+  public static void tearDown() {
+    fn.dispose();
+  }
+  
   @Test
   public void test_to_ptr() {
     Array arr = new Array(Pointer.SIZE);
     assertTrue(arr.to_ptr() != null);
+    arr.dispose();
   }
 
   @Test
@@ -48,12 +54,15 @@ public class ArrayTest
     arr.add(fn); }
     assertTrue(arr.size() == 8);
     assertTrue(arr.size() != 7);
+    arr.dispose();
   }
+  
   @Test
   public void test_add() {
     Array arr = new Array(Pointer.SIZE);
     arr.add(fn);
     assertTrue(arr.get(0).equals(fn.to_ptr()));
+    arr.dispose();
   }
 
   @Test
@@ -61,6 +70,7 @@ public class ArrayTest
     Array arr = new Array(Pointer.SIZE);
     arr.add(fn);
     assertEquals(fn.to_ptr(), arr.get(0));
+    arr.dispose();
   }
 
   @Test
@@ -71,5 +81,7 @@ public class ArrayTest
     assertTrue(arr.get(0).equals(fn.to_ptr()));
     assertNotNull(arr);
     assertNotNull(arr2);
+    arr.dispose();
+    arr2.dispose();
   }
 }

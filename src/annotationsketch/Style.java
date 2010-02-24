@@ -28,13 +28,15 @@ import core.Str;
 
 public class Style {
   private Pointer style_ptr;
-
+  private boolean disposed;
+  
   public Style() throws GTerrorJava {
     GTerror err = new GTerror();
     style_ptr = GT.INSTANCE.gt_style_new(err.to_ptr());
     if (style_ptr == null) {
       throw new GTerrorJava(err.get_err());
     }
+    disposed = false;
   }
 
   public void load_file(String filename) throws GTerrorJava {
@@ -163,7 +165,16 @@ public class Style {
     return style_ptr;
   }
 
+  public synchronized void dispose() {
+    if (!disposed) {
+      GT.INSTANCE.gt_style_delete(style_ptr);
+      disposed = true;
+    }
+  }
+  
   protected void finalize() {
-    GT.INSTANCE.gt_style_delete(style_ptr);
+    if (!disposed) {
+      dispose();
+    }
   }
 }

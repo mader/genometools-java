@@ -77,6 +77,16 @@ public class BlockTest
     l = new Layout(d, 800, s);
   }
 
+  @AfterClass
+  static public void tearDown() {
+    l.dispose();
+    d.dispose();
+    s.dispose();
+    top1.dispose();
+    top2.dispose();
+  }
+
+  
   @Test
   public void test_get_type() {
     assertTrue(blist.get(0).get_type().equals("gene"));
@@ -113,14 +123,7 @@ public class BlockTest
     assertTrue(blist.get(0).get_size() == b.get_size());
     b = blist.get(1).clone_block();
     assertTrue(blist.get(1).get_size() == b.get_size());
-  }
-
-  @Test
-  public void test_merge() throws GTerrorJava {
-    Block b = blist.get(0).clone_block();
-    assertTrue(blist.get(0).get_size() == 6);
-    b.merge(blist.get(0));
-    assertTrue(b.get_size() == 12);
+    b.dispose();
   }
 
   @Test
@@ -136,16 +139,19 @@ public class BlockTest
     assertTrue(b.get_strand() == '+');
     b.set_strand('?');
     assertTrue(b.get_strand() == '?');
+    b.dispose();
     b = blist.get(1).clone_block();
     assertTrue(b.get_strand() == '-');
     b.set_strand('.');
     assertTrue(b.get_strand() == '.');
+    b.dispose();
   }
 
   @Test(expected=GTerrorJava.class)
   public void test_set_strand_fail() throws GTerrorJava {
     Block b = blist.get(0).clone_block();
     b.set_strand('X');
+    b.dispose();
   }
 }
 

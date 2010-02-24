@@ -55,6 +55,14 @@ public class FeatureIndexTest
     feats.add(reverse_gene);
   }
 
+  @AfterClass
+  static public void tearDown() {
+    for(int i=0; i < feats.size(); i++){
+      feats.get(i).dispose();
+    }
+    fi.dispose();
+  }
+  
   @Test
   public void test_get_first_seqid() {
     assertTrue(fi.get_first_seqid().equals("foo"));

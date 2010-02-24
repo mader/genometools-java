@@ -22,6 +22,11 @@ import gtnative.*;
 
 abstract class FeatureNodeIterator {
   Pointer feat_ptr;
+  private boolean disposed;
+
+  protected void set_disposed(boolean bool) {
+    disposed = bool;
+  }
 
   public FeatureNode next() {
     Pointer ret = GT.INSTANCE.gt_feature_node_iterator_next(feat_ptr);
@@ -31,7 +36,16 @@ abstract class FeatureNodeIterator {
     return null;
   }
 
+  public synchronized void dispose() {
+    if (!disposed) {
+      GT.INSTANCE.gt_feature_node_iterator_delete(feat_ptr);
+      disposed = true;
+    }
+  }
+  
   protected void finalize() {
-    GT.INSTANCE.gt_feature_node_iterator_delete(feat_ptr);
+    if (!disposed) {
+      dispose();
+    }
   }
 }

@@ -40,7 +40,8 @@ public class Diagram {
   private TRACKSELECTOR tsf;
   @SuppressWarnings("unused")
   private TrackSelector ts;
-
+  private boolean disposed;
+  
   public Diagram(List<FeatureNode> feats, Range rng, Style sty)
       throws GTerrorJava {
     Pointer dia;
@@ -58,6 +59,7 @@ public class Diagram {
     } else {
       this.diagram_ptr = dia;
     }
+    disposed = false;
   }
 
   public Diagram(FeatureIndex feat_index, String seqid, Range ran, Style style)
@@ -79,6 +81,7 @@ public class Diagram {
     } else {
       this.diagram_ptr = dia;
     }
+    disposed = false;
   }
 
   public void set_track_selector_func(final TrackSelector ts) {
@@ -104,9 +107,18 @@ public class Diagram {
     GT.INSTANCE.gt_diagram_reset_track_selector_func(diagram_ptr);
   }
 
+  public synchronized void dispose() {
+    if(!disposed){
+      GT.INSTANCE.gt_diagram_delete(diagram_ptr);
+      disposed = true;
+    }
+  }
+  
   protected void finalize() throws Throwable {
     try {
-      GT.INSTANCE.gt_diagram_delete(diagram_ptr);
+      if(!disposed){
+        dispose();
+      }
     } finally {
       super.finalize();
     }

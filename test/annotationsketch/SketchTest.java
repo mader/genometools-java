@@ -59,6 +59,13 @@ public class SketchTest {
     arr.add(gene);
     arr.add(reverse_gene);
   }
+  
+  @AfterClass
+  static public void tearDown() {
+    for(int i=0; i < arr.size(); i++){
+      arr.get(i).dispose();
+    }
+  }
 
   @Test
   public void test_sketch() throws GTerrorJava {
@@ -130,10 +137,17 @@ public class SketchTest {
           assertTrue(f.length() > 100);
           assertTrue(f.delete());
           assertFalse(f.exists());
+          
+          sty.dispose();
+          dia.dispose();
+          lay.dispose();
+          can.dispose();
+          
         } catch (GTerrorJava e) {
           throw new Error();
         }
       }
+      
     }
 
     for (int i = 0; i < 100; i++) {
@@ -182,6 +196,12 @@ public class SketchTest {
       assertTrue(f.length() > 0);
       f.delete();
       assertFalse(f.exists());
+      
+      dia.dispose();
+      lay.dispose();
+      ii.dispose();
+      can.dispose(); 
     }
+    sty.dispose();  
   }
 }

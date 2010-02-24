@@ -19,6 +19,8 @@
 package extended;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import core.GTerrorJava;
@@ -35,7 +37,13 @@ public class ListStreamTest {
     nodes.add(fn2);
     nodes.add(fn);
   }
-
+  
+  @AfterClass
+  public static void tearDown() {
+    fn.dispose();
+    fn2.dispose();
+  }
+  
   @Test
   public void test_list_stream_array_list() throws GTerrorJava {
     GenomeStream s = new ListStream(nodes);
@@ -45,6 +53,7 @@ public class ListStreamTest {
       result_nodes.add(n);
     }
     assertTrue(result_nodes.equals(nodes));
+    s.dispose();
   }
 
 }

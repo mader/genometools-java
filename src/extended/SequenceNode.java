@@ -42,6 +42,7 @@ public class SequenceNode extends GenomeNode {
     Str s = new Str(sequence);
     Pointer newfn = GT.INSTANCE.gt_sequence_node_new(description, s.to_ptr());
     this.genome_node_ptr = new TransparentPointer(newfn);
+    set_disposed(false);
   }
 
   public String get_description() {

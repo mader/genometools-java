@@ -69,6 +69,7 @@ public class FeatureNode extends GenomeNode {
           strand);
       this.genome_node_ptr = new TransparentPointer(newfn);
     }
+    set_disposed(false);
   }
 
   public void add_child(FeatureNode child) {

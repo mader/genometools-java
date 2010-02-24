@@ -40,6 +40,7 @@ public class CommentNode extends GenomeNode {
       Pointer newfn = GT.INSTANCE.gt_comment_node_new(comment);
       this.genome_node_ptr = new TransparentPointer(newfn);
     }
+    set_disposed(false);
   }
 
   public String get_comment() {

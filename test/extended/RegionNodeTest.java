@@ -30,7 +30,7 @@ public class RegionNodeTest extends TestCase {
 
   @Test
   public void test_create() throws GTerrorJava {
-    new RegionNode(testString, 100, 1000);
+    new RegionNode(testString, 100, 1000).dispose();
   }
 
   @Test
@@ -59,11 +59,13 @@ public class RegionNodeTest extends TestCase {
     Range r = rn.get_range();
     assertEquals(r.get_start(), 100);
     assertEquals(r.get_end(), 1000);
+    rn.dispose();
   }
 
   @Test
   public void test_get_seqid() throws GTerrorJava {
     RegionNode rn = new RegionNode(testString, 100, 1000);
     assertEquals(((GenomeNode) rn).get_seqid(), testString);
+    rn.dispose();
   }
 }

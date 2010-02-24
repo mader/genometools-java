@@ -312,6 +312,8 @@ public interface GT extends Library {
   int gt_node_stream_next(Pointer node_stream, PointerByReference genome_node,
       Pointer err);
 
+  void gt_node_stream_delete(Pointer node_stream);
+  
   /*------------------------------GtGFF3InStream------------------------------*/
   Pointer gt_gff3_in_stream_new_sorted(String filename);
 
@@ -359,4 +361,6 @@ public interface GT extends Library {
 
   NativeLong gt_bioseq_get_sequence_length(Pointer bioseq, NativeLong idx);
 
+  void gt_bioseq_delete(Pointer bioseq_ptr);
+  
 }

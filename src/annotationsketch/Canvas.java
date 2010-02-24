@@ -23,12 +23,26 @@ import com.sun.jna.Pointer;
 
 public abstract class Canvas {
   protected Pointer canvas_ptr;
+  private boolean disposed;
 
+  protected void set_disposed(boolean bool) {
+    disposed = bool;
+  }
+  
   public Pointer to_ptr() {
     return canvas_ptr;
   }
 
+  public synchronized void dispose() {
+    if(!disposed){
+      GT.INSTANCE.gt_canvas_delete(canvas_ptr);
+      disposed = true;
+    }
+  }
+  
   protected void finalize() {
-    GT.INSTANCE.gt_canvas_delete(canvas_ptr);
+    if(!disposed){
+      dispose();
+    }
   }
 }

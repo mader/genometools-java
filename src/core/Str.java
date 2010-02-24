@@ -23,7 +23,7 @@ import gtnative.*;
 
 public class Str {
   private Pointer str_ptr;
-  private Boolean disposed;
+  private boolean disposed;
 
   public Str(String cstr) {
     if (cstr.equals(null)) {
@@ -45,7 +45,7 @@ public class Str {
       disposed = true;
     }
   }
-
+  
   protected void finalize() {
     if (!disposed) {
       dispose();
