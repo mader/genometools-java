@@ -17,6 +17,10 @@
 
 package gtnative;
 
+import ltr.PBSOptions;
+import ltr.PPTOptions;
+import ltr.PdomOptions;
+
 import com.sun.jna.Callback;
 import com.sun.jna.Library;
 import com.sun.jna.NativeLong;
@@ -296,6 +300,51 @@ public interface GT extends Library {
 
   void gt_str_array_delete(Pointer str_array);
 
+  /*------------------------------GtLogger------------------------------*/
+  Pointer gt_logger_new(int enabled, String prefix, Pointer target);
+
+  void gt_logger_enable(Pointer logger);
+
+  void gt_logger_disable(Pointer logger);
+
+  int gt_logger_enabled(Pointer logger);
+
+  void gt_logger_delete(Pointer logger);
+
+  /*------------------------------GtEncodedsequence------------------------*/
+  Pointer gt_encodedsequence_new_from_files(
+      Pointer sfxprogress,   /* GtProgressTimer */
+      Pointer str_indexname,
+      Pointer str_smap,
+      Pointer str_sat,
+      Pointer filenametab,
+      int isdna,
+      int isprotein,
+      int isplain,
+      int outtistab,
+      int outdestab,
+      int outsdstab,
+      int outssptab,
+      Pointer logger,
+      Pointer err);
+
+  Pointer gt_encodedsequence_new_from_index(
+         int withrange,
+         Pointer indexname,
+         int withtistab,
+         int withdestab,
+         int withsdstab,
+         int withssptab,
+         Pointer logger,
+         Pointer err);
+  
+  void gt_encodedsequence_delete(Pointer encseq);
+  
+  /*------------------------------GtLTRdigestStream------------------------*/
+  Pointer gt_ltrdigest_stream_new(Pointer in_stream,
+      int tests_to_run, Pointer encseq, PBSOptions pbs_opts,
+      PPTOptions ppt_opts, PdomOptions pdom_opts, Pointer err_p);
+  
   /*------------------------------GtRange------------------------------*/
   NativeLong gt_range_length(Range rng);
 

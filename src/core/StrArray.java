@@ -64,6 +64,10 @@ public class StrArray {
       GT.INSTANCE.gt_str_array_add_cstr(this.str_array, cstr);
     }
   }
+  
+  public void add(String str) {
+    GT.INSTANCE.gt_str_array_add_cstr(this.str_array, str);
+  }
 
   public String[] to_a() {
     String[] arr = new String[this.length()];

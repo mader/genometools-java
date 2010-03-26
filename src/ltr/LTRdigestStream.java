@@ -20,49 +20,55 @@ package ltr;
 import java.io.File;
 import java.io.IOException;
 
-import com.sun.jna.Library;
-import com.sun.jna.Native;
 import com.sun.jna.Pointer;
-import com.sun.jna.ptr.PointerByReference;
 
 import core.GTerror;
 import core.GTerrorJava;
+import core.Logger;
 import core.Str;
+import core.StrArray;
 import extended.GenomeStream;
-import gtnative.GTunstable;
+import gtnative.GT;
 
 public class LTRdigestStream extends GenomeStream {
   private Pointer encodedseq;
-  private Pointer verboseinfo;
-  private Str indexname_str;
   private int tests_to_run = 0;
   private boolean disposed_extensions = true;
-  
-  private interface GTDynUnstable extends Library {
-    GTDynUnstable INSTANCE = (GTDynUnstable) Native.loadLibrary("gtunstable",
-        GTDynUnstable.class);
-
-    public int parseargsandcallsuffixerator(int doesa, int argc, String[] argv,
-        Pointer err);
-  }
 
   public LTRdigestStream(GenomeStream instream, String indexname,
       PBSOptions pbs_opts, PPTOptions ppt_opts, PdomOptions pdom_opts)
       throws GTerrorJava, IOException {
 
     GTerror err = new GTerror();
-    /* check if index already exists, if not: create it! */
-    File f = new File(indexname + ".prj");
-    if (!f.exists()) {
-      String[] argv = { "gt suffixerator", "-db", indexname, "-indexname",
-          indexname, "-tis", "-des", "-ssp", "-sds" };
-      int ret = GTDynUnstable.INSTANCE.parseargsandcallsuffixerator(1,
-          argv.length, argv, err.to_ptr());
-      if (ret < 0)
+    Logger l = new Logger(false, "# ");
+
+    Str str_indexname = new Str(indexname);
+    if (!((new File(indexname + ".prj")).exists())) {
+      Str smapfile = new Str(""), satfile = new Str("");
+      StrArray filenametab = new StrArray();
+      filenametab.add(indexname);
+      encodedseq = GT.INSTANCE.gt_encodedsequence_new_from_files(null,
+          str_indexname.to_ptr(), smapfile.to_ptr(), satfile.to_ptr(),
+          filenametab.to_ptr(), 1, /* isdna */
+          0, /* isprotein */
+          0, /* isplain */
+          1, /* withtistab */
+          1, /* withdestab */
+          1, /* withsdstab */
+          1, /* withssptab */
+          l.to_ptr(), err.to_ptr());
+      if (encodedseq == Pointer.NULL)
+        throw new GTerrorJava(err.get_err());
+    } else {
+      encodedseq = GT.INSTANCE.gt_encodedsequence_new_from_index(1,
+          str_indexname.to_ptr(), 1, /* withtistab */
+          1, /* withdestab */
+          1, /* withsdstab */
+          1, /* withssptab */
+          l.to_ptr(), err.to_ptr());
+      if (encodedseq == Pointer.NULL)
         throw new GTerrorJava(err.get_err());
     }
-
-    indexname_str = new Str(indexname);
 
     if (pdom_opts != null) {
       tests_to_run |= 4;
@@ -74,29 +80,10 @@ public class LTRdigestStream extends GenomeStream {
       tests_to_run |= 1;
     }
 
-    verboseinfo = GTunstable.INSTANCE.newverboseinfo(0);
-    if (verboseinfo == Pointer.NULL) {
-      throw new GTerrorJava("could not initialize verboseinfo");
-    }
-    encodedseq = GTunstable.INSTANCE.mapencodedsequence(1, // withrange
-        indexname_str.to_ptr(), // indexname
-        1, // withesqtab
-        1, // withdestab
-        1, // withsdstab
-        1, // withssptab
-        verboseinfo, err.to_ptr());
-    if (encodedseq == Pointer.NULL) {
-      throw new GTerrorJava(err.get_err());
-    }
-
-    genome_stream = GTunstable.INSTANCE.gt_ltrdigest_stream_new(instream
-        .to_ptr(), tests_to_run, encodedseq, pbs_opts, ppt_opts, pdom_opts, err
-        .to_ptr());
+    genome_stream = GT.INSTANCE.gt_ltrdigest_stream_new(instream.to_ptr(),
+        tests_to_run, encodedseq, pbs_opts, ppt_opts, pdom_opts, err.to_ptr());
     if (genome_stream == Pointer.NULL) {
-      PointerByReference vbi_pp = new PointerByReference(this.verboseinfo);
-      PointerByReference encseq_pp = new PointerByReference(this.encodedseq);
-      GTunstable.INSTANCE.freeverboseinfo(vbi_pp);
-      GTunstable.INSTANCE.encodedsequence_free(encseq_pp);
+      GT.INSTANCE.gt_encodedsequence_delete(encodedseq);
       disposed_extensions = false;
       throw new GTerrorJava(err.get_err());
     }
@@ -104,15 +91,12 @@ public class LTRdigestStream extends GenomeStream {
 
   public synchronized void dispose() {
     if (!disposed_extensions) {
-  	  PointerByReference vbi_pp = new PointerByReference(this.verboseinfo);
-      PointerByReference encseq_pp = new PointerByReference(this.encodedseq);
-      GTunstable.INSTANCE.freeverboseinfo(vbi_pp);
-      GTunstable.INSTANCE.encodedsequence_free(encseq_pp);
+      GT.INSTANCE.gt_encodedsequence_delete(encodedseq);
       disposed_extensions = true;
     }
     super.dispose();
   }
-  
+
   public void finalize() {
     dispose();
   }

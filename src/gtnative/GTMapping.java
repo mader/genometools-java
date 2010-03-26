@@ -17,6 +17,10 @@
 
 package gtnative;
 
+import ltr.PBSOptions;
+import ltr.PPTOptions;
+import ltr.PdomOptions;
+
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
@@ -291,6 +295,34 @@ public class GTMapping implements GT {
 
   public native void gt_str_array_delete(Pointer str_array);
 
+  /*------------------------------GtLogger------------------------------*/
+  public native Pointer gt_logger_new(int enabled, String prefix, Pointer target);
+
+  public native void gt_logger_enable(Pointer logger);
+
+  public native void gt_logger_disable(Pointer logger);
+
+  public native int gt_logger_enabled(Pointer logger);
+
+  public native void gt_logger_delete(Pointer logger);
+
+  /*------------------------------GtEncodedsequence------------------------*/
+  public native Pointer gt_encodedsequence_new_from_files(Pointer sfxprogress,
+      Pointer str_indexname, Pointer str_smap, Pointer str_sat, Pointer filenametab,
+      int isdna, int isprotein, int isplain, int outtistab, int outdestab,
+      int outsdstab, int outssptab, Pointer logger, Pointer err);
+
+  public native Pointer gt_encodedsequence_new_from_index(int withrange,
+      Pointer indexname, int withtistab, int withdestab, int withsdstab,
+      int withssptab, Pointer logger, Pointer err);
+
+  public native void gt_encodedsequence_delete(Pointer encseq);
+
+  /*------------------------------GtLTRdigestStream------------------------*/
+  public native Pointer gt_ltrdigest_stream_new(Pointer in_stream,
+      int tests_to_run, Pointer encseq, PBSOptions pbs_opts,
+      PPTOptions ppt_opts, PdomOptions pdom_opts, Pointer err_p);
+
   /*------------------------------Allocators------------------------------*/
   private static native void gt_lib_init();
 
@@ -314,7 +346,7 @@ public class GTMapping implements GT {
   /*------------------------------GtGenomeStream------------------------------*/
   public native int gt_node_stream_next(Pointer node_stream,
       PointerByReference genome_node, Pointer err);
-  
+
   public native void gt_node_stream_delete(Pointer node_stream);
 
   /*------------------------------GtGFF3InStream------------------------------*/
@@ -366,10 +398,9 @@ public class GTMapping implements GT {
 
   public native NativeLong gt_bioseq_get_sequence_length(Pointer bioseq,
       NativeLong idx);
-  
+
   public native void gt_bioseq_delete(Pointer bioseq_ptr);
-  
-  
+
   public GTMapping() {
     /* initialize globals in this library instance */
     synchronized (this) {
