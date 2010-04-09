@@ -34,15 +34,14 @@ public class LTRdigestStreamTest extends TestCase {
 
   @Before
   public void setUp() {
-    gff3filename = this.getClass().getResource(
-        "testdata/dmel_test_Run9_4.gff3").getPath();
+    gff3filename = this.getClass()
+        .getResource("testdata/dmel_test_Run9_4.gff3").getPath();
     indexname = this.getClass().getResource(
         "testdata/4_genomic_dmel_RELEASE3-1.FASTA.gz").getPath();
-    trnalibfile = this.getClass().getResource(
-        "testdata/Dm-tRNAs-uniq.fa").getPath();
-    arr = new String[1];
-    arr[0] = this.getClass().getResource("testdata/RVT_1_fs.hmm")
+    trnalibfile = this.getClass().getResource("testdata/Dm-tRNAs-uniq.fa")
         .getPath();
+    arr = new String[1];
+    arr[0] = this.getClass().getResource("testdata/RVT_1_fs.hmm").getPath();
   }
 
   @Test

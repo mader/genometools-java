@@ -37,7 +37,7 @@ public class LTRdigestStream extends GenomeStream {
 
   public LTRdigestStream(GenomeStream instream, String indexname,
       PBSOptions pbs_opts, PPTOptions ppt_opts, PdomOptions pdom_opts)
-      throws GTerrorJava, IOException {
+  throws GTerrorJava, IOException {
 
     GTerror err = new GTerror();
     Logger l = new Logger(false, "# ");
