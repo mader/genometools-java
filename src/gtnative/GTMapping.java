@@ -307,16 +307,89 @@ public class GTMapping implements GT {
   public native void gt_logger_delete(Pointer logger);
 
   /*------------------------------GtEncodedsequence------------------------*/
-  public native Pointer gt_encodedsequence_new_from_files(Pointer sfxprogress,
-      Pointer str_indexname, Pointer str_smap, Pointer str_sat, Pointer filenametab,
-      int isdna, int isprotein, int isplain, int outtistab, int outdestab,
-      int outsdstab, int outssptab, Pointer logger, Pointer err);
+  public native Pointer gt_encodedsequence_new_from_files(Pointer options,
+      Pointer err);
 
   public native Pointer gt_encodedsequence_new_from_index(int withrange,
-      Pointer indexname, int withtistab, int withdestab, int withsdstab,
-      int withssptab, Pointer logger, Pointer err);
+      Pointer options, Pointer err);
 
   public native void gt_encodedsequence_delete(Pointer encseq);
+
+  /*------------------------------GtEncodedsequenceOptions-------------------*/
+
+  public native Pointer gt_encodedsequence_options_new();
+
+  public native void gt_encodedsequence_options_set_progress_timer(Pointer o,
+      Pointer pt);
+
+  public native Pointer gt_encodedsequence_options_get_progress_timer(Pointer o);
+
+  public native void gt_encodedsequence_options_set_indexname(Pointer o,
+      Pointer indexname);
+
+  public native Pointer gt_encodedsequence_options_get_indexname(Pointer o);
+
+  public native void gt_encodedsequence_options_set_symbolmap_file(Pointer o,
+      Pointer smapfile);
+
+  public native Pointer gt_encodedsequence_options_get_symbolmap_file(Pointer o);
+
+  public native void gt_encodedsequence_options_set_access_type(Pointer o,
+      Pointer str_sat);
+
+  public native Pointer gt_encodedsequence_options_get_access_type(Pointer o);
+
+  public native void gt_encodedsequence_options_set_input_sequences(Pointer o,
+      Pointer filenametab);
+
+  public native Pointer gt_encodedsequence_options_get_input_sequences(Pointer o);
+
+  public native void gt_encodedsequence_options_set_input_dna(Pointer o);
+
+  public native int gt_encodedsequence_options_get_input_dna(Pointer o);
+
+  public native void gt_encodedsequence_options_set_input_protein(Pointer o);
+
+  public native int gt_encodedsequence_options_get_input_protein(Pointer o);
+
+  public native void gt_encodedsequence_options_set_input_plain(Pointer o);
+
+  public native int gt_encodedsequence_options_get_input_plain(Pointer o);
+
+  public native void gt_encodedsequence_options_enable_tis_table_usage(Pointer o);
+
+  public native void gt_encodedsequence_options_disable_tis_table_usage(
+      Pointer o);
+
+  public native int gt_encodedsequence_options_get_tis_table_usage(Pointer o);
+
+  public native void gt_encodedsequence_options_enable_des_table_usage(Pointer o);
+
+  public native void gt_encodedsequence_options_disable_des_table_usage(
+      Pointer o);
+
+  public native int gt_encodedsequence_options_get_des_table_usage(Pointer o);
+
+  public native void gt_encodedsequence_options_enable_sds_table_usage(Pointer o);
+
+  public native void gt_encodedsequence_options_disable_sds_table_usage(
+      Pointer o);
+
+  public native int gt_encodedsequence_options_get_sds_table_usage(Pointer o);
+
+  public native void gt_encodedsequence_options_enable_ssp_table_usage(Pointer o);
+
+  public native void gt_encodedsequence_options_disable_ssp_table_usage(
+      Pointer o);
+
+  public native int gt_encodedsequence_options_get_ssp_table_usage(Pointer o);
+
+  public native void gt_encodedsequence_options_set_logger(Pointer o,
+      Pointer logger);
+
+  public native Pointer gt_encodedsequence_options_get_logger(Pointer o);
+
+  public native void gt_encodedsequence_options_delete(Pointer o);
 
   /*------------------------------GtLTRdigestStream------------------------*/
   public native Pointer gt_ltrdigest_stream_new(Pointer in_stream,

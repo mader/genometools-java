@@ -312,39 +312,85 @@ public interface GT extends Library {
   void gt_logger_delete(Pointer logger);
 
   /*------------------------------GtEncodedsequence------------------------*/
-  Pointer gt_encodedsequence_new_from_files(
-      Pointer sfxprogress,   /* GtProgressTimer */
-      Pointer str_indexname,
-      Pointer str_smap,
-      Pointer str_sat,
-      Pointer filenametab,
-      int isdna,
-      int isprotein,
-      int isplain,
-      int outtistab,
-      int outdestab,
-      int outsdstab,
-      int outssptab,
-      Pointer logger,
+  Pointer gt_encodedsequence_new_from_files(Pointer options, Pointer err);
+
+  Pointer gt_encodedsequence_new_from_index(int withrange, Pointer options,
       Pointer err);
 
-  Pointer gt_encodedsequence_new_from_index(
-         int withrange,
-         Pointer indexname,
-         int withtistab,
-         int withdestab,
-         int withsdstab,
-         int withssptab,
-         Pointer logger,
-         Pointer err);
-  
   void gt_encodedsequence_delete(Pointer encseq);
-  
+
+  /*------------------------------GtEncodedsequenceOptions-------------------*/
+
+  Pointer gt_encodedsequence_options_new();
+
+  void gt_encodedsequence_options_set_progress_timer(Pointer o, Pointer pt);
+
+  Pointer gt_encodedsequence_options_get_progress_timer(Pointer o);
+
+  void gt_encodedsequence_options_set_indexname(Pointer o, Pointer indexname);
+
+  Pointer gt_encodedsequence_options_get_indexname(Pointer o);
+
+  void gt_encodedsequence_options_set_symbolmap_file(Pointer o, Pointer smapfile);
+
+  Pointer gt_encodedsequence_options_get_symbolmap_file(Pointer o);
+
+  void gt_encodedsequence_options_set_access_type(Pointer o, Pointer str_sat);
+
+  Pointer gt_encodedsequence_options_get_access_type(Pointer o);
+
+  void gt_encodedsequence_options_set_input_sequences(Pointer o,
+      Pointer filenametab);
+
+  Pointer gt_encodedsequence_options_get_input_sequences(Pointer o);
+
+  void gt_encodedsequence_options_set_input_dna(Pointer o);
+
+  int gt_encodedsequence_options_get_input_dna(Pointer o);
+
+  void gt_encodedsequence_options_set_input_protein(Pointer o);
+
+  int gt_encodedsequence_options_get_input_protein(Pointer o);
+
+  void gt_encodedsequence_options_set_input_plain(Pointer o);
+
+  int gt_encodedsequence_options_get_input_plain(Pointer o);
+
+  void gt_encodedsequence_options_enable_tis_table_usage(Pointer o);
+
+  void gt_encodedsequence_options_disable_tis_table_usage(Pointer o);
+
+  int gt_encodedsequence_options_get_tis_table_usage(Pointer o);
+
+  void gt_encodedsequence_options_enable_des_table_usage(Pointer o);
+
+  void gt_encodedsequence_options_disable_des_table_usage(Pointer o);
+
+  int gt_encodedsequence_options_get_des_table_usage(Pointer o);
+
+  void gt_encodedsequence_options_enable_sds_table_usage(Pointer o);
+
+  void gt_encodedsequence_options_disable_sds_table_usage(Pointer o);
+
+  int gt_encodedsequence_options_get_sds_table_usage(Pointer o);
+
+  void gt_encodedsequence_options_enable_ssp_table_usage(Pointer o);
+
+  void gt_encodedsequence_options_disable_ssp_table_usage(Pointer o);
+
+  int gt_encodedsequence_options_get_ssp_table_usage(Pointer o);
+
+  void gt_encodedsequence_options_set_logger(Pointer o, Pointer logger);
+
+  Pointer gt_encodedsequence_options_get_logger(Pointer o);
+
+  void gt_encodedsequence_options_delete(Pointer o);
+
   /*------------------------------GtLTRdigestStream------------------------*/
-  Pointer gt_ltrdigest_stream_new(Pointer in_stream,
-      int tests_to_run, Pointer encseq, PBSOptions pbs_opts,
-      PPTOptions ppt_opts, PdomOptions pdom_opts, Pointer err_p);
-  
+  Pointer gt_ltrdigest_stream_new(Pointer in_stream, int tests_to_run,
+      Pointer encseq, PBSOptions pbs_opts, PPTOptions ppt_opts,
+      PdomOptions pdom_opts, Pointer err_p);
+
   /*------------------------------GtRange------------------------------*/
   NativeLong gt_range_length(Range rng);
 
@@ -362,7 +408,7 @@ public interface GT extends Library {
       Pointer err);
 
   void gt_node_stream_delete(Pointer node_stream);
-  
+
   /*------------------------------GtGFF3InStream------------------------------*/
   Pointer gt_gff3_in_stream_new_sorted(String filename);
 
@@ -411,5 +457,5 @@ public interface GT extends Library {
   NativeLong gt_bioseq_get_sequence_length(Pointer bioseq, NativeLong idx);
 
   void gt_bioseq_delete(Pointer bioseq_ptr);
-  
+
 }

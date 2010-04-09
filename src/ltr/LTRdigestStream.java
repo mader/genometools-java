@@ -43,29 +43,26 @@ public class LTRdigestStream extends GenomeStream {
     Logger l = new Logger(false, "# ");
 
     Str str_indexname = new Str(indexname);
-    if (!((new File(indexname + ".prj")).exists())) {
-      Str smapfile = new Str(""), satfile = new Str("");
+    Pointer opts = GT.INSTANCE.gt_encodedsequence_options_new();
+    GT.INSTANCE.gt_encodedsequence_options_enable_tis_table_usage(opts);
+    GT.INSTANCE.gt_encodedsequence_options_enable_des_table_usage(opts);
+    GT.INSTANCE.gt_encodedsequence_options_enable_ssp_table_usage(opts);
+    GT.INSTANCE.gt_encodedsequence_options_enable_sds_table_usage(opts);
+    GT.INSTANCE.gt_encodedsequence_options_set_logger(opts, l.to_ptr());
+    GT.INSTANCE.gt_encodedsequence_options_set_indexname(opts, str_indexname.to_ptr());
+    if (!((new File(indexname + ".esq")).exists())) {
+      Str smapfile = new Str(""), sat = new Str("");
       StrArray filenametab = new StrArray();
       filenametab.add(indexname);
-      encodedseq = GT.INSTANCE.gt_encodedsequence_new_from_files(null,
-          str_indexname.to_ptr(), smapfile.to_ptr(), satfile.to_ptr(),
-          filenametab.to_ptr(), 1, /* isdna */
-          0, /* isprotein */
-          0, /* isplain */
-          1, /* withtistab */
-          1, /* withdestab */
-          1, /* withsdstab */
-          1, /* withssptab */
-          l.to_ptr(), err.to_ptr());
+      GT.INSTANCE.gt_encodedsequence_options_set_access_type(opts, sat.to_ptr());
+      GT.INSTANCE.gt_encodedsequence_options_set_symbolmap_file(opts, smapfile.to_ptr());
+      GT.INSTANCE.gt_encodedsequence_options_set_input_sequences(opts, filenametab.to_ptr());
+      GT.INSTANCE.gt_encodedsequence_options_set_input_dna(opts);
+      encodedseq = GT.INSTANCE.gt_encodedsequence_new_from_files(opts, err.to_ptr());
       if (encodedseq == Pointer.NULL)
         throw new GTerrorJava(err.get_err());
     } else {
-      encodedseq = GT.INSTANCE.gt_encodedsequence_new_from_index(1,
-          str_indexname.to_ptr(), 1, /* withtistab */
-          1, /* withdestab */
-          1, /* withsdstab */
-          1, /* withssptab */
-          l.to_ptr(), err.to_ptr());
+      encodedseq = GT.INSTANCE.gt_encodedsequence_new_from_index(1, opts, err.to_ptr());
       if (encodedseq == Pointer.NULL)
         throw new GTerrorJava(err.get_err());
     }
