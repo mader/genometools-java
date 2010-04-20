@@ -32,7 +32,7 @@ import com.sun.jna.ptr.PointerByReference;
 import core.Range;
 
 public interface GT extends Library {
-  public static final GT INSTANCE = new GTMapping();
+  public static final GT INSTANCE = GTMapping.getInstance();
 
   /*------------------------------GtGenomeNode------------------------------*/
   int gt_genome_node_accept(Pointer gn, Pointer gv, Pointer err);

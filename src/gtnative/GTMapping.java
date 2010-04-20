@@ -473,14 +473,21 @@ public class GTMapping implements GT {
       NativeLong idx);
 
   public native void gt_bioseq_delete(Pointer bioseq_ptr);
-
-  public GTMapping() {
-    /* initialize globals in this library instance */
-    synchronized (this) {
-      gt_lib_init();
-    }
+  
+  private static GTMapping instance = null;
+  
+  private GTMapping() {
+	  /* initialize globals in this library instance */
+	  gt_lib_init();
   }
-
+  
+  public synchronized static GTMapping getInstance(){
+	  if(instance == null){
+		  instance = new GTMapping();
+	  }
+	  return instance;
+  }
+  
   protected synchronized void finalize() {
     /* finalize globals in this library instance */
     gt_lib_clean();
