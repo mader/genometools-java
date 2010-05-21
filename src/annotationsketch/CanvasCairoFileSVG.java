@@ -23,8 +23,8 @@ import com.sun.jna.Pointer;
 import gtnative.GT;
 import core.GTerrorJava;
 
-public class CanvasCairoFile extends CanvasCairoBase{
-  public CanvasCairoFile(Style style, int width, int height,
+public class CanvasCairoFileSVG extends CanvasCairoBase {
+  public CanvasCairoFileSVG(Style style, int width, int height,
       ImageInfo image_info) throws GTerrorJava {
     NativeLong n_width = new NativeLong(width);
     NativeLong n_height = new NativeLong(height);
@@ -35,16 +35,17 @@ public class CanvasCairoFile extends CanvasCairoBase{
     } else {
       ii_ptr = image_info.to_ptr();
     }
-    canvas_ptr = GT.INSTANCE.gt_canvas_cairo_file_new(style.to_ptr(), GraphicsOutType.GT_GRAPHICS_PNG.toInt(),
-        n_width, n_height, ii_ptr);
+    canvas_ptr = GT.INSTANCE.gt_canvas_cairo_file_new(style.to_ptr(),
+        GraphicsOutType.GT_GRAPHICS_SVG.toInt(), n_width, n_height, ii_ptr);
     set_disposed(false);
   }
 
-  public CanvasCairoFile(Style style, int width, int height) {
+  public CanvasCairoFileSVG(Style style, int width, int height) {
     NativeLong n_width = new NativeLong(width);
     NativeLong n_height = new NativeLong(height);
-    canvas_ptr = GT.INSTANCE.gt_canvas_cairo_file_new(style.to_ptr(), GraphicsOutType.GT_GRAPHICS_PNG.toInt(),
-        n_width, n_height, Pointer.NULL);
+    canvas_ptr = GT.INSTANCE.gt_canvas_cairo_file_new(style.to_ptr(),
+        GraphicsOutType.GT_GRAPHICS_SVG.toInt(), n_width, n_height,
+        Pointer.NULL);
     set_disposed(false);
   }
 }
