@@ -32,12 +32,12 @@
   </target>
 
   <target name="compile_test" depends="compile" description="compile unit test classes">
-    <javac classpath="${classpath}:${LibDir}/jna.jar:${LibDir}/junit-4.7.jar" srcdir="${TestDir}/" destdir="${BinDir}" verbose="on"/>
+    <javac classpath="${classpath}:${LibDir}/jna.jar:${LibDir}/junit-4.8.2.jar" srcdir="${TestDir}/" destdir="${BinDir}" verbose="on"/>
   </target>
 
   <path id="test.classpath">
     <pathelement location="${BinDir}" />
-    <pathelement location="${LibDir}/junit-4.7.jar" />
+    <pathelement location="${LibDir}/junit-4.8.2.jar" />
     <fileset dir="${LibDir}">
       <include name="**/*.jar"/>
     </fileset>

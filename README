@@ -30,7 +30,7 @@ REQUIREMENTS
 - all GenomeTools requirements, e.g. cairo (http://cairographics.org) for
   AnnotationSketch.
 - the Java Native Access (JNA, https://jna.dev.java.net) jarfile in the
-  classpath (3.2.4 or later).
+  classpath (3.2.5 or later).
 - the ``ant'' tool to compile the source and the junit optional package
   for ant to run the unit tests
 
