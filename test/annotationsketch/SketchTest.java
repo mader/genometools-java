@@ -27,6 +27,7 @@ import static org.junit.Assert.*;
 
 import core.GTerrorJava;
 import core.Range;
+import core.Str;
 
 import extended.FeatureNode;
 
@@ -184,6 +185,48 @@ public class SketchTest {
       dia.set_track_selector_func(ts);
 
       Layout lay = new Layout(dia, 800, sty);
+      long height = lay.get_height();
+      ImageInfo ii = new ImageInfo();
+      CanvasCairoFile can = new CanvasCairoFile(sty, 800, (int) height, ii);
+      lay.sketch(can);
+      f = new File(tmpDir + File.separator + "test_sketch" + i + ".png");
+      if (f.exists())
+        f.delete();
+      can.to_file(tmpDir + File.separator + "test_sketch" + i + ".png");
+      assertTrue(f.exists());
+      assertTrue(f.length() > 0);
+      f.delete();
+      assertFalse(f.exists());
+      
+      dia.dispose();
+      lay.dispose();
+      ii.dispose();
+      can.dispose(); 
+    }
+    sty.dispose();  
+  }
+  
+  @Test
+  public void test_multi_sketch_serial2() throws GTerrorJava {
+    File f;
+    Style sty = new Style();
+    Range rng = new Range();
+    rng.set_start(1);
+    rng.set_end(1000);
+    int i;
+    OrderingFunction of = new OrderingFunction() {
+
+	@Override
+	public int orderFunction(Str str1, Str str2) {
+		return 1;
+	}
+    };
+
+    for (i = 0; i < 10; i++) {
+      Diagram dia = new Diagram(arr, rng, sty);
+
+      Layout lay = new Layout(dia, 800, sty);
+      lay.set_track_ordering_func(of);
       long height = lay.get_height();
       ImageInfo ii = new ImageInfo();
       CanvasCairoFile can = new CanvasCairoFile(sty, 800, (int) height, ii);

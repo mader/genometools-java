@@ -23,11 +23,17 @@ import com.sun.jna.Pointer;
 
 import core.GTerror;
 import core.GTerrorJava;
+import core.Str;
 import gtnative.GT;
+import gtnative.GT.TRACKORDERINGFUNC;
 
 public class Layout {
   protected Pointer layout_ptr;
   private boolean disposed;
+  @SuppressWarnings("unused")
+  private TRACKORDERINGFUNC tof;
+  @SuppressWarnings("unused")
+  private OrderingFunction of;
 
   public Layout(Diagram diagram, int width, Style style) throws GTerrorJava {
     GTerror err = new GTerror();
@@ -41,7 +47,33 @@ public class Layout {
     }
     disposed = false;
   }
-
+  
+  public void set_track_ordering_func(final OrderingFunction of) {
+	    TRACKORDERINGFUNC tof = new TRACKORDERINGFUNC() {
+		@Override
+		public NativeLong callback(Pointer str1_ptr, Pointer str2_ptr,
+				Pointer data_ptr) {
+			Str str1 = new Str(str1_ptr);
+			Str str2 = new Str(str2_ptr);
+			int i = 0;
+			try {
+		      i = of.orderFunction(str1, str2);
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		    }
+		    NativeLong order_long = new NativeLong(i);
+		    return order_long;
+		}
+	    };
+	    this.tof = tof;
+	    this.of = of;
+	    GT.INSTANCE.gt_layout_set_track_ordering_func(layout_ptr, tof);
+  }
+  
+  public void unset_track_ordering_func() {
+	    GT.INSTANCE.gt_layout_unset_track_ordering_func(layout_ptr);
+  }
+  
   public synchronized void dispose() {
     if (!disposed) {
       GT.INSTANCE.gt_layout_delete(layout_ptr);

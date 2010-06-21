@@ -69,6 +69,17 @@ public class StrTest
   }
 
   @Test
+  public void test_cmp_str()
+  {
+    Str s = new Str("ATATAT");
+    Str s2 = new Str("GCGCGC");
+    assertTrue(s.str_cmp(s2) < 0);
+    assertTrue(s2.str_cmp(s) > 0);
+    s.dispose();
+    s2.dispose();
+  }
+  
+  @Test
   public void testStrPointer()
   {
     Str s = new Str("ATATAT");

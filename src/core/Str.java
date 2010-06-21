@@ -68,6 +68,10 @@ public class Str {
     return GT.INSTANCE.gt_str_length(str_ptr).longValue();
   }
 
+  public int str_cmp(Str str){
+	  return GT.INSTANCE.gt_str_cmp(str_ptr, str.to_ptr());
+  }
+  
   public Pointer to_ptr() {
     return str_ptr;
   }

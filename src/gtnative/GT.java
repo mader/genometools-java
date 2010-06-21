@@ -98,6 +98,15 @@ public interface GT extends Library {
 
   NativeLong gt_layout_get_height(Pointer gt_lay_ptr);
 
+  void gt_layout_set_track_ordering_func(Pointer layout_ptr,
+          GT.TRACKORDERINGFUNC func);
+
+  void gt_layout_unset_track_ordering_func(Pointer layout_ptr);
+  
+  interface TRACKORDERINGFUNC extends Callback {
+    NativeLong callback(Pointer str1_ptr, Pointer str2_ptr, Pointer data_ptr);
+  }
+  
   int gt_layout_sketch(Pointer gt_lay_ptr, Pointer target_canvas, Pointer err);
 
   void gt_layout_delete(Pointer gt_lay_ptr);
@@ -287,6 +296,8 @@ public interface GT extends Library {
 
   NativeLong gt_str_length(Pointer str);
 
+  int gt_str_cmp(Pointer str1_ptr, Pointer str2_ptr);
+  
   void gt_str_delete(Pointer str);
 
   /*------------------------------GtStrArray------------------------------*/

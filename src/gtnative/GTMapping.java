@@ -99,6 +99,11 @@ public class GTMapping implements GT {
 
   public native NativeLong gt_layout_get_height(Pointer gt_lay_ptr);
 
+  public native void gt_layout_set_track_ordering_func(Pointer layout_ptr,
+		                                                 GT.TRACKORDERINGFUNC func);
+  
+  public native void gt_layout_unset_track_ordering_func(Pointer layout_ptr);
+  
   public native int gt_layout_sketch(Pointer gt_lay_ptr, Pointer target_canvas,
       Pointer err);
 
@@ -281,7 +286,9 @@ public class GTMapping implements GT {
   public native String gt_str_get(Pointer s);
 
   public native NativeLong gt_str_length(Pointer str);
-
+  
+  public native int gt_str_cmp(Pointer str1_ptr, Pointer str2_ptr);
+  
   public native void gt_str_delete(Pointer str);
 
   /*------------------------------GtStrArray------------------------------*/
