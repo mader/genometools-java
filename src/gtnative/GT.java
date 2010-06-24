@@ -104,7 +104,7 @@ public interface GT extends Library {
   void gt_layout_unset_track_ordering_func(Pointer layout_ptr);
   
   interface TRACKORDERINGFUNC extends Callback {
-    NativeLong callback(Pointer str1_ptr, Pointer str2_ptr, Pointer data_ptr);
+    NativeLong callback(String str1_ptr, String str2_ptr, Pointer data_ptr);
   }
   
   int gt_layout_sketch(Pointer gt_lay_ptr, Pointer target_canvas, Pointer err);

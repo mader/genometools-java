@@ -217,8 +217,8 @@ public class SketchTest {
     OrderingFunction of = new OrderingFunction() {
 
 	@Override
-	public int orderFunction(Str str1, Str str2) {
-		return 1;
+	public int cmp(String str1, String str2) {
+		return str1.compareTo(str2);
 	}
     };
 

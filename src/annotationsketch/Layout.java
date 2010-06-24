@@ -51,13 +51,11 @@ public class Layout {
   public void set_track_ordering_func(final OrderingFunction of) {
 	    TRACKORDERINGFUNC tof = new TRACKORDERINGFUNC() {
 		@Override
-		public NativeLong callback(Pointer str1_ptr, Pointer str2_ptr,
+		public NativeLong callback(String str1, String str2,
 				Pointer data_ptr) {
-			Str str1 = new Str(str1_ptr);
-			Str str2 = new Str(str2_ptr);
 			int i = 0;
 			try {
-		      i = of.orderFunction(str1, str2);
+		      i = of.cmp(str1, str2);
 		    } catch (Exception e) {
 		      e.printStackTrace();
 		    }
