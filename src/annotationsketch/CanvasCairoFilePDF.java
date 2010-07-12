@@ -21,6 +21,7 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 
 import gtnative.GT;
+import core.GTerror;
 import core.GTerrorJava;
 
 public class CanvasCairoFilePDF extends CanvasCairoBase {
@@ -28,6 +29,7 @@ public class CanvasCairoFilePDF extends CanvasCairoBase {
       ImageInfo image_info) throws GTerrorJava {
     NativeLong n_width = new NativeLong(width);
     NativeLong n_height = new NativeLong(height);
+    GTerror err = new GTerror();
     Pointer ii_ptr;
 
     if (image_info == null) {
@@ -36,16 +38,24 @@ public class CanvasCairoFilePDF extends CanvasCairoBase {
       ii_ptr = image_info.to_ptr();
     }
     canvas_ptr = GT.INSTANCE.gt_canvas_cairo_file_new(style.to_ptr(),
-        GraphicsOutType.GT_GRAPHICS_PDF.toInt(), n_width, n_height, ii_ptr);
+        GraphicsOutType.GT_GRAPHICS_PDF.toInt(), n_width, n_height, ii_ptr, err
+            .to_ptr());
+    if (canvas_ptr == Pointer.NULL && err.is_set()) {
+      throw new GTerrorJava(err.get_err());
+    }
     set_disposed(false);
   }
 
-  public CanvasCairoFilePDF(Style style, int width, int height) {
+  public CanvasCairoFilePDF(Style style, int width, int height) throws GTerrorJava {
     NativeLong n_width = new NativeLong(width);
     NativeLong n_height = new NativeLong(height);
+    GTerror err = new GTerror();
     canvas_ptr = GT.INSTANCE.gt_canvas_cairo_file_new(style.to_ptr(),
         GraphicsOutType.GT_GRAPHICS_PDF.toInt(), n_width, n_height,
-        Pointer.NULL);
+        Pointer.NULL, err.to_ptr());
+    if (canvas_ptr == Pointer.NULL && err.is_set()) {
+      throw new GTerrorJava(err.get_err());
+    }
     set_disposed(false);
   }
 }

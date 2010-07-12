@@ -13,17 +13,16 @@
   WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
   ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-*/
-
+ */
 
 package annotationsketch;
 
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
+import com.sun.jna.ptr.NativeLongByReference;
 
 import core.GTerror;
 import core.GTerrorJava;
-import core.Str;
 import gtnative.GT;
 import gtnative.GT.TRACKORDERINGFUNC;
 
@@ -47,38 +46,37 @@ public class Layout {
     }
     disposed = false;
   }
-  
+
   public void set_track_ordering_func(final OrderingFunction of) {
-	    TRACKORDERINGFUNC tof = new TRACKORDERINGFUNC() {
-		@Override
-		public NativeLong callback(String str1, String str2,
-				Pointer data_ptr) {
-			int i = 0;
-			try {
-		      i = of.cmp(str1, str2);
-		    } catch (Exception e) {
-		      e.printStackTrace();
-		    }
-		    NativeLong order_long = new NativeLong(i);
-		    return order_long;
-		}
-	    };
-	    this.tof = tof;
-	    this.of = of;
-	    GT.INSTANCE.gt_layout_set_track_ordering_func(layout_ptr, tof);
+    TRACKORDERINGFUNC tof = new TRACKORDERINGFUNC() {
+      @Override
+      public NativeLong callback(String str1, String str2, Pointer data_ptr) {
+        int i = 0;
+        try {
+          i = of.cmp(str1, str2);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+        NativeLong order_long = new NativeLong(i);
+        return order_long;
+      }
+    };
+    this.tof = tof;
+    this.of = of;
+    GT.INSTANCE.gt_layout_set_track_ordering_func(layout_ptr, tof);
   }
-  
+
   public void unset_track_ordering_func() {
-	    GT.INSTANCE.gt_layout_unset_track_ordering_func(layout_ptr);
+    GT.INSTANCE.gt_layout_unset_track_ordering_func(layout_ptr);
   }
-  
+
   public synchronized void dispose() {
     if (!disposed) {
       GT.INSTANCE.gt_layout_delete(layout_ptr);
       disposed = true;
     }
   }
-  
+
   protected void finalize() throws Throwable {
     try {
       if (!disposed) {
@@ -89,8 +87,14 @@ public class Layout {
     }
   }
 
-  public long get_height() {
-    return GT.INSTANCE.gt_layout_get_height(layout_ptr).longValue();
+  public long get_height() throws GTerrorJava {
+    NativeLongByReference result = new NativeLongByReference();
+    GTerror err = new GTerror();
+    int had_err = GT.INSTANCE.gt_layout_get_height(layout_ptr, result, err.to_ptr());
+    if (had_err < 0) {
+      throw new GTerrorJava(err.get_err()); 
+    }
+    return result.getValue().longValue();
   }
 
   public synchronized void sketch(Canvas canvas) throws GTerrorJava {

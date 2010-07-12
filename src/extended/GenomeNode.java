@@ -54,9 +54,7 @@ public class GenomeNode {
   }
   
   protected void finalize() {
-    if (!disposed) {
-      dispose();
-    }
+    
   }
 
   public Range get_range() {

@@ -26,6 +26,7 @@ import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.DoubleByReference;
 import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.ptr.NativeLongByReference;
 import com.sun.jna.ptr.PointerByReference;
 
 import core.Range;
@@ -97,13 +98,14 @@ public class GTMapping implements GT {
   public native Pointer gt_layout_new(Pointer diagram, NativeLong width,
       Pointer gt_style, Pointer err);
 
-  public native NativeLong gt_layout_get_height(Pointer gt_lay_ptr);
+  public native int gt_layout_get_height(Pointer gt_lay_ptr,
+      NativeLongByReference result, Pointer err);
 
   public native void gt_layout_set_track_ordering_func(Pointer layout_ptr,
-		                                                 GT.TRACKORDERINGFUNC func);
-  
+      GT.TRACKORDERINGFUNC func);
+
   public native void gt_layout_unset_track_ordering_func(Pointer layout_ptr);
-  
+
   public native int gt_layout_sketch(Pointer gt_lay_ptr, Pointer target_canvas,
       Pointer err);
 
@@ -145,7 +147,8 @@ public class GTMapping implements GT {
   public native void gt_block_delete(Pointer gt_block);
 
   public native Pointer gt_canvas_cairo_file_new(Pointer style,
-      int output_type, NativeLong width, NativeLong height, Pointer image_info);
+      int output_type, NativeLong width, NativeLong height, Pointer image_info,
+      Pointer err);
 
   public native int gt_canvas_cairo_file_to_file(Pointer canvas,
       String filename, Pointer err);
@@ -286,9 +289,9 @@ public class GTMapping implements GT {
   public native String gt_str_get(Pointer s);
 
   public native NativeLong gt_str_length(Pointer str);
-  
+
   public native int gt_str_cmp(Pointer str1_ptr, Pointer str2_ptr);
-  
+
   public native void gt_str_delete(Pointer str);
 
   /*------------------------------GtStrArray------------------------------*/
@@ -313,90 +316,194 @@ public class GTMapping implements GT {
 
   public native void gt_logger_delete(Pointer logger);
 
-  /*------------------------------GtEncodedsequence------------------------*/
-  public native Pointer gt_encodedsequence_new_from_files(Pointer options,
+  /*------------------------------GtEncseq------------------------------*/
+
+  public native NativeLong gt_encseq_total_length(Pointer encseq);
+
+  public native NativeLong gt_encseq_num_of_sequences(Pointer encseq);
+
+  public native char gt_encseq_get_encoded_char(Pointer encseq, NativeLong pos,
+      int readmode);
+
+  public native char gt_encseq_get_decoded_char(Pointer encseq, NativeLong pos,
+      int readmode);
+
+  public native Pointer gt_encseq_ref(Pointer encseq);
+
+  public native Pointer gt_encseq_create_reader_with_direction(Pointer encseq,
+      int moveforward, NativeLong startpos);
+
+  public native Pointer gt_encseq_create_reader_with_readmode(Pointer encseq,
+      int readmode, NativeLong startpos);
+
+  public native void gt_encseq_extract_substring(Pointer encseq,
+      Pointer buffer, NativeLong frompos, NativeLong topos);
+
+  public native void gt_encseq_extract_decoded(Pointer encseq, String buffer,
+      NativeLong frompos, NativeLong topos);
+
+  public native NativeLong gt_encseq_seqlength(Pointer encseq, NativeLong seqnum);
+
+  public native NativeLong gt_encseq_seqstartpos(Pointer encseq,
+      NativeLong seqnum);
+
+  public native NativeLong gt_encseq_seqnum(Pointer encseq, NativeLong position);
+
+  public native String gt_encseq_description(Pointer encseq, Pointer desclen,
+      NativeLong seqnum);
+
+  public native Pointer gt_encseq_alphabet(Pointer encseq);
+
+  public native Pointer gt_encseq_filenames(Pointer encseq);
+
+  public native NativeLong gt_encseq_num_of_files(Pointer encseq);
+
+  public native long gt_encseq_effective_filelength(Pointer encseq,
+      NativeLong filenum);
+
+  public native void gt_encseq_delete(Pointer encseq);
+
+  /*------------------------------GtEncseqReader------------------------------*/
+
+  public native void gt_encseq_reader_reinit_with_readmode(Pointer esr,
+      Pointer encseq, int readmode, NativeLong startpos);
+
+  public native void gt_encseq_reader_reinit_with_direction(Pointer esr,
+      Pointer encseq, int moveforward, NativeLong startpos);
+
+  public native char gt_encseq_reader_next_encoded_char(Pointer esr);
+
+  public native char gt_encseq_reader_next_decoded_char(Pointer esr);
+
+  public native void gt_encseq_reader_delete(Pointer esr);
+
+  /*------------------------------GtEncseqEncoder------------------------*/
+
+  public native Pointer gt_encseq_encoder_new();
+
+  public native void gt_encseq_encoder_set_progresstimer(Pointer ee, Pointer pt);
+
+  public native int gt_encseq_encoder_use_representation(Pointer ee,
+      String sat, Pointer err);
+
+  public native int gt_encseq_encoder_use_symbolmap_file(Pointer ee,
+      String smap, Pointer err);
+
+  public native void gt_encseq_encoder_set_logger(Pointer ee, Pointer l);
+
+  public native void gt_encseq_encoder_enable_description_support(Pointer ee);
+
+  public native void gt_encseq_encoder_disable_description_support(Pointer ee);
+
+  public native void gt_encseq_encoder_enable_multiseq_support(Pointer ee);
+
+  public native void gt_encseq_encoder_disable_multiseq_support(Pointer ee);
+
+  public native void gt_encseq_encoder_create_esq_tab(Pointer ee);
+
+  public native void gt_encseq_encoder_do_not_create_esq_tab(Pointer ee);
+
+  public native void gt_encseq_encoder_create_des_tab(Pointer ee);
+
+  public native void gt_encseq_encoder_do_not_create_des_tab(Pointer ee);
+
+  public native void gt_encseq_encoder_create_ssp_tab(Pointer ee);
+
+  public native void gt_encseq_encoder_do_not_create_ssp_tab(Pointer ee);
+
+  public native void gt_encseq_encoder_create_sds_tab(Pointer ee);
+
+  public native void gt_encseq_encoder_do_not_create_sds_tab(Pointer ee);
+
+  public native void gt_encseq_encoder_set_input_dna(Pointer ee);
+
+  public native void gt_encseq_encoder_set_input_protein(Pointer ee);
+
+  public native int gt_encseq_encoder_encode(Pointer ee, Pointer seqfiles,
+      String indexname, Pointer err);
+
+  public native void gt_encseq_encoder_delete(Pointer ee);
+
+  /*------------------------------GtEncseqLoader------------------------*/
+
+  public native Pointer gt_encseq_loader_new();
+
+  public native void gt_encseq_loader_require_description_support(Pointer el);
+
+  public native void gt_encseq_loader_drop_description_support(Pointer el);
+
+  public native void gt_encseq_loader_require_multiseq_support(Pointer el);
+
+  public native void gt_encseq_loader_drop_multiseq_support(Pointer el);
+
+  public native void gt_encseq_loader_require_esq_tab(Pointer el);
+
+  public native void gt_encseq_loader_do_not_require_esq_tab(Pointer el);
+
+  public native void gt_encseq_loader_require_des_tab(Pointer el);
+
+  public native void gt_encseq_loader_do_not_require_des_tab(Pointer el);
+
+  public native void gt_encseq_loader_require_ssp_tab(Pointer el);
+
+  public native void gt_encseq_loader_do_not_require_ssp_tab(Pointer el);
+
+  public native void gt_encseq_loader_require_sds_tab(Pointer el);
+
+  public native void gt_encseq_loader_do_not_require_sds_tab(Pointer el);
+
+  public native void gt_encseq_loader_enable_range_iterator(Pointer el);
+
+  public native void gt_encseq_loader_disable_range_iterator(Pointer el);
+
+  public native void gt_encseq_loader_set_logger(Pointer el, Pointer logger);
+
+  public native Pointer gt_encseq_loader_load(Pointer el, String indexname,
       Pointer err);
 
-  public native Pointer gt_encodedsequence_new_from_index(int withrange,
-      Pointer options, Pointer err);
+  public native void gt_encseq_loader_delete(Pointer el);
 
-  public native void gt_encodedsequence_delete(Pointer encseq);
+  /*------------------------------GtEncseqBuilder------------------------*/
 
-  /*------------------------------GtEncodedsequenceOptions-------------------*/
+  public native Pointer gt_encseq_builder_new(Pointer alpha);
 
-  public native Pointer gt_encodedsequence_options_new();
+  public native void gt_encseq_builder_enable_range_iterator(Pointer eb);
 
-  public native void gt_encodedsequence_options_set_progress_timer(Pointer o,
-      Pointer pt);
+  public native void gt_encseq_builder_disable_range_iterator(Pointer eb);
 
-  public native Pointer gt_encodedsequence_options_get_progress_timer(Pointer o);
+  public native void gt_encseq_builder_enable_description_support(Pointer eb);
 
-  public native void gt_encodedsequence_options_set_indexname(Pointer o,
-      Pointer indexname);
+  public native void gt_encseq_builder_disable_description_support(Pointer eb);
 
-  public native Pointer gt_encodedsequence_options_get_indexname(Pointer o);
+  public native void gt_encseq_builder_enable_multiseq_support(Pointer eb);
 
-  public native void gt_encodedsequence_options_set_symbolmap_file(Pointer o,
-      Pointer smapfile);
+  public native void gt_encseq_builder_disable_multiseq_support(Pointer eb);
 
-  public native Pointer gt_encodedsequence_options_get_symbolmap_file(Pointer o);
+  public native void gt_encseq_builder_create_des_tab(Pointer eb);
 
-  public native void gt_encodedsequence_options_set_access_type(Pointer o,
-      Pointer str_sat);
+  public native void gt_encseq_builder_do_not_create_des_tab(Pointer eb);
 
-  public native Pointer gt_encodedsequence_options_get_access_type(Pointer o);
+  public native void gt_encseq_builder_create_ssp_tab(Pointer eb);
 
-  public native void gt_encodedsequence_options_set_input_sequences(Pointer o,
-      Pointer filenametab);
+  public native void gt_encseq_builder_do_not_create_ssp_tab(Pointer eb);
 
-  public native Pointer gt_encodedsequence_options_get_input_sequences(Pointer o);
+  public native void gt_encseq_builder_create_sds_tab(Pointer eb);
 
-  public native void gt_encodedsequence_options_set_input_dna(Pointer o);
+  public native void gt_encseq_builder_do_not_create_sds_tab(Pointer eb);
 
-  public native int gt_encodedsequence_options_get_input_dna(Pointer o);
+  public native void gt_encseq_builder_add_cstr(Pointer eb, String str,
+      NativeLong strlen, String desc);
 
-  public native void gt_encodedsequence_options_set_input_protein(Pointer o);
+  public native void gt_encseq_builder_add_encoded(Pointer eb, char[] str,
+      NativeLong strlen, String desc);
 
-  public native int gt_encodedsequence_options_get_input_protein(Pointer o);
+  public native void gt_encseq_builder_set_logger(Pointer eb, Pointer logger);
 
-  public native void gt_encodedsequence_options_set_input_plain(Pointer o);
+  public native Pointer gt_encseq_builder_build(Pointer eb, Pointer err);
 
-  public native int gt_encodedsequence_options_get_input_plain(Pointer o);
+  public native void gt_encseq_builder_reset(Pointer eb);
 
-  public native void gt_encodedsequence_options_enable_tis_table_usage(Pointer o);
-
-  public native void gt_encodedsequence_options_disable_tis_table_usage(
-      Pointer o);
-
-  public native int gt_encodedsequence_options_get_tis_table_usage(Pointer o);
-
-  public native void gt_encodedsequence_options_enable_des_table_usage(Pointer o);
-
-  public native void gt_encodedsequence_options_disable_des_table_usage(
-      Pointer o);
-
-  public native int gt_encodedsequence_options_get_des_table_usage(Pointer o);
-
-  public native void gt_encodedsequence_options_enable_sds_table_usage(Pointer o);
-
-  public native void gt_encodedsequence_options_disable_sds_table_usage(
-      Pointer o);
-
-  public native int gt_encodedsequence_options_get_sds_table_usage(Pointer o);
-
-  public native void gt_encodedsequence_options_enable_ssp_table_usage(Pointer o);
-
-  public native void gt_encodedsequence_options_disable_ssp_table_usage(
-      Pointer o);
-
-  public native int gt_encodedsequence_options_get_ssp_table_usage(Pointer o);
-
-  public native void gt_encodedsequence_options_set_logger(Pointer o,
-      Pointer logger);
-
-  public native Pointer gt_encodedsequence_options_get_logger(Pointer o);
-
-  public native void gt_encodedsequence_options_delete(Pointer o);
+  public native void gt_encseq_builder_delete(Pointer eb);
 
   /*------------------------------GtLTRdigestStream------------------------*/
   public native Pointer gt_ltrdigest_stream_new(Pointer in_stream,
@@ -480,21 +587,21 @@ public class GTMapping implements GT {
       NativeLong idx);
 
   public native void gt_bioseq_delete(Pointer bioseq_ptr);
-  
+
   private static GTMapping instance = null;
-  
+
   private GTMapping() {
-	  /* initialize globals in this library instance */
-	  gt_lib_init();
+    /* initialize globals in this library instance */
+    gt_lib_init();
   }
-  
-  public synchronized static GTMapping getInstance(){
-	  if(instance == null){
-		  instance = new GTMapping();
-	  }
-	  return instance;
+
+  public synchronized static GTMapping getInstance() {
+    if (instance == null) {
+      instance = new GTMapping();
+    }
+    return instance;
   }
-  
+
   protected synchronized void finalize() {
     /* finalize globals in this library instance */
     gt_lib_clean();

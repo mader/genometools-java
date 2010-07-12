@@ -24,14 +24,12 @@ import com.sun.jna.Pointer;
 
 import core.GTerror;
 import core.GTerrorJava;
-import core.Logger;
-import core.Str;
 import core.StrArray;
 import extended.GenomeStream;
 import gtnative.GT;
 
 public class LTRdigestStream extends GenomeStream {
-  private Pointer encodedseq;
+  private Pointer encseq;
   private int tests_to_run = 0;
   private boolean disposed_extensions = true;
 
@@ -40,32 +38,19 @@ public class LTRdigestStream extends GenomeStream {
   throws GTerrorJava, IOException {
 
     GTerror err = new GTerror();
-    Logger l = new Logger(false, "# ");
-
-    Str str_indexname = new Str(indexname);
-    Pointer opts = GT.INSTANCE.gt_encodedsequence_options_new();
-    GT.INSTANCE.gt_encodedsequence_options_enable_tis_table_usage(opts);
-    GT.INSTANCE.gt_encodedsequence_options_enable_des_table_usage(opts);
-    GT.INSTANCE.gt_encodedsequence_options_enable_ssp_table_usage(opts);
-    GT.INSTANCE.gt_encodedsequence_options_enable_sds_table_usage(opts);
-    GT.INSTANCE.gt_encodedsequence_options_set_logger(opts, l.to_ptr());
-    GT.INSTANCE.gt_encodedsequence_options_set_indexname(opts, str_indexname.to_ptr());
     if (!((new File(indexname + ".esq")).exists())) {
-      Str smapfile = new Str(""), sat = new Str("");
       StrArray filenametab = new StrArray();
       filenametab.add(indexname);
-      GT.INSTANCE.gt_encodedsequence_options_set_access_type(opts, sat.to_ptr());
-      GT.INSTANCE.gt_encodedsequence_options_set_symbolmap_file(opts, smapfile.to_ptr());
-      GT.INSTANCE.gt_encodedsequence_options_set_input_sequences(opts, filenametab.to_ptr());
-      GT.INSTANCE.gt_encodedsequence_options_set_input_dna(opts);
-      encodedseq = GT.INSTANCE.gt_encodedsequence_new_from_files(opts, err.to_ptr());
-      if (encodedseq == Pointer.NULL)
-        throw new GTerrorJava(err.get_err());
-    } else {
-      encodedseq = GT.INSTANCE.gt_encodedsequence_new_from_index(1, opts, err.to_ptr());
-      if (encodedseq == Pointer.NULL)
-        throw new GTerrorJava(err.get_err());
+      Pointer encoder = GT.INSTANCE.gt_encseq_encoder_new();
+      GT.INSTANCE.gt_encseq_encoder_encode(encoder, filenametab.to_ptr(),
+          indexname, err.to_ptr());
+      GT.INSTANCE.gt_encseq_encoder_delete(encoder);
     }
+    Pointer ldr = GT.INSTANCE.gt_encseq_loader_new();
+    Pointer encseq = GT.INSTANCE.gt_encseq_loader_load(ldr, indexname, err
+        .to_ptr());
+    if (encseq == Pointer.NULL)
+      throw new GTerrorJava(err.get_err());
 
     if (pdom_opts != null) {
       tests_to_run |= 4;
@@ -78,9 +63,9 @@ public class LTRdigestStream extends GenomeStream {
     }
 
     genome_stream = GT.INSTANCE.gt_ltrdigest_stream_new(instream.to_ptr(),
-        tests_to_run, encodedseq, pbs_opts, ppt_opts, pdom_opts, err.to_ptr());
+        tests_to_run, encseq, pbs_opts, ppt_opts, pdom_opts, err.to_ptr());
     if (genome_stream == Pointer.NULL) {
-      GT.INSTANCE.gt_encodedsequence_delete(encodedseq);
+      GT.INSTANCE.gt_encseq_delete(encseq);
       disposed_extensions = false;
       throw new GTerrorJava(err.get_err());
     }
@@ -88,7 +73,7 @@ public class LTRdigestStream extends GenomeStream {
 
   public synchronized void dispose() {
     if (!disposed_extensions) {
-      GT.INSTANCE.gt_encodedsequence_delete(encodedseq);
+      GT.INSTANCE.gt_encseq_delete(encseq);
       disposed_extensions = true;
     }
     super.dispose();
