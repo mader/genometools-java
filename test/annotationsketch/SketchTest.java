@@ -27,8 +27,6 @@ import static org.junit.Assert.*;
 
 import core.GTerrorJava;
 import core.Range;
-import core.Str;
-
 import extended.FeatureNode;
 
 public class SketchTest {

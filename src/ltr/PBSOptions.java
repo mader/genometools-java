@@ -29,7 +29,7 @@ public class PBSOptions extends Structure {
   public int radius, max_edist;
   public Range alilen, offsetlen, trnaoffsetlen;
   public int ali_score_match, ali_score_mismatch, ali_score_insertion,
-      ali_score_deletion;
+  ali_score_deletion;
   public Pointer trna_lib;
 
   public PBSOptions(String trna_lib_file) throws GTerrorJava {
