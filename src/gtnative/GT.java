@@ -336,9 +336,6 @@ public interface GT extends Library {
 
   Pointer gt_encseq_ref(Pointer encseq);
 
-  Pointer gt_encseq_create_reader_with_direction(Pointer encseq,
-      int moveforward, NativeLong startpos);
-
   Pointer gt_encseq_create_reader_with_readmode(Pointer encseq, int readmode,
       NativeLong startpos);
 
@@ -371,9 +368,6 @@ public interface GT extends Library {
 
   void gt_encseq_reader_reinit_with_readmode(Pointer esr, Pointer encseq,
       int readmode, NativeLong startpos);
-
-  void gt_encseq_reader_reinit_with_direction(Pointer esr, Pointer encseq,
-      int moveforward, NativeLong startpos);
 
   char gt_encseq_reader_next_encoded_char(Pointer esr);
 
