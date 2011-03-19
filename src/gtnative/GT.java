@@ -448,10 +448,6 @@ public interface GT extends Library {
 
   void gt_encseq_loader_do_not_require_sds_tab(Pointer el);
 
-  void gt_encseq_loader_enable_range_iterator(Pointer el);
-
-  void gt_encseq_loader_disable_range_iterator(Pointer el);
-
   void gt_encseq_loader_set_logger(Pointer el, Pointer logger);
 
   Pointer gt_encseq_loader_load(Pointer el, String indexname, Pointer err);
@@ -461,10 +457,6 @@ public interface GT extends Library {
   /*------------------------------GtEncseqBuilder------------------------*/
 
   Pointer gt_encseq_builder_new(Pointer alpha);
-
-  void gt_encseq_builder_enable_range_iterator(Pointer eb);
-
-  void gt_encseq_builder_disable_range_iterator(Pointer eb);
 
   void gt_encseq_builder_enable_description_support(Pointer eb);
 

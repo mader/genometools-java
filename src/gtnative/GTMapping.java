@@ -446,10 +446,6 @@ public class GTMapping implements GT {
 
   public native void gt_encseq_loader_do_not_require_sds_tab(Pointer el);
 
-  public native void gt_encseq_loader_enable_range_iterator(Pointer el);
-
-  public native void gt_encseq_loader_disable_range_iterator(Pointer el);
-
   public native void gt_encseq_loader_set_logger(Pointer el, Pointer logger);
 
   public native Pointer gt_encseq_loader_load(Pointer el, String indexname,
@@ -460,10 +456,6 @@ public class GTMapping implements GT {
   /*------------------------------GtEncseqBuilder------------------------*/
 
   public native Pointer gt_encseq_builder_new(Pointer alpha);
-
-  public native void gt_encseq_builder_enable_range_iterator(Pointer eb);
-
-  public native void gt_encseq_builder_disable_range_iterator(Pointer eb);
 
   public native void gt_encseq_builder_enable_description_support(Pointer eb);
 
