@@ -1,7 +1,7 @@
 This directory contains the source code for the GenomeTools Java bindings.
 
-Copyright (c) 2009-2010 Philipp L. Carpus, Malte Mader, and Sascha Steinbiss
-Copyright (c) 2009-2010 Center for Bioinformatics, University of Hamburg
+Copyright (c) 2009-2011 Philipp L. Carpus, Malte Mader, and Sascha Steinbiss
+Copyright (c) 2009-2011 Center for Bioinformatics, University of Hamburg
 
 The GenomeTools genome analysis system (http://www.genometools.org) is a
 collection of bioinformatics tools (in the realm of genome informatics).
