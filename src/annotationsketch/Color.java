@@ -15,14 +15,56 @@
   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
-
 package annotationsketch;
 
 import com.sun.jna.Structure;
 
-public class Color extends Structure {
-  double red;
-  double green;
-  double blue;
-  double alpha;
+public class Color extends Structure{
+  public double red;
+  public double green;
+  public double blue;
+  public double alpha;
+  
+  public Color(){
+  }
+  
+  public Color(double red, double green, double blue, double alpha){
+	 this.red =  red;
+	 this.green = green;
+	 this.blue = blue;
+	 this.alpha = alpha;
+	 this.write();
+  }
+
+  public double getRed() {
+	return red;
+  }
+
+  public void setRed(double red) {
+	this.red = red;
+  }
+
+  public double getGreen() {
+	return green;
+  }
+
+  public void setGreen(double green) {
+	this.green = green;
+  }
+
+  public double getBlue() {
+	return blue;
+  }
+
+  public void setBlue(double blue) {
+	this.blue = blue;
+  }
+
+  public double getAlpha() {
+	return alpha;
+  }
+
+  public void setAlpha(double alpha) {
+	this.alpha = alpha;
+  }
 }
