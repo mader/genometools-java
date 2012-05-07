@@ -89,9 +89,9 @@ public interface GT extends Library {
 
   Pointer gt_feature_node_get_attribute_list(Pointer feature_node);
 
-  void gt_genome_node_mark(Pointer genome_node);
+  void gt_feature_node_mark(Pointer genome_node);
 
-  int gt_genome_node_is_marked(Pointer genome_node);
+  int gt_feature_node_is_marked(Pointer genome_node);
 
   /*------------------------------GtLayout------------------------------*/
   Pointer gt_layout_new(Pointer diagram, NativeLong width, Pointer gt_style,
@@ -339,9 +339,6 @@ public interface GT extends Library {
   Pointer gt_encseq_create_reader_with_readmode(Pointer encseq, int readmode,
       NativeLong startpos);
 
-  void gt_encseq_extract_substring(Pointer encseq, Pointer buffer,
-      NativeLong frompos, NativeLong topos);
-
   void gt_encseq_extract_decoded(Pointer encseq, String buffer,
       NativeLong frompos, NativeLong topos);
 
@@ -378,8 +375,6 @@ public interface GT extends Library {
   /*------------------------------GtEncseqEncoder------------------------*/
 
   Pointer gt_encseq_encoder_new();
-
-  void gt_encseq_encoder_set_progresstimer(Pointer ee, Pointer pt);
 
   int gt_encseq_encoder_use_representation(Pointer ee, String sat, Pointer err);
 

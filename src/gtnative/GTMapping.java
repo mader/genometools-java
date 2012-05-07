@@ -91,9 +91,9 @@ public class GTMapping implements GT {
 
   public native Pointer gt_feature_node_get_attribute_list(Pointer feature_node);
 
-  public native void gt_genome_node_mark(Pointer genome_node);
+  public native void gt_feature_node_mark(Pointer genome_node);
 
-  public native int gt_genome_node_is_marked(Pointer genome_node);
+  public native int gt_feature_node_is_marked(Pointer genome_node);
 
   public native Pointer gt_layout_new(Pointer diagram, NativeLong width,
       Pointer gt_style, Pointer err);
@@ -333,9 +333,6 @@ public class GTMapping implements GT {
   public native Pointer gt_encseq_create_reader_with_readmode(Pointer encseq,
       int readmode, NativeLong startpos);
 
-  public native void gt_encseq_extract_substring(Pointer encseq,
-      Pointer buffer, NativeLong frompos, NativeLong topos);
-
   public native void gt_encseq_extract_decoded(Pointer encseq, String buffer,
       NativeLong frompos, NativeLong topos);
 
@@ -374,8 +371,6 @@ public class GTMapping implements GT {
   /*------------------------------GtEncseqEncoder------------------------*/
 
   public native Pointer gt_encseq_encoder_new();
-
-  public native void gt_encseq_encoder_set_progresstimer(Pointer ee, Pointer pt);
 
   public native int gt_encseq_encoder_use_representation(Pointer ee,
       String sat, Pointer err);
