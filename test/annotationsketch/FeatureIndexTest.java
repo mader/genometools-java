@@ -65,12 +65,21 @@ public class FeatureIndexTest
   
   @Test
   public void test_get_first_seqid() {
-    assertTrue(fi.get_first_seqid().equals("foo"));
+    try {
+		assertTrue(fi.get_first_seqid().equals("foo"));
+	} catch (GTerrorJava e) {
+		e.printStackTrace();
+	}
   }
 
   @Test
   public void test_get_seqids() {
-   ArrayList<String> arr = fi.get_seqids();
+   ArrayList<String> arr = null;
+  try {
+	arr = fi.get_seqids();
+  } catch (GTerrorJava e) {
+	e.printStackTrace();
+  }
    assertTrue(arr.size() == 1);
    assertTrue(arr.get(0).equals("foo"));
   }
@@ -86,8 +95,12 @@ public class FeatureIndexTest
 
   @Test
   public void test_get_features_for_seqid() {
-    ArrayList<FeatureNode> nodes;
-    nodes = fi.get_features_for_seqid("foo");
+    ArrayList<FeatureNode> nodes = null;
+    try {
+		nodes = fi.get_features_for_seqid("foo");
+	} catch (GTerrorJava e) {
+		e.printStackTrace();
+	}
     assertTrue(nodes.size() == 2);
     assertTrue(nodes.size() == feats.size());
     // check mutual inclusion of both lists (set equality)
