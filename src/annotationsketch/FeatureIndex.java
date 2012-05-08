@@ -21,6 +21,7 @@ package annotationsketch;
 import java.util.ArrayList;
 import gtnative.GT;
 import com.sun.jna.Pointer;
+import com.sun.jna.Memory;
 import core.GTerror;
 import core.Array;
 import core.GTerrorJava;
@@ -35,23 +36,24 @@ public abstract class FeatureIndex {
   protected void set_disposed(boolean bool) {
     disposed = bool;
   }
-  
+
   public synchronized void dispose() {
     if(!disposed){
       GT.INSTANCE.gt_feature_index_delete(feat_index);
       disposed = true;
     }
   }
-  
+
   protected void finalize() throws Throwable {
     if(!disposed){
       dispose();
     }
   }
 
-  public ArrayList<FeatureNode> get_features_for_seqid(String seqid) {
+  public ArrayList<FeatureNode> get_features_for_seqid(String seqid) throws GTerrorJava {
+    GTerror err = new GTerror();
     Pointer rval = GT.INSTANCE.gt_feature_index_get_features_for_seqid(
-        this.feat_index, seqid);
+        this.feat_index, seqid, err.to_ptr());
     if (!(rval == null)) {
       Array a = new Array(rval);
       ArrayList<FeatureNode> results = new ArrayList<FeatureNode>();
@@ -60,14 +62,22 @@ public abstract class FeatureIndex {
         results.add(fn);
       }
       return results;
+    } else {
+      throw new GTerrorJava(err.get_err());
     }
-    return null;
   }
 
   public void add_feature_node(FeatureNode fn) throws GTerrorJava {
+    int rval = 0;
+    GTerror err = new GTerror();
     if (fn.to_ptr() == null)
       throw new GTerrorJava("feature node must not be NULL");
-    GT.INSTANCE.gt_feature_index_add_feature_node(this.feat_index, fn.to_ptr());
+    rval = GT.INSTANCE.gt_feature_index_add_feature_node(this.feat_index,
+                                                         fn.to_ptr(),
+                                                         err.to_ptr());
+    if (rval != 0) {
+      throw new GTerrorJava(err.get_err());
+    }
   }
 
   public void add_gff3file(String filename) throws GTerrorJava {
@@ -79,27 +89,54 @@ public abstract class FeatureIndex {
     }
   }
 
-  public String get_first_seqid() {
-    return GT.INSTANCE.gt_feature_index_get_first_seqid(this.feat_index);
+  public String get_first_seqid() throws GTerrorJava {
+    GTerror err = new GTerror();
+    String rval = GT.INSTANCE.gt_feature_index_get_first_seqid(this.feat_index,
+                                                               err.to_ptr());
+    if (rval == null) {
+      throw new GTerrorJava(err.get_err());
+    }
+    return rval;
   }
 
-  public ArrayList<String> get_seqids() {
+  public ArrayList<String> get_seqids() throws GTerrorJava {
     ArrayList<String> results = new ArrayList<String>();
+    GTerror err = new GTerror();
     StrArray stra = new StrArray(GT.INSTANCE
-        .gt_feature_index_get_seqids(this.feat_index));
+        .gt_feature_index_get_seqids(this.feat_index, err.to_ptr()));
+    if (stra == null) {
+      throw new GTerrorJava(err.get_err());
+    }
     for (int i = 0; i < stra.length(); i++) {
       results.add(stra.get(i));
     }
     return results;
   }
 
+  public boolean has_seqid(String seqid) throws GTerrorJava {
+    GTerror err = new GTerror();
+    Pointer ret = new Memory(4); /* sizeof (int) */
+    boolean out;
+    int rval = GT.INSTANCE.gt_feature_index_has_seqid(this.feat_index, ret,
+        seqid, err.to_ptr());
+    if (rval != 0) {
+      throw new GTerrorJava(err.get_err());
+    }
+    out = (ret.getInt(0) != 0);
+    return out;
+  }
+
   public Range get_range_for_seqid(String seqid) throws GTerrorJava {
-    if (GT.INSTANCE.gt_feature_index_has_seqid(this.feat_index, seqid) == 0) {
+    GTerror err = new GTerror();
+    if (!this.has_seqid(seqid)) {
       throw new GTerrorJava("FeatureIndex does not contain seqid");
     }
-    Range ran = new Range();
-    GT.INSTANCE.gt_feature_index_get_range_for_seqid(this.feat_index, ran,
-        seqid);
+    Range.ByReference ran = new Range.ByReference();
+    int rval = GT.INSTANCE.gt_feature_index_get_range_for_seqid(this.feat_index,
+        ran, seqid, err.to_ptr());
+    if (rval != 0) {
+      throw new GTerrorJava(err.get_err());
+    }
     return ran;
   }
 

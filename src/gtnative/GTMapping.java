@@ -162,23 +162,28 @@ public class GTMapping implements GT {
 
   public native void gt_feature_index_delete(Pointer fi);
 
-  public native void gt_feature_index_add_feature_node(Pointer feature_index,
-      Pointer feature_node);
+  public native int gt_feature_index_add_feature_node(Pointer feature_index,
+      Pointer feature_node, Pointer err);
+
+  public native int gt_feature_index_remove_node(Pointer feature_index,
+      Pointer feature_node, Pointer err);
 
   public native int gt_feature_index_add_gff3file(Pointer fi, String gff3file,
       Pointer err);
 
   public native Pointer gt_feature_index_get_features_for_seqid(Pointer fi,
-      String seqid);
+      String seqid, Pointer err);
 
-  public native String gt_feature_index_get_first_seqid(Pointer fi);
+  public native String gt_feature_index_get_first_seqid(Pointer fi,
+      Pointer err);
 
-  public native Pointer gt_feature_index_get_seqids(Pointer fi);
+  public native Pointer gt_feature_index_get_seqids(Pointer fi, Pointer err);
 
-  public native void gt_feature_index_get_range_for_seqid(Pointer fi,
-      Range rng, String seqid);
+  public native int gt_feature_index_get_range_for_seqid(Pointer fi,
+      Range.ByReference rng, String seqid, Pointer err);
 
-  public native int gt_feature_index_has_seqid(Pointer fi, String seqid);
+  public native int gt_feature_index_has_seqid(Pointer fi, Pointer has_seqid,
+      String seqid, Pointer err);
 
   /*------------------------------GtImageInfo------------------------------*/
   public native Pointer gt_image_info_new();

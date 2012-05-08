@@ -164,7 +164,8 @@ public interface GT extends Library {
   Pointer gt_canvas_cairo_file_new(Pointer style, int output_type,
       NativeLong width, NativeLong height, Pointer image_info, Pointer err);
 
-  int gt_canvas_cairo_file_to_file(Pointer canvas, String filename, Pointer err);
+  int gt_canvas_cairo_file_to_file(Pointer canvas, String filename,
+      Pointer err);
 
   void gt_canvas_delete(Pointer canvas);
 
@@ -176,20 +177,23 @@ public interface GT extends Library {
 
   void gt_feature_index_delete(Pointer fi);
 
-  void gt_feature_index_add_feature_node(Pointer feature_index,
-      Pointer feature_node);
+  int gt_feature_index_add_feature_node(Pointer feature_index,
+      Pointer feature_node, Pointer err);
 
   int gt_feature_index_add_gff3file(Pointer fi, String gff3file, Pointer err);
 
-  Pointer gt_feature_index_get_features_for_seqid(Pointer fi, String seqid);
+  Pointer gt_feature_index_get_features_for_seqid(Pointer fi, String seqid,
+      Pointer err);
 
-  String gt_feature_index_get_first_seqid(Pointer fi);
+  String gt_feature_index_get_first_seqid(Pointer fi, Pointer err);
 
-  Pointer gt_feature_index_get_seqids(Pointer fi);
+  Pointer gt_feature_index_get_seqids(Pointer fi, Pointer err);
 
-  void gt_feature_index_get_range_for_seqid(Pointer fi, Range rng, String seqid);
+  int gt_feature_index_get_range_for_seqid(Pointer fi, Range.ByReference rng,
+      String seqid, Pointer err);
 
-  int gt_feature_index_has_seqid(Pointer fi, String seqid);
+  int gt_feature_index_has_seqid(Pointer fi, Pointer has_seqid, String seqid,
+      Pointer err);
 
   /*------------------------------GtImageInfo------------------------------*/
   Pointer gt_image_info_new();

@@ -22,6 +22,8 @@ import com.sun.jna.*;
 import gtnative.*;
 
 public class Range extends Structure {
+  public static class ByReference extends Range implements Structure.ByReference { }
+
   public NativeLong start;
   public NativeLong end;
 
