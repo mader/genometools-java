@@ -46,7 +46,7 @@ public class GFF3InStreamTest {
     out.write(gffcontent);
     out.close();
   }
-  
+
   @Test
   public void test_in_stream() throws IOException, GTerrorJava {
     GFF3InStream i = new GFF3InStream(tmpfile.getCanonicalPath());
@@ -55,10 +55,9 @@ public class GFF3InStreamTest {
     while ((n = i.next_tree()) != null) {
       result_nodes.add(n);
     }
-    assertTrue(result_nodes.size() == 2);
-    
+    assertTrue(result_nodes.size() == 3);
+
     i.dispose();
-    
     for(int j=0; j < result_nodes.size(); j++){
         result_nodes.get(j).dispose();
      }
