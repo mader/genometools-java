@@ -62,6 +62,22 @@ public class Diagram {
     disposed = false;
   }
 
+  public Diagram(FeatureCollection feats, Range rng, Style sty)
+	      throws GTerrorJava {
+	    Pointer dia;
+	    if (rng.get_start() > rng.get_end()) {
+	      throw new GTerrorJava("range.start > range.end");
+	    }
+
+	    dia = GT.INSTANCE.gt_diagram_new_from_feature_collection(feats.to_ptr(), rng, sty.to_ptr());
+	    if (dia == null) {
+	      throw new GTerrorJava("Diagram pointer was NULL");
+	    } else {
+	      this.diagram_ptr = dia;
+	    }
+	    disposed = false;
+	  }
+  
   public Diagram(FeatureIndex feat_index, String seqid, Range ran, Style style)
       throws GTerrorJava {
     Pointer dia;

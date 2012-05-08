@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import gtnative.GT;
 import com.sun.jna.Pointer;
 import com.sun.jna.Memory;
+import com.sun.jna.TransparentPointer;
+
 import core.GTerror;
 import core.Array;
 import core.GTerrorJava;
@@ -29,10 +31,17 @@ import core.Range;
 import core.StrArray;
 import extended.FeatureNode;
 
-public abstract class FeatureIndex {
+public class FeatureIndex {
   protected Pointer feat_index;
   private boolean disposed;
 
+  public FeatureIndex(Pointer fi_ptr) {
+	    synchronized (this) {
+	      feat_index = new TransparentPointer(fi_ptr);
+	    }
+	    disposed = false;
+	  }
+  
   protected void set_disposed(boolean bool) {
     disposed = bool;
   }

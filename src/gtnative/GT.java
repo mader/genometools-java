@@ -35,6 +35,14 @@ import core.Range;
 public interface GT extends Library {
   public static final GT INSTANCE = GTMapping.getInstance();
 
+  /*------------------------------RDB------------------------------*/
+  
+  void gt_rdb_delete(Pointer db);
+  
+  Pointer gt_rdb_mysql_new(String server, int port,
+          String database, String username,
+          String password, Pointer err);
+  
   /*------------------------------GtGenomeNode------------------------------*/
   int gt_genome_node_accept(Pointer gn, Pointer gv, Pointer err);
 
@@ -120,6 +128,10 @@ public interface GT extends Library {
   Pointer gt_diagram_new_from_array(Pointer gt_array, Range gt_range,
       Pointer gt_style);
 
+  Pointer gt_diagram_new_from_feature_collection(Pointer features,
+          Range range,
+          Pointer style);
+  
   void gt_diagram_set_track_selector_func(Pointer gt_diagram, TRACKSELECTOR func);
 
   void gt_diagram_reset_track_selector_func(Pointer diagram_ptr);
@@ -150,7 +162,7 @@ public interface GT extends Library {
 
   Pointer gt_block_clone(Pointer gt_block);
 
-  void gt_block_set_strand(Pointer gt_block, int i);
+  void gt_block_set_strand(Pointer Pointergt_block, int i);
 
   Pointer gt_block_get_top_level_feature(Pointer gt_block);
 
@@ -317,6 +329,66 @@ public interface GT extends Library {
 
   void gt_str_array_delete(Pointer str_array);
 
+  /*------------------------------GtFeatureCollection------------------------------*/
+  
+  Pointer gt_feature_collection_new();
+  
+  Pointer gt_feature_collection_new_from_array(Pointer array);
+  
+  void gt_feature_collection_add(Pointer fc, Pointer gn);
+  
+  void gt_feature_collection_add_array(Pointer fc, Pointer array);
+  
+  Pointer gt_feature_collection_get(Pointer fc, int index);
+  
+  NativeLong gt_feature_collection_size(Pointer fc);
+  
+  Pointer gt_feature_collection_to_array(Pointer fc);
+  
+  void gt_feature_collection_delete(Pointer fc);
+  
+  /*------------------------------GtAnnoDB------------------------------*/
+  
+  void gt_anno_db_schema_delete(Pointer schema);
+  
+  Pointer gt_anno_db_schema_get_feature_index(Pointer schema,
+          Pointer db, Pointer err);
+  
+  Pointer gt_anno_db_ensembl_new();
+  
+  int gt_feature_index_ensembl_get_feature_for_gene_name(Pointer gfi, Pointer gn, String gene_name, Pointer err);
+  
+  int gt_feature_index_ensembl_get_feature_for_stable_id(Pointer gfi, Pointer gn, String stable_id, Pointer err);
+  
+  int gt_feature_index_ensembl_get_range_for_karyoband(Pointer gfi, Pointer range, String chr, String band, Pointer err);
+  
+  int gt_feature_index_ensembl_get_karyoband_features_for_range(Pointer gfi, Pointer results, String seqid, Range qry_range, Pointer err);
+  
+  Pointer gt_anno_db_fo_new();
+  
+  int gt_feature_index_fo_get_segments_for_range(Pointer gfi,
+                                                      Pointer results,
+                                                      String track_id,
+                                                      String seqid,
+                                                      Range qry_range,
+                                                      double lower_th,
+  										            double upper_th,
+  										            Pointer project_filter,
+  										            Pointer organ_filter,
+  										            Pointer experiment_filter,
+                                                      Pointer err);
+                                                      
+  int gt_feature_index_fo_get_maximal_overlapping_segment_range(Pointer gfi,
+                                                      String seqid,
+                                                      Range qry_range,
+                                                      Range max_range,
+                                                      double lower_th,
+  										            double upper_th,
+  										            Pointer project_filter,
+  										            Pointer organ_filter,
+  										            Pointer experiment_filter,
+                                                      Pointer err);
+  
   /*------------------------------GtLogger------------------------------*/
   Pointer gt_logger_new(int enabled, String prefix, Pointer target);
 

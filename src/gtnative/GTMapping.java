@@ -36,6 +36,16 @@ public class GTMapping implements GT {
     Native.register("genometools");
   }
 
+  /*------------------------------RDB------------------------------*/
+  
+  public native void gt_rdb_delete(Pointer db);
+  
+  public native Pointer gt_rdb_mysql_new(String server, int port,
+          String database, String username,
+          String password, Pointer err);
+  
+  /*------------------------------other stuff------------------------------*/
+  
   public native int gt_genome_node_accept(Pointer gn, Pointer gv, Pointer err);
 
   public native Pointer gt_genome_node_ref(Pointer gn);
@@ -117,6 +127,10 @@ public class GTMapping implements GT {
   public native Pointer gt_diagram_new_from_array(Pointer gt_array,
       Range gt_range, Pointer gt_style);
 
+  public native Pointer gt_diagram_new_from_feature_collection(Pointer features,
+          Range range,
+          Pointer style);
+  
   public native void gt_diagram_set_track_selector_func(Pointer gt_diagram,
       GT.TRACKSELECTOR func);
 
@@ -310,6 +324,66 @@ public class GTMapping implements GT {
 
   public native void gt_str_array_delete(Pointer str_array);
 
+/*------------------------------GtFeatureCollection------------------------------*/
+  
+  public native Pointer gt_feature_collection_new();
+  
+  public native Pointer gt_feature_collection_new_from_array(Pointer array);
+  
+  public native void gt_feature_collection_add(Pointer fc, Pointer gn);
+  
+  public native void gt_feature_collection_add_array(Pointer fc, Pointer array);
+  
+  public native Pointer gt_feature_collection_get(Pointer fc, int index);
+  
+  public native NativeLong gt_feature_collection_size(Pointer fc);
+  
+  public native Pointer gt_feature_collection_to_array(Pointer fc);
+  
+  public native void gt_feature_collection_delete(Pointer fc);
+  
+ /*------------------------------GtAnnoDB------------------------------*/
+  
+  public native void gt_anno_db_schema_delete(Pointer schema);
+  
+  public native  Pointer gt_anno_db_schema_get_feature_index(Pointer schema,
+          Pointer db, Pointer err);
+  
+  public native Pointer gt_anno_db_ensembl_new();
+  
+  public native int gt_feature_index_ensembl_get_feature_for_gene_name(Pointer gfi, Pointer gn, String gene_name, Pointer err);
+  
+  public native int gt_feature_index_ensembl_get_feature_for_stable_id(Pointer gfi, Pointer gn, String stable_id, Pointer err);
+  
+  public native int gt_feature_index_ensembl_get_range_for_karyoband(Pointer gfi, Pointer range, String chr, String band, Pointer err);
+  
+  public native int gt_feature_index_ensembl_get_karyoband_features_for_range(Pointer gfi, Pointer results, String seqid, Range qry_range, Pointer err);
+  
+  public native Pointer gt_anno_db_fo_new();
+  
+  public native int gt_feature_index_fo_get_segments_for_range(Pointer gfi,
+          Pointer results,
+          String track_id,
+          String seqid,
+          Range qry_range,
+          double lower_th,
+          double upper_th,
+          Pointer project_filter,
+          Pointer organ_filter,
+          Pointer experiment_filter,
+          Pointer err);
+          
+  public native int gt_feature_index_fo_get_maximal_overlapping_segment_range(Pointer gfi,
+          String seqid,
+          Range qry_range,
+          Range max_range,
+          double lower_th,
+          double upper_th,
+          Pointer project_filter,
+          Pointer organ_filter,
+          Pointer experiment_filter,
+          Pointer err);
+  
   /*------------------------------GtLogger------------------------------*/
   public native Pointer gt_logger_new(int enabled, String prefix, Pointer target);
 

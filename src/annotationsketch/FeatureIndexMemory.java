@@ -29,9 +29,7 @@ import extended.FeatureNode;
 public class FeatureIndexMemory extends FeatureIndex {
 
   public FeatureIndexMemory() {
-    synchronized (this) {
-      feat_index = GT.INSTANCE.gt_feature_index_memory_new();
-    }
+    super(GT.INSTANCE.gt_feature_index_memory_new());
     set_disposed(false);
   }
 
