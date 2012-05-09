@@ -351,11 +351,17 @@ public class GTMapping implements GT {
   
   public native Pointer gt_anno_db_ensembl_new();
   
-  public native int gt_feature_index_ensembl_get_feature_for_gene_name(Pointer gfi, Pointer gn, String gene_name, Pointer err);
+  public native int gt_feature_index_ensembl_get_features_for_range(Pointer gfi,
+          Pointer results,
+          String seqid,
+          Range qry_range,
+          Pointer err);
+  
+  public native int gt_feature_index_ensembl_get_feature_for_gene_name(Pointer gfi, PointerByReference gn, String gene_name, Pointer err);
   
   public native int gt_feature_index_ensembl_get_feature_for_stable_id(Pointer gfi, Pointer gn, String stable_id, Pointer err);
   
-  public native int gt_feature_index_ensembl_get_range_for_karyoband(Pointer gfi, Pointer range, String chr, String band, Pointer err);
+  public native int gt_feature_index_ensembl_get_range_for_karyoband(Pointer gfi, Range range, String chr, String band, Pointer err);
   
   public native int gt_feature_index_ensembl_get_karyoband_features_for_range(Pointer gfi, Pointer results, String seqid, Range qry_range, Pointer err);
   
@@ -368,9 +374,12 @@ public class GTMapping implements GT {
           Range qry_range,
           double lower_th,
           double upper_th,
-          Pointer project_filter,
-          Pointer organ_filter,
-          Pointer experiment_filter,
+          int[] project_filter,
+          int plength,
+          int[] organ_filter,
+          int olength,
+          int[] experiment_filter,
+          int elength,
           Pointer err);
           
   public native int gt_feature_index_fo_get_maximal_overlapping_segment_range(Pointer gfi,
@@ -379,9 +388,12 @@ public class GTMapping implements GT {
           Range max_range,
           double lower_th,
           double upper_th,
-          Pointer project_filter,
-          Pointer organ_filter,
-          Pointer experiment_filter,
+          int[] project_filter,
+          int plength,
+          int[] organ_filter,
+          int olength,
+          int[] experiment_filter,
+          int elength,
           Pointer err);
   
   /*------------------------------GtLogger------------------------------*/

@@ -18,7 +18,10 @@ public abstract class AnnoDBSchema {
 	
 	public FeatureIndex gt_anno_db_schema_get_feature_index(RDB db) {
 		 GTerror err = new GTerror();
-		return new FeatureIndex(GT.INSTANCE.gt_anno_db_schema_get_feature_index(this.adb_ptr, db.to_ptr(), err.to_ptr()));
+		 
+		 Pointer fi = GT.INSTANCE.gt_anno_db_schema_get_feature_index(this.adb_ptr, db.to_ptr(), err.to_ptr());
+		 
+		return new FeatureIndex(fi);
 	}
 	
 	public synchronized void delete() {

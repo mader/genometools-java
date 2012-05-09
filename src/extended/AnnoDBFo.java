@@ -9,7 +9,7 @@ import annotationsketch.FeatureIndex;
 public class AnnoDBFo extends AnnoDBSchema {
 
 	public AnnoDBFo() {
-		super.adb_ptr = GT.INSTANCE.gt_anno_db_ensembl_new();
+		super.adb_ptr = GT.INSTANCE.gt_anno_db_fo_new();
 	}
 	
 	public int gt_feature_index_fo_get_segments_for_range(FeatureIndex gfi,
@@ -19,21 +19,32 @@ public class AnnoDBFo extends AnnoDBSchema {
 	                                                    Range qryRange,
 	                                                    double lowerTh,
 											            double upperTh,
-											            Array projectFilter,
-											            Array organFilter,
-											            Array experimentFilter,
-	                                                    GTerror err){
-		return GT.INSTANCE.gt_feature_index_fo_get_segments_for_range(gfi.to_ptr(),
+											            int[] projectFilter,
+											            int plength,
+											            int[] organFilter,
+											            int olength,
+											            int[] experimentFilter,
+											            int elength){
+		
+		GTerror err = new GTerror();
+		
+		GT.INSTANCE.gt_feature_index_fo_get_segments_for_range(gfi.to_ptr(),
 				results.to_ptr(),
 				trackId,
 				seqid,
 				qryRange,
 				lowerTh,
 				upperTh,
-				projectFilter.to_ptr(),
-				organFilter.to_ptr(),
-				experimentFilter.to_ptr(),
+				projectFilter,
+				plength,
+				organFilter,
+				olength,
+				experimentFilter,
+				elength,
 				err.to_ptr());
+		
+		return 0;
+		
 	}
 	                                                    
 	public int gt_feature_fo_index_get_maximal_overlapping_segment_range(FeatureIndex gfi,
@@ -42,9 +53,12 @@ public class AnnoDBFo extends AnnoDBSchema {
 	                                                    Range maxRange,
 	                                                    double lowerTh,
 											            double upperTh,
-											            Array projectFilter,
-											            Array organFilter,
-											            Array experimentFilter,
+											            int[] projectFilter,
+											            int plength,
+											            int[] organFilter,
+											            int olength,
+											            int[] experimentFilter,
+											            int elength,
 	                                                    GTerror err) {
 		
 		return GT.INSTANCE.gt_feature_index_fo_get_maximal_overlapping_segment_range(gfi.to_ptr(),
@@ -53,9 +67,12 @@ public class AnnoDBFo extends AnnoDBSchema {
 				maxRange,
 				lowerTh,
 				upperTh,
-				projectFilter.to_ptr(),
-				organFilter.to_ptr(),
-				experimentFilter.to_ptr(),
+				projectFilter,
+				plength,
+				organFilter,
+				olength,
+				experimentFilter,
+				elength,
 				err.to_ptr());
 	}
 }

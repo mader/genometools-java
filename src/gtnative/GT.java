@@ -356,11 +356,17 @@ public interface GT extends Library {
   
   Pointer gt_anno_db_ensembl_new();
   
-  int gt_feature_index_ensembl_get_feature_for_gene_name(Pointer gfi, Pointer gn, String gene_name, Pointer err);
+  int gt_feature_index_ensembl_get_features_for_range(Pointer gfi,
+          Pointer results,
+          String seqid,
+          Range qry_range,
+          Pointer err);
+  
+  int gt_feature_index_ensembl_get_feature_for_gene_name(Pointer gfi, PointerByReference gn, String gene_name, Pointer err);
   
   int gt_feature_index_ensembl_get_feature_for_stable_id(Pointer gfi, Pointer gn, String stable_id, Pointer err);
   
-  int gt_feature_index_ensembl_get_range_for_karyoband(Pointer gfi, Pointer range, String chr, String band, Pointer err);
+  int gt_feature_index_ensembl_get_range_for_karyoband(Pointer gfi, Range range, String chr, String band, Pointer err);
   
   int gt_feature_index_ensembl_get_karyoband_features_for_range(Pointer gfi, Pointer results, String seqid, Range qry_range, Pointer err);
   
@@ -372,10 +378,13 @@ public interface GT extends Library {
                                                       String seqid,
                                                       Range qry_range,
                                                       double lower_th,
-  										            double upper_th,
-  										            Pointer project_filter,
-  										            Pointer organ_filter,
-  										            Pointer experiment_filter,
+  										              double upper_th,
+  										              int[] project_filter,
+  										              int plength,
+  										              int[] organ_filter,
+  										              int olength,
+  										              int[] experiment_filter,
+  										              int elength,
                                                       Pointer err);
                                                       
   int gt_feature_index_fo_get_maximal_overlapping_segment_range(Pointer gfi,
@@ -383,10 +392,13 @@ public interface GT extends Library {
                                                       Range qry_range,
                                                       Range max_range,
                                                       double lower_th,
-  										            double upper_th,
-  										            Pointer project_filter,
-  										            Pointer organ_filter,
-  										            Pointer experiment_filter,
+  										              double upper_th,
+  										              int[] project_filter,
+  										              int plength,
+  										              int[] organ_filter,
+  										              int olength,
+  										              int[] experiment_filter,
+  										              int elength,
                                                       Pointer err);
   
   /*------------------------------GtLogger------------------------------*/

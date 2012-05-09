@@ -17,6 +17,9 @@
 
 package extended;
 
+import com.sun.jna.Pointer;
+import com.sun.jna.ptr.PointerByReference;
+
 import gtnative.GT;
 import annotationsketch.FeatureIndex;
 import core.Array;
@@ -30,8 +33,26 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		super.adb_ptr = GT.INSTANCE.gt_anno_db_ensembl_new();
 	}
 
-	public int getFeatureForGeneName(FeatureIndex gfi, GenomeNode gn, String geneName, GTerror err){
-		return GT.INSTANCE.gt_feature_index_ensembl_get_feature_for_gene_name(gfi.to_ptr(), gn.to_ptr(), geneName, err.to_ptr());
+	public Array getFeaturesForRange(FeatureIndex fis, String seqid, Range qryRange){
+		
+		Array results = new Array(Pointer.SIZE);
+		
+		GTerror err = new GTerror();
+		
+		GT.INSTANCE.gt_feature_index_ensembl_get_features_for_range(fis.to_ptr(), results.to_ptr(), seqid, qryRange, err.to_ptr());
+		
+		return results;
+	}
+	
+	public FeatureNode getFeatureForGeneName(FeatureIndex gfi, String geneName){
+		
+		GTerror err = new GTerror();
+		
+		PointerByReference gn_ptr = new PointerByReference();
+		
+		GT.INSTANCE.gt_feature_index_ensembl_get_feature_for_gene_name(gfi.to_ptr(), gn_ptr, geneName, err.to_ptr());
+		
+		return new FeatureNode(gn_ptr.getValue());
 	}
 	
 	public int getFeatureForStableId(FeatureIndex gfi, GenomeNode gn, String stableId, GTerror err){
@@ -42,13 +63,20 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		
 		GTerror err = new GTerror();
 		Range r = new Range();
-		GT.INSTANCE.gt_feature_index_ensembl_get_range_for_karyoband(gfi.to_ptr(), r.getPointer(), chr, band, err.to_ptr());
+		GT.INSTANCE.gt_feature_index_ensembl_get_range_for_karyoband(gfi.to_ptr(), r, chr, band, err.to_ptr());
 		
 		return r;
 	}
 	
-	public int getKaryobandFeaturesForRange(FeatureIndex gfi, Array results, String seqid, Range qryRange, GTerror err){
-		return GT.INSTANCE.gt_feature_index_ensembl_get_karyoband_features_for_range(gfi.to_ptr(), results.to_ptr(), seqid,
+	public Array getKaryobandFeaturesForRange(FeatureIndex gfi, String seqid, Range qryRange){
+		
+		Array results = new Array(Pointer.SIZE);
+		
+		GTerror err = new GTerror();
+		
+		GT.INSTANCE.gt_feature_index_ensembl_get_karyoband_features_for_range(gfi.to_ptr(), results.to_ptr(), seqid,
 				qryRange, err.to_ptr());
+		
+		return results;
 	}
 }
