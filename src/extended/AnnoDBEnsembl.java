@@ -55,8 +55,15 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		return new FeatureNode(gn_ptr.getValue());
 	}
 	
-	public int getFeatureForStableId(FeatureIndex gfi, GenomeNode gn, String stableId, GTerror err){
-		return GT.INSTANCE.gt_feature_index_ensembl_get_feature_for_stable_id(gfi.to_ptr(), gn.to_ptr(), stableId, err.to_ptr());
+	public FeatureNode getFeatureForStableId(FeatureIndex gfi, String stableId){
+		
+		GTerror err = new GTerror();
+		
+		PointerByReference gn_ptr = new PointerByReference();
+		
+		GT.INSTANCE.gt_feature_index_ensembl_get_feature_for_stable_id(gfi.to_ptr(), gn_ptr, stableId, err.to_ptr());
+		
+		return new FeatureNode(gn_ptr.getValue());
 	}
 	
 	public Range getRangeForKaryoband(FeatureIndex gfi, String chr, String band){

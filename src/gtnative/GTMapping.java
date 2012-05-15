@@ -359,7 +359,7 @@ public class GTMapping implements GT {
   
   public native int gt_feature_index_ensembl_get_feature_for_gene_name(Pointer gfi, PointerByReference gn, String gene_name, Pointer err);
   
-  public native int gt_feature_index_ensembl_get_feature_for_stable_id(Pointer gfi, Pointer gn, String stable_id, Pointer err);
+  public native int gt_feature_index_ensembl_get_feature_for_stable_id(Pointer gfi, PointerByReference gn, String stable_id, Pointer err);
   
   public native int gt_feature_index_ensembl_get_range_for_karyoband(Pointer gfi, Range range, String chr, String band, Pointer err);
   
