@@ -56,8 +56,12 @@ public class FeatureCollection {
 		return new Array(GT.INSTANCE.gt_feature_collection_to_array(this.feature_collection_ptr));
 	}
 	
-	public void delete(){
+	public void deleteContents(){
 		GT.INSTANCE.gt_feature_collection_delete(this.feature_collection_ptr);
+	}
+	
+	public void delete(){
+		GT.INSTANCE.gt_feature_collection_delete_contents(this.feature_collection_ptr);
 	}
 	
 	public Pointer to_ptr() {

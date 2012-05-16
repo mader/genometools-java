@@ -345,6 +345,8 @@ public interface GT extends Library {
   
   Pointer gt_feature_collection_to_array(Pointer fc);
   
+  void gt_feature_collection_delete_contents(Pointer fc);
+  
   void gt_feature_collection_delete(Pointer fc);
   
   /*------------------------------GtAnnoDB------------------------------*/

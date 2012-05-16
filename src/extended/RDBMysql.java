@@ -13,6 +13,9 @@ public class RDBMysql extends RDB {
 		
 		GTerror err = new GTerror();
 		super.rdb_ptr = GT.INSTANCE.gt_rdb_mysql_new(server, port, database, username, password, err.to_ptr());
+		if(err.is_set()){
+			System.out.println(err.get_err());
+		}
 	}
 
 }

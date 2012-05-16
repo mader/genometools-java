@@ -340,6 +340,8 @@ public class GTMapping implements GT {
   
   public native Pointer gt_feature_collection_to_array(Pointer fc);
   
+  public native void gt_feature_collection_delete_contents(Pointer fc);
+  
   public native void gt_feature_collection_delete(Pointer fc);
   
  /*------------------------------GtAnnoDB------------------------------*/
