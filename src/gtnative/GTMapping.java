@@ -376,6 +376,7 @@ public class GTMapping implements GT {
           Range qry_range,
           double lower_th,
           double upper_th,
+          boolean sorted,
           int[] project_filter,
           int plength,
           int[] organ_filter,
