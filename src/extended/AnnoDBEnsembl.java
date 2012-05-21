@@ -34,6 +34,15 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		super.adb_ptr = GT.INSTANCE.gt_anno_db_ensembl_new();
 	}
 
+	/**
+	 * Fetch all segments for a given range.
+	 * 
+	 * @param fis The FeatureIndex.
+	 * @param seqid The chromosome.
+	 * @param qryRange The start and end positions.
+	 * @return An Array containing segments as FeatureNodes.
+	 * @throws GTerrorJava
+	 */
 	public Array getFeaturesForRange(FeatureIndex fis, String seqid, Range qryRange) throws GTerrorJava{
 		
 		Array results = new Array(Pointer.SIZE);
@@ -49,6 +58,14 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		return results;
 	}
 	
+	/**
+	 * Fetches a a gene for the given gene name.
+	 * 
+	 * @param gfi The FeatureIndex.
+	 * @param geneName The gene name.
+	 * @return A Gene as FeatureNode.
+	 * @throws GTerrorJava
+	 */
 	public FeatureNode getFeatureForGeneName(FeatureIndex gfi, String geneName) throws GTerrorJava{
 		
 		GTerror err = new GTerror();
@@ -64,6 +81,14 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		return new FeatureNode(gn_ptr.getValue());
 	}
 	
+	/**
+	 * Fetches a gene for an Ensembl stable ID.
+	 * 
+	 * @param gfi The FeatureIndex.
+	 * @param stableId The given Ensembl stable ID.
+	 * @return A Gene as FeatureNode.
+	 * @throws GTerrorJava
+	 */
 	public FeatureNode getFeatureForStableId(FeatureIndex gfi, String stableId) throws GTerrorJava{
 		
 		GTerror err = new GTerror();
@@ -79,6 +104,15 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		return new FeatureNode(gn_ptr.getValue());
 	}
 	
+	/**
+	 * Fetches the Range of a given karyoband.
+	 * 
+	 * @param gfi The FeatureIndex.
+	 * @param chr The chromosome.
+	 * @param band The band.
+	 * @return The range of the karyoband.
+	 * @throws GTerrorJava
+	 */
 	public Range getRangeForKaryoband(FeatureIndex gfi, String chr, String band) throws GTerrorJava{
 		
 		GTerror err = new GTerror();
@@ -92,6 +126,15 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		return r;
 	}
 	
+	/**
+	 * Fetches karyobands that overlap with a given range.
+	 * 
+	 * @param gfi The FeatureIndex.
+	 * @param seqid The chromosome.
+	 * @param qryRange The given Range.
+	 * @return An array of karyobands as FeatureNode.
+	 * @throws GTerrorJava
+	 */
 	public Array getKaryobandFeaturesForRange(FeatureIndex gfi, String seqid, Range qryRange) throws GTerrorJava{
 		
 		Array results = new Array(Pointer.SIZE);
