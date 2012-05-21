@@ -64,7 +64,7 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 	 * @param gfi The FeatureIndex.
 	 * @param geneName The gene name.
 	 * @return A Gene as FeatureNode.
-	 * @throws GTerrorJava
+	 * @throws GTerrorJava  
 	 */
 	public FeatureNode getFeatureForGeneName(FeatureIndex gfi, String geneName) throws GTerrorJava{
 		

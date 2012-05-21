@@ -85,7 +85,7 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		
 		try {
 			fn = adb.getFeatureForGeneName(fi, "PTEN");
-		} catch (GTerrorJava e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
