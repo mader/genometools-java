@@ -3,6 +3,7 @@ package extended;
 import gtnative.GT;
 import core.Array;
 import core.GTerror;
+import core.GTerrorJava;
 import core.Range;
 import annotationsketch.FeatureIndex;
 
@@ -25,11 +26,11 @@ public class AnnoDBFo extends AnnoDBSchema {
 											            int[] organFilter,
 											            int olength,
 											            int[] experimentFilter,
-											            int elength){
+											            int elength) throws GTerrorJava{
 		
 		GTerror err = new GTerror();
 		
-		GT.INSTANCE.gt_feature_index_fo_get_segments_for_range(gfi.to_ptr(),
+		int r = GT.INSTANCE.gt_feature_index_fo_get_segments_for_range(gfi.to_ptr(),
 				results.to_ptr(),
 				trackId,
 				seqid,
@@ -45,7 +46,11 @@ public class AnnoDBFo extends AnnoDBSchema {
 				elength,
 				err.to_ptr());
 		
-		return 0;
+		if(err.is_set()){
+			throw new GTerrorJava(err.get_err());
+		}
+		
+		return r;
 		
 	}
 	                                                    
@@ -60,10 +65,10 @@ public class AnnoDBFo extends AnnoDBSchema {
 											            int[] organFilter,
 											            int olength,
 											            int[] experimentFilter,
-											            int elength,
-	                                                    GTerror err) {
+											            int elength) throws GTerrorJava {
+		GTerror err = new GTerror();
 		
-		return GT.INSTANCE.gt_feature_index_fo_get_maximal_overlapping_segment_range(gfi.to_ptr(),
+		int r = GT.INSTANCE.gt_feature_index_fo_get_maximal_overlapping_segment_range(gfi.to_ptr(),
 				seqid,
 				qryRange,
 				maxRange,
@@ -76,5 +81,11 @@ public class AnnoDBFo extends AnnoDBSchema {
 				experimentFilter,
 				elength,
 				err.to_ptr());
+		
+		if(err.is_set()){
+			throw new GTerrorJava(err.get_err());
+		}
+		
+		return r;
 	}
 }

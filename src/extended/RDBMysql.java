@@ -1,6 +1,7 @@
 package extended;
 
 import core.GTerror;
+import core.GTerrorJava;
 import gtnative.GT;
 
 public class RDBMysql extends RDB {
@@ -9,12 +10,12 @@ public class RDBMysql extends RDB {
 					int port,
 					String database,
 					String username,
-					String password) {
+					String password) throws GTerrorJava {
 		
 		GTerror err = new GTerror();
 		super.rdb_ptr = GT.INSTANCE.gt_rdb_mysql_new(server, port, database, username, password, err.to_ptr());
 		if(err.is_set()){
-			System.out.println(err.get_err());
+			throw new GTerrorJava(err.get_err());
 		}
 	}
 

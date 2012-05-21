@@ -24,6 +24,7 @@ import gtnative.GT;
 import annotationsketch.FeatureIndex;
 import core.Array;
 import core.GTerror;
+import core.GTerrorJava;
 import core.Range;
 
 public class AnnoDBEnsembl extends AnnoDBSchema {
@@ -33,7 +34,7 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		super.adb_ptr = GT.INSTANCE.gt_anno_db_ensembl_new();
 	}
 
-	public Array getFeaturesForRange(FeatureIndex fis, String seqid, Range qryRange){
+	public Array getFeaturesForRange(FeatureIndex fis, String seqid, Range qryRange) throws GTerrorJava{
 		
 		Array results = new Array(Pointer.SIZE);
 		
@@ -41,10 +42,14 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		
 		GT.INSTANCE.gt_feature_index_ensembl_get_features_for_range(fis.to_ptr(), results.to_ptr(), seqid, qryRange, err.to_ptr());
 		
+		if(err.is_set()){
+			throw new GTerrorJava(err.get_err());
+		}
+		
 		return results;
 	}
 	
-	public FeatureNode getFeatureForGeneName(FeatureIndex gfi, String geneName){
+	public FeatureNode getFeatureForGeneName(FeatureIndex gfi, String geneName) throws GTerrorJava{
 		
 		GTerror err = new GTerror();
 		
@@ -52,10 +57,14 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		
 		GT.INSTANCE.gt_feature_index_ensembl_get_feature_for_gene_name(gfi.to_ptr(), gn_ptr, geneName, err.to_ptr());
 		
+		if(err.is_set()){
+			throw new GTerrorJava(err.get_err());
+		}
+		
 		return new FeatureNode(gn_ptr.getValue());
 	}
 	
-	public FeatureNode getFeatureForStableId(FeatureIndex gfi, String stableId){
+	public FeatureNode getFeatureForStableId(FeatureIndex gfi, String stableId) throws GTerrorJava{
 		
 		GTerror err = new GTerror();
 		
@@ -63,19 +72,27 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		
 		GT.INSTANCE.gt_feature_index_ensembl_get_feature_for_stable_id(gfi.to_ptr(), gn_ptr, stableId, err.to_ptr());
 		
+		if(err.is_set()){
+			throw new GTerrorJava(err.get_err());
+		}
+		
 		return new FeatureNode(gn_ptr.getValue());
 	}
 	
-	public Range getRangeForKaryoband(FeatureIndex gfi, String chr, String band){
+	public Range getRangeForKaryoband(FeatureIndex gfi, String chr, String band) throws GTerrorJava{
 		
 		GTerror err = new GTerror();
 		Range r = new Range();
 		GT.INSTANCE.gt_feature_index_ensembl_get_range_for_karyoband(gfi.to_ptr(), r, chr, band, err.to_ptr());
 		
+		if(err.is_set()){
+			throw new GTerrorJava(err.get_err());
+		}
+		
 		return r;
 	}
 	
-	public Array getKaryobandFeaturesForRange(FeatureIndex gfi, String seqid, Range qryRange){
+	public Array getKaryobandFeaturesForRange(FeatureIndex gfi, String seqid, Range qryRange) throws GTerrorJava{
 		
 		Array results = new Array(Pointer.SIZE);
 		
@@ -83,6 +100,10 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 		
 		GT.INSTANCE.gt_feature_index_ensembl_get_karyoband_features_for_range(gfi.to_ptr(), results.to_ptr(), seqid,
 				qryRange, err.to_ptr());
+		
+		if(err.is_set()){
+			throw new GTerrorJava(err.get_err());
+		}
 		
 		return results;
 	}
