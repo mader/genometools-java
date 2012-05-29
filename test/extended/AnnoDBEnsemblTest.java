@@ -34,9 +34,15 @@ public class AnnoDBEnsemblTest extends TestSuite {
 	static RDB rdbe;
 	
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() {
 		
-		RDBMysql rdb = new RDBMysql("localhost", 3306, "ensembl66", "fouser", "fish4me");
+		RDBMysql rdb = null;
+		try {
+			rdb = new RDBMysql("localhost", 3306, "ensembl66", "fouser", "fish4me");
+		} catch (GTerrorJava e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		rdbe = (RDB) rdb;
 	}
 	
@@ -54,7 +60,8 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		
 		core.Array arr = null;
 		try {
-			arr = adb.getFeaturesForRange(fi, "10", r);
+			String[] str = new String[0];
+			arr = adb.getGenesForRange(fi, "10", r, str);
 		} catch (GTerrorJava e) {
 			e.printStackTrace();
 		}

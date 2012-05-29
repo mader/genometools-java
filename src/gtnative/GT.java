@@ -25,6 +25,7 @@ import com.sun.jna.Callback;
 import com.sun.jna.Library;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
+import com.sun.jna.StringArray;
 import com.sun.jna.ptr.DoubleByReference;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.NativeLongByReference;
@@ -365,6 +366,14 @@ public interface GT extends Library {
           Pointer err);
   
   int gt_feature_index_ensembl_get_feature_for_gene_name(Pointer gfi, PointerByReference gn, String gene_name, Pointer err);
+  
+  int gt_feature_index_ensembl_get_genes_for_range(Pointer gfi,
+		  											Pointer results,
+		  											String seqid,
+		  											Range qry_range,
+		  											StringArray biotype_filter,
+		  											int b_length,
+		  											Pointer err);
   
   int gt_feature_index_ensembl_get_feature_for_stable_id(Pointer gfi, PointerByReference gn, String stable_id, Pointer err);
   

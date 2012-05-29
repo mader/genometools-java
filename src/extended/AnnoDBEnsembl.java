@@ -17,6 +17,7 @@
 
 package extended;
 
+import com.sun.jna.StringArray;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.PointerByReference;
 
@@ -35,21 +36,30 @@ public class AnnoDBEnsembl extends AnnoDBSchema {
 	}
 
 	/**
-	 * Fetch all segments for a given range.
+	 * Fetch all genes for a given range.
 	 * 
 	 * @param fis The FeatureIndex.
 	 * @param seqid The chromosome.
 	 * @param qryRange The start and end positions.
+	 * @param a filter for gene biotypes;
 	 * @return An Array containing segments as FeatureNodes.
 	 * @throws GTerrorJava
 	 */
-	public Array getFeaturesForRange(FeatureIndex fis, String seqid, Range qryRange) throws GTerrorJava{
+	public Array getGenesForRange(FeatureIndex fis, String seqid, Range qryRange, String[] biotypeFilter) throws GTerrorJava{
 		
 		Array results = new Array(Pointer.SIZE);
 		
 		GTerror err = new GTerror();
 		
-		GT.INSTANCE.gt_feature_index_ensembl_get_features_for_range(fis.to_ptr(), results.to_ptr(), seqid, qryRange, err.to_ptr());
+		StringArray strArr = new StringArray(biotypeFilter);
+		
+		GT.INSTANCE.gt_feature_index_ensembl_get_genes_for_range(fis.to_ptr(),
+																results.to_ptr(),
+																seqid,
+																qryRange,
+																strArr,
+																biotypeFilter.length,
+																err.to_ptr());
 		
 		if(err.is_set()){
 			throw new GTerrorJava(err.get_err());
