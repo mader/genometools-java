@@ -40,17 +40,28 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		try {
 			rdb = new RDBMysql("localhost", 3306, "ensembl66", "fouser", "fish4me");
 		} catch (GTerrorJava e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		rdbe = (RDB) rdb;
 	}
 	
 	@Test
-	public void TestGetFeaturesForRange(){
+	public void TestFetchGenesForRange(){
 		
 		AnnoDBEnsembl adb = new AnnoDBEnsembl();
 		FeatureIndex fi = adb.gt_anno_db_schema_get_feature_index(rdbe);
+		
+		int ensembl_version;
+		EnsemblGeneAdaptor ga = null;
+		
+		try {
+			ensembl_version = adb.getFeatureIndexEnsemblVersion(fi);
+			
+			ga = new EnsemblGeneAdaptor(ensembl_version);
+			
+		} catch (GTerrorJava e1) {
+			e1.printStackTrace();
+		}
 		
 		Range r = new Range(89595000, 89635000);
 		
@@ -61,7 +72,7 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		core.Array arr = null;
 		try {
 			String[] str = new String[0];
-			arr = adb.getGenesForRange(fi, "10", r, str);
+			arr = ga.fetchGenesForRange(fi, "10", r, str);
 		} catch (GTerrorJava e) {
 			e.printStackTrace();
 		}
@@ -83,15 +94,27 @@ public class AnnoDBEnsemblTest extends TestSuite {
 	}
 	
 	@Test
-	public void TestGetFeatureForGeneName(){
+	public void TestFetchGeneForSymbol(){
 		
 		AnnoDBEnsembl adb = new AnnoDBEnsembl();
 		FeatureIndex fi = adb.gt_anno_db_schema_get_feature_index(rdbe);
 		
+		int ensembl_version;
+		EnsemblGeneAdaptor ga = null;
+		
+		try {
+			ensembl_version = adb.getFeatureIndexEnsemblVersion(fi);
+			
+			ga = new EnsemblGeneAdaptor(ensembl_version);
+			
+		} catch (GTerrorJava e1) {
+			e1.printStackTrace();
+		}
+		
 		FeatureNode fn = null;
 		
 		try {
-			fn = adb.getFeatureForGeneName(fi, "PTEN");
+			fn = ga.fetchGeneForSymbol(fi, "PTEN");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -106,15 +129,27 @@ public class AnnoDBEnsemblTest extends TestSuite {
 	}
 	
 	@Test
-	public void TestGetFeatureForStableId(){
+	public void TestFetchGeneForStableId(){
 		
 		AnnoDBEnsembl adb = new AnnoDBEnsembl();
 		FeatureIndex fi = adb.gt_anno_db_schema_get_feature_index(rdbe);
 		
+		int ensembl_version;
+		EnsemblGeneAdaptor ga = null;
+		
+		try {
+			ensembl_version = adb.getFeatureIndexEnsemblVersion(fi);
+			
+			ga = new EnsemblGeneAdaptor(ensembl_version);
+			
+		} catch (GTerrorJava e1) {
+			e1.printStackTrace();
+		}
+		
 		FeatureNode fn = null;
 		
 		try {
-			fn = adb.getFeatureForStableId(fi, "ENSG00000171862");
+			fn = ga.fetchGeneForStableId(fi, "ENSG00000171862");
 		} catch (GTerrorJava e) {
 			e.printStackTrace();
 		}
@@ -134,10 +169,22 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		AnnoDBEnsembl adb = new AnnoDBEnsembl();
 		FeatureIndex fi = adb.gt_anno_db_schema_get_feature_index(rdbe);
 		
+		int ensembl_version;
+		EnsemblKaryoAdaptor ka = null;
+		
+		try {
+			ensembl_version = adb.getFeatureIndexEnsemblVersion(fi);
+			
+			ka = new EnsemblKaryoAdaptor(ensembl_version);
+			
+		} catch (GTerrorJava e1) {
+			e1.printStackTrace();
+		}
+		
 		Range rng = null;
 		
 		try {
-			rng = adb.getRangeForKaryoband(fi, "10", "q23.31");
+			rng = ka.fetchRangeForKaryoband(fi, "10", "q23.31");
 		} catch (GTerrorJava e) {
 			e.printStackTrace();
 		}
@@ -156,13 +203,25 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		AnnoDBEnsembl adb = new AnnoDBEnsembl();
 		FeatureIndex fi = adb.gt_anno_db_schema_get_feature_index(rdbe);
 		
+		int ensembl_version;
+		EnsemblKaryoAdaptor ka = null;
+		
+		try {
+			ensembl_version = adb.getFeatureIndexEnsemblVersion(fi);
+			
+			ka = new EnsemblKaryoAdaptor(ensembl_version);
+			
+		} catch (GTerrorJava e1) {
+			e1.printStackTrace();
+		}
+		
 		Range qryRange = new Range(90000000, 92000000);
 		
 		core.Array arr = null;
 		FeatureNode fn;
 		
 		try {
-			arr = adb.getKaryobandFeaturesForRange(fi, "10", qryRange);
+			arr = ka.fetchKaryobandsForRange(fi, "10", qryRange);
 		} catch (GTerrorJava e) {
 			e.printStackTrace();
 		}

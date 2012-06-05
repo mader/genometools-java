@@ -349,32 +349,59 @@ public class GTMapping implements GT {
   
   public native void gt_anno_db_schema_delete(Pointer schema);
   
-  public native  Pointer gt_anno_db_schema_get_feature_index(Pointer schema,
+  public native Pointer gt_anno_db_schema_get_feature_index(Pointer schema,
           Pointer db, Pointer err);
+  
+  /*------------------------------GtAnnoDBEnsembl------------------------------*/
   
   public native Pointer gt_anno_db_ensembl_new();
   
-  public native int gt_feature_index_ensembl_get_features_for_range(Pointer gfi,
-          Pointer results,
-          String seqid,
-          Range qry_range,
-          Pointer err);
+  public native int gt_anno_db_feature_index_get_version(Pointer gfi, Pointer err);
   
-  public native int gt_feature_index_ensembl_get_feature_for_gene_name(Pointer gfi, PointerByReference gn, String gene_name, Pointer err);
+  public native Pointer gt_ensembl_gene_adaptor_new(int ensembl_version);
   
-  public native int gt_feature_index_ensembl_get_genes_for_range(Pointer gfi,
-			Pointer results,
-			String seqid,
-			Range qry_range,
-			StringArray biotype_filter,
-			int b_length,
-			Pointer err);
+  public native int gt_ensembl_fetch_gene_for_symbol(Pointer ga,
+		  								Pointer gfi,
+		  								PointerByReference gn,
+		  								String gene_name,
+		  								Pointer err);
   
-  public native int gt_feature_index_ensembl_get_feature_for_stable_id(Pointer gfi, PointerByReference gn, String stable_id, Pointer err);
+  public native int gt_ensembl_fetch_gene_for_stable_id(Pointer ga,
+		  									Pointer gfi,
+		  									PointerByReference gn,
+		  									String stable_id,
+		  									Pointer err);
   
-  public native int gt_feature_index_ensembl_get_range_for_karyoband(Pointer gfi, Range range, String chr, String band, Pointer err);
+  public native int gt_ensembl_fetch_genes_for_range(Pointer ga,
+		  								Pointer gfi,
+		  								Pointer results,
+		  								String seqid,
+		  								Range qry_range,
+		  								StringArray biotype_filter,
+		  								int b_length,
+		  								Pointer err);
   
-  public native int gt_feature_index_ensembl_get_karyoband_features_for_range(Pointer gfi, Pointer results, String seqid, Range qry_range, Pointer err);
+  public native void gt_ensembl_gene_adaptor_delete(Pointer ga);
+  
+  public native Pointer gt_ensembl_karyo_adaptor_new(int ensembl_version);
+  
+  public native int gt_ensembl_fetch_range_for_karyoband(Pointer ka,
+		  									Pointer gfi,
+		  									Range range,
+		  									String chr,
+		  									String band,
+		  									Pointer err);
+  
+  public native int gt_ensembl_fetch_karyobands_for_range(Pointer ka,
+		  										Pointer gfi,
+		  										Pointer results,
+		  										String seqid,
+		  										Range qry_range,
+		  										Pointer err);
+  
+  public native void gt_ensembl_karyo_adaptor_delete(Pointer ka);
+  
+  /*------------------------------GtAnnoDBFO------------------------------*/
   
   public native Pointer gt_anno_db_fo_new();
   

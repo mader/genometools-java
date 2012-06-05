@@ -357,29 +357,56 @@ public interface GT extends Library {
   Pointer gt_anno_db_schema_get_feature_index(Pointer schema,
           Pointer db, Pointer err);
   
+  /*------------------------------GtAnnoDBEnsembl------------------------------*/
+  
   Pointer gt_anno_db_ensembl_new();
   
-  int gt_feature_index_ensembl_get_features_for_range(Pointer gfi,
-          Pointer results,
-          String seqid,
-          Range qry_range,
-          Pointer err);
+  int gt_anno_db_feature_index_get_version(Pointer gfi, Pointer err);
   
-  int gt_feature_index_ensembl_get_feature_for_gene_name(Pointer gfi, PointerByReference gn, String gene_name, Pointer err);
+  Pointer gt_ensembl_gene_adaptor_new(int ensembl_version);
   
-  int gt_feature_index_ensembl_get_genes_for_range(Pointer gfi,
-		  											Pointer results,
-		  											String seqid,
-		  											Range qry_range,
-		  											StringArray biotype_filter,
-		  											int b_length,
-		  											Pointer err);
+  int gt_ensembl_fetch_gene_for_symbol(Pointer ga,
+		  								Pointer gfi,
+		  								PointerByReference gn,
+		  								String gene_name,
+		  								Pointer err);
   
-  int gt_feature_index_ensembl_get_feature_for_stable_id(Pointer gfi, PointerByReference gn, String stable_id, Pointer err);
+  int gt_ensembl_fetch_gene_for_stable_id(Pointer ga,
+		  									Pointer gfi,
+		  									PointerByReference gn,
+		  									String stable_id,
+		  									Pointer err);
   
-  int gt_feature_index_ensembl_get_range_for_karyoband(Pointer gfi, Range range, String chr, String band, Pointer err);
+  int gt_ensembl_fetch_genes_for_range(Pointer ga,
+		  								Pointer gfi,
+		  								Pointer results,
+		  								String seqid,
+		  								Range qry_range,
+		  								StringArray biotype_filter,
+		  								int b_length,
+		  								Pointer err);
   
-  int gt_feature_index_ensembl_get_karyoband_features_for_range(Pointer gfi, Pointer results, String seqid, Range qry_range, Pointer err);
+  void gt_ensembl_gene_adaptor_delete(Pointer ga);
+  
+  Pointer gt_ensembl_karyo_adaptor_new(int ensembl_version);
+  
+  int gt_ensembl_fetch_range_for_karyoband(Pointer ka,
+		  									Pointer gfi,
+		  									Range range,
+		  									String chr,
+		  									String band,
+		  									Pointer err);
+  
+  int gt_ensembl_fetch_karyobands_for_range(Pointer ka,
+		  										Pointer gfi,
+		  										Pointer results,
+		  										String seqid,
+		  										Range qry_range,
+		  										Pointer err);
+  
+  void gt_ensembl_karyo_adaptor_delete(Pointer ka);
+  
+  /*------------------------------GtAnnoDBFO------------------------------*/
   
   Pointer gt_anno_db_fo_new();
   
