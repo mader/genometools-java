@@ -405,35 +405,71 @@ public class GTMapping implements GT {
   
   public native Pointer gt_anno_db_fo_new();
   
-  public native int gt_feature_index_fo_get_segments_for_range(Pointer gfi,
-          Pointer results,
-          String track_id,
-          String seqid,
-          Range qry_range,
-          double lower_th,
-          double upper_th,
-          boolean sorted,
-          int[] project_filter,
-          int plength,
-          int[] organ_filter,
-          int olength,
-          int[] experiment_filter,
-          int elength,
-          Pointer err);
-          
-  public native int gt_feature_index_fo_get_maximal_overlapping_segment_range(Pointer gfi,
-          String seqid,
-          Range qry_range,
-          Range max_range,
-          double lower_th,
-          double upper_th,
-          int[] project_filter,
-          int plength,
-          int[] organ_filter,
-          int olength,
-          int[] experiment_filter,
-          int elength,
-          Pointer err);
+  public native void  gt_feature_index_fo_filter_segment_only(Pointer fi);
+  public native void  gt_feature_index_fo_filter_mutations_only(Pointer fi);
+  public native void  gt_feature_index_fo_reset_filter_type(Pointer fi);
+
+  public native void  gt_feature_index_fo_unset_all_filters(Pointer fi);
+
+  public native void gt_feature_index_fo_set_segments_lower_th(Pointer fi,
+                                                 double lower_th);
+  public native  void gt_feature_index_fo_unset_segments_lower_th(Pointer fi);
+
+  public native void gt_feature_index_fo_set_segments_upper_th(Pointer fi,
+                                                 double upper_th);
+  public native void gt_feature_index_fo_unset_segments_upper_th(Pointer fi);
+
+  public native void gt_feature_index_fo_set_track_id(Pointer fi,
+                                        String track_id);
+  public native void gt_feature_index_fo_unset_track_id(Pointer fi);
+
+  public native void gt_feature_index_fo_set_segments_sorted(Pointer fi,
+                                               boolean sorted);
+
+  public native void gt_feature_index_fo_set_score(Pointer fi,
+                                     double score,
+                                     boolean grater_than);
+
+  public native void gt_feature_index_fo_unset_score(Pointer fi);
+
+  public native void gt_feature_index_fo_add_where_clause_int_filter(Pointer fi,
+                                                       String column,
+                                                       int[] filter,
+                                                       int length);
+  public native void gt_feature_index_fo_add_where_clause_str_filter(Pointer fi,
+                                                       String column,
+                                                       StringArray filter,
+                                                       int length);
+
+  public native void gt_feature_index_fo_reset_where_clause_int_filter(Pointer fi);
+  public native void gt_feature_index_fo_reset_where_clause_str_filter(Pointer fi);
+
+  public native void gt_feature_index_fo_add_project_filter(Pointer fi,
+                                              int[] filter,
+                                              int length);
+  public native void gt_feature_index_fo_add_tissue_filter(Pointer fi,
+                                             int[] filter,
+                                             int length);
+
+  public native void gt_feature_index_fo_set_additional_experiment_filter(Pointer fi,
+                                                            int[] filter,
+                                                            int length);
+                                                            
+  public native void gt_feature_index_fo_unset_additional_experiment_filter(
+                                                          Pointer fi);
+
+  public native int gt_feature_index_fo_get_features(Pointer fi,
+                                      Pointer results,
+                                      String seqid,
+                                      Range range,
+                                      Pointer err);
+                                                      
+  public native int gt_feature_index_fo_process_mutations(Pointer results,
+                                        Pointer mutations,
+                                        Pointer rdb,
+                                        StringArray biotype_filter,
+                                        int b_length,
+                                        Pointer err);
   
   /*------------------------------GtLogger------------------------------*/
   public native Pointer gt_logger_new(int enabled, String prefix, Pointer target);

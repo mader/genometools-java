@@ -17,12 +17,15 @@
 
 package extended;
 
+import com.sun.jna.Pointer;
+import com.sun.jna.StringArray;
+
 import gtnative.GT;
 import core.Array;
 import core.GTerror;
 import core.GTerrorJava;
 import core.Range;
-import annotationsketch.FeatureIndex;
+import annotationsketch.FeatureIndexFo;
 
 public class AnnoDBFo extends AnnoDBSchema {
 
@@ -30,119 +33,149 @@ public class AnnoDBFo extends AnnoDBSchema {
 		super.adb_ptr = GT.INSTANCE.gt_anno_db_fo_new();
 	}
 	
-	/**
-	 * Fetches all segments from the database for various filter options.
-	 * 
-	 * @param gfi The FeatuerIndex.
-	 * @param results An array containing the segments.
-	 * @param trackId The track name.
-	 * @param seqid The chromosome.
-	 * @param qryRange The start and end positions on the chromosome.
-	 * @param lowerTh The lower intensity threshold.
-	 * @param upperTh The upper intensity threshold.
-	 * @param sorted Determines if the segments are sorted with respect to 
-	 * 			their microarray study.
-	 * @param projectFilter Array of Project IDs.
-	 * @param plength Length of project array.
-	 * @param organFilter Array of organ IDs.
-	 * @param olength  Length of organ array.
-	 * @param experimentFilter Array of experiment IDs.
-	 * @param elength Length of experiment array.
-	 * @return
-	 * @throws GTerrorJava
-	 */
-	public int gt_feature_index_fo_get_segments_for_range(FeatureIndex gfi,
-	                                                    Array results,
-	                                                    String trackId,
-	                                                    String seqid,
-	                                                    Range qryRange,
-	                                                    double lowerTh,
-											            double upperTh,
-											            boolean sorted,
-											            int[] projectFilter,
-											            int plength,
-											            int[] organFilter,
-											            int olength,
-											            int[] experimentFilter,
-											            int elength) throws GTerrorJava{
-		
-		GTerror err = new GTerror();
-		
-		int r = GT.INSTANCE.gt_feature_index_fo_get_segments_for_range(gfi.to_ptr(),
-				results.to_ptr(),
-				trackId,
-				seqid,
-				qryRange,
-				lowerTh,
-				upperTh,
-				sorted,
-				projectFilter,
-				plength,
-				organFilter,
-				olength,
-				experimentFilter,
-				elength,
-				err.to_ptr());
-		
-		if(err.is_set()){
-			throw new GTerrorJava(err.get_err());
-		}
-		
-		return r;
-		
+	public void  segmentOnly(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_filter_segment_only(fifo.to_ptr());
 	}
-	                                
-	/**
-	 *  Fetches a range over all segments overlapping with a given from the
-	 *  database for various filter options.
-	 * 
-	 * @param gfi The FeatuerIndex.
-	 * @param seqid The chromosome.
-	 * @param qryRange The given range.
-	 * @param maxRange the returned range.
-	 * @param lowerTh The lower intensity threshold.
-	 * @param upperTh The upper intensity threshold.
-	 * @param projectFilter Array of Project IDs.
-	 * @param plength Length of project array.
-	 * @param organFilter Array of organ IDs.
-	 * @param olength  Length of organ array.
-	 * @param experimentFilter Array of experiment IDs.
-	 * @param elength Length of experiment array.
-	 * @return
-	 * @throws GTerrorJava
-	 */
-	public int gt_feature_fo_index_get_maximal_overlapping_segment_range(FeatureIndex gfi,
-	                                                    String seqid,
-	                                                    Range qryRange,
-	                                                    Range maxRange,
-	                                                    double lowerTh,
-											            double upperTh,
-											            int[] projectFilter,
-											            int plength,
-											            int[] organFilter,
-											            int olength,
-											            int[] experimentFilter,
-											            int elength) throws GTerrorJava {
+	
+	public void  mutationsOnly(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_filter_mutations_only(fifo.to_ptr());
+	}
+	
+	public void  resetType(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_reset_filter_type(fifo.to_ptr());
+	}
+
+	public void  unsetAllFilters(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_unset_all_filters(fifo.to_ptr());
+	}
+
+	public void setSegmentsLowerTh(FeatureIndexFo fifo, double lower_th){
+		GT.INSTANCE.gt_feature_index_fo_set_segments_lower_th(fifo.to_ptr(), lower_th);
+	}
+	
+	public void unsetSegmentsLowerTh(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_unset_segments_lower_th(fifo.to_ptr());
+	}
+
+	public void setSegmentsUpperTh(FeatureIndexFo fifo, double upper_th){
+		GT.INSTANCE.gt_feature_index_fo_set_segments_upper_th(fifo.to_ptr(), upper_th);
+	}
+	
+	public void unsetSegmentsUpperTh(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_unset_segments_upper_th(fifo.to_ptr());
+	}
+
+	public void setTrackId(FeatureIndexFo fifo, String track_id){
+		GT.INSTANCE.gt_feature_index_fo_set_track_id(fifo.to_ptr(), track_id);
+	}
+	
+	public void unsetTrackId(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_unset_track_id(fifo.to_ptr());
+	}
+
+	public void setSegmentsSorted(FeatureIndexFo fifo, boolean sorted){
+		GT.INSTANCE.gt_feature_index_fo_set_segments_sorted(fifo.to_ptr(), sorted);
+	}
+
+	public void setScore(FeatureIndexFo fifo,
+	                                   double score,
+	                                   boolean grater_than){
+		GT.INSTANCE.gt_feature_index_fo_set_score(fifo.to_ptr(), score, grater_than);
+	}
+
+	public void unsetScore(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_unset_score(fifo.to_ptr());
+	}
+
+	public void addWhereClauseIntFilter(FeatureIndexFo fifo,
+	                                                     String column,
+	                                                     int[] filter,
+	                                                     int length){
+		GT.INSTANCE.gt_feature_index_fo_add_where_clause_int_filter(fifo.to_ptr(), column, filter, length);
+	}
+	
+	public void addWhereClauseStrFilter(FeatureIndexFo fifo,
+	                                                     String column,
+	                                                     String[] filter,
+	                                                     int length){
+		
+		StringArray strArr = new StringArray(filter);
+		
+		GT.INSTANCE.gt_feature_index_fo_add_where_clause_str_filter(fifo.to_ptr(), column, strArr, length);
+	}
+
+	public void resetWhereClauseIntFilter(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_reset_where_clause_int_filter(fifo.to_ptr());
+	}
+	
+	public void resetWhereClauseStrFilter(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_reset_where_clause_str_filter(fifo.to_ptr());
+	}
+
+	public void addProjectFilter(FeatureIndexFo fifo,
+	                                            int[] filter,
+	                                            int length){
+		GT.INSTANCE.gt_feature_index_fo_add_project_filter(fifo.to_ptr(), filter, length);
+	}
+	
+	public void addTissueFilter(FeatureIndexFo fifo,
+	                                           int[] filter,
+	                                           int length){
+		GT.INSTANCE.gt_feature_index_fo_add_tissue_filter(fifo.to_ptr(), filter, length);
+	}
+
+	public void setAdditionalExperimentFilter(FeatureIndexFo fifo,
+	                                                          int[] filter,
+	                                                          int length){
+		GT.INSTANCE.gt_feature_index_fo_set_additional_experiment_filter(fifo.to_ptr(), filter, length);
+	}
+	                                                          
+	public void unsetAdditionalExperimentFilter(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_unset_additional_experiment_filter(fifo.to_ptr());
+	}
+
+	public Array getFeatures(FeatureIndexFo fifo,
+	                                     String seqid,
+	                                     Range range) throws GTerrorJava{
+		
 		GTerror err = new GTerror();
 		
-		int r = GT.INSTANCE.gt_feature_index_fo_get_maximal_overlapping_segment_range(gfi.to_ptr(),
-				seqid,
-				qryRange,
-				maxRange,
-				lowerTh,
-				upperTh,
-				projectFilter,
-				plength,
-				organFilter,
-				olength,
-				experimentFilter,
-				elength,
-				err.to_ptr());
+		Array results = new Array(Pointer.SIZE);
+		
+		GT.INSTANCE.gt_feature_index_fo_get_features(fifo.to_ptr(),
+															results.to_ptr(),
+															seqid,
+															range,
+															err.to_ptr());
 		
 		if(err.is_set()){
 			throw new GTerrorJava(err.get_err());
 		}
 		
-		return r;
+		return results;
+	}
+	                                                    
+	public Array processMutations(Array mutations,
+	                             RDB rdb,
+	                             String[] biotypeFilter) throws GTerrorJava{
+		
+		GTerror err = new GTerror();
+		
+		Array results = new Array(Pointer.SIZE);
+		
+		StringArray strArr = new StringArray(biotypeFilter);
+		
+		GT.INSTANCE.gt_feature_index_fo_process_mutations(results.to_ptr(),
+																	mutations.to_ptr(),
+																	rdb.to_ptr(),
+																	strArr,
+																	biotypeFilter.length,
+																	err.to_ptr());
+		
+		if(err.is_set()){
+			throw new GTerrorJava(err.get_err());
+		}
+		
+		return results;
 	}
 }
