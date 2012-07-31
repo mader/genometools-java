@@ -89,7 +89,7 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		}
 		
 		arr.dispose();
-		fi.dispose();
+		fi.delete();
 		adb.delete();
 	}
 	
@@ -123,7 +123,7 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		assertTrue(fn.get_attribute("NAME").equals("ENSG00000171862"));
 		
 		fn.dispose();
-		fi.dispose();
+		fi.delete();
 		adb.delete();
 		
 	}
@@ -158,7 +158,7 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		assertTrue(fn.get_attribute("NAME").equals("ENSG00000171862"));
 		
 		fn.dispose();
-		fi.dispose();
+		fi.delete();
 		adb.delete();
 		
 	}
@@ -192,7 +192,7 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		assertTrue(rng.get_start() == 89500001);
 		assertTrue(rng.get_end() == 92900000);
 		
-		fi.dispose();
+		fi.delete();
 		adb.delete();
 		
 	}
@@ -236,7 +236,7 @@ public class AnnoDBEnsemblTest extends TestSuite {
 		
 		fn.dispose();
 		arr.dispose();
-		fi.dispose();
+		fi.delete();
 		adb.delete();
 		
 	}

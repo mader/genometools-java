@@ -71,7 +71,7 @@ static RDB rdbfo;
 		}
 		
 		results.dispose();
-		fifo.dispose();
+		fifo.delete();
 		adb.delete();
 		
 	}
@@ -112,7 +112,7 @@ static RDB rdbfo;
 		}
 		
 		results.dispose();
-		fifo.dispose();
+		fifo.delete();
 		adb.delete();
 		
 	}

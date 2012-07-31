@@ -30,7 +30,7 @@ public class FeatureIndexMemory extends FeatureIndex {
 
   public FeatureIndexMemory() {
     super(GT.INSTANCE.gt_feature_index_memory_new());
-    set_disposed(false);
+    set_deleted(false);
   }
 
   public FeatureNode get_node_by_ptr(long id) throws GTerrorJava {

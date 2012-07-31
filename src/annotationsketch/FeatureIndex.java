@@ -33,29 +33,23 @@ import extended.FeatureNode;
 
 public class FeatureIndex {
   protected Pointer feat_index;
-  private boolean disposed;
+  private boolean deleted;
 
   public FeatureIndex(Pointer fi_ptr) {
 	    synchronized (this) {
 	      feat_index = new TransparentPointer(fi_ptr);
 	    }
-	    disposed = false;
+	    deleted = false;
 	  }
   
-  protected void set_disposed(boolean bool) {
-    disposed = bool;
+  protected void set_deleted(boolean bool) {
+    deleted = bool;
   }
 
-  public synchronized void dispose() {
-    if(!disposed){
+  public synchronized void delete() {
+    if(!deleted){
       GT.INSTANCE.gt_feature_index_delete(feat_index);
-      disposed = true;
-    }
-  }
-
-  protected void finalize() throws Throwable {
-    if(!disposed){
-      dispose();
+      deleted = true;
     }
   }
 

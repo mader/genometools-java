@@ -24,8 +24,4 @@ public class FeatureIndexFo extends FeatureIndex {
 	public FeatureIndexFo(Pointer fi_ptr) {
 	    super(fi_ptr);
 	  }
-	
-	protected synchronized void finalize() throws Throwable {
-	    super.finalize();
-	  }
 }

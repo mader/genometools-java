@@ -60,7 +60,7 @@ public class FeatureIndexTest
     for(int i=0; i < feats.size(); i++){
       feats.get(i).dispose();
     }
-    fi.dispose();
+    fi.delete();
   }
   
   @Test
