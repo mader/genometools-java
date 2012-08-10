@@ -445,9 +445,14 @@ public interface GT extends Library {
                                                        String column,
                                                        StringArray filter,
                                                        int length);
-
+  void gt_feature_index_fo_add_where_clause_double_filter(Pointer fi,
+          													String column,
+          													double[] filter,
+          													int length);
+  
   void gt_feature_index_fo_reset_where_clause_int_filter(Pointer fi);
   void gt_feature_index_fo_reset_where_clause_str_filter(Pointer fi);
+  void gt_feature_index_fo_reset_where_clause_double_filter(Pointer fi);
 
   void gt_feature_index_fo_add_project_filter(Pointer fi,
                                               int[] filter,
@@ -459,9 +464,19 @@ public interface GT extends Library {
   void gt_feature_index_fo_set_additional_experiment_filter(Pointer fi,
                                                             int[] filter,
                                                             int length);
-                                                            
+  
   void gt_feature_index_fo_unset_additional_experiment_filter(
                                                           Pointer fi);
+  
+  void gt_feature_index_fo_add_somatic_filter(Pointer fi,
+		  										StringArray filter,
+          										int length);
+  void gt_feature_index_fo_add_confidence_filter(Pointer fi,
+		  											StringArray filter,
+             										int length);
+  void gt_feature_index_fo_add_snptool_filter(Pointer fi,
+          										StringArray filter,
+          										int length);
 
   int gt_feature_index_fo_get_features(Pointer fi,
                                       Pointer results,
@@ -472,6 +487,7 @@ public interface GT extends Library {
   int gt_feature_index_fo_process_mutations(Pointer results,
                                         Pointer mutations,
                                         Pointer rdb,
+                                        String track_id,
                                         StringArray biotype_filter,
                                         int b_length,
                                         Pointer err);

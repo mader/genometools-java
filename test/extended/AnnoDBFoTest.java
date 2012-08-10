@@ -50,7 +50,7 @@ static RDB rdbfo;
 		adb.setSegmentsLowerTh(fifo, -0.9);
 		adb.setTrackId(fifo, "test1");
 		adb.setSegmentsSorted(fifo, false);
-		adb.addProjectFilter(fifo, projectFilter, projectFilter.length);
+		adb.addProjectFilter(fifo, projectFilter);
 		
 		try {
 			results = adb.getFeatures(fifo, "10", r);
@@ -91,7 +91,7 @@ static RDB rdbfo;
 		
 		adb.mutationsOnly(fifo);
 		adb.setTrackId(fifo, "test1");
-		adb.addProjectFilter(fifo, projectFilter, projectFilter.length);
+		adb.addProjectFilter(fifo, projectFilter);
 		
 		try {
 			results = adb.getFeatures(fifo, "10", r);
@@ -275,7 +275,7 @@ static RDB rdbfo;
 		
 		testResults.dispose();
 		sortedResults.dispose();
-		fifo.dispose();
+		fifo.delete();
 		adb.delete();
 		rdbe.delete();
 	}

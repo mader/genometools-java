@@ -89,21 +89,26 @@ public class AnnoDBFo extends AnnoDBSchema {
 
 	public void addWhereClauseIntFilter(FeatureIndexFo fifo,
 	                                                     String column,
-	                                                     int[] filter,
-	                                                     int length){
-		GT.INSTANCE.gt_feature_index_fo_add_where_clause_int_filter(fifo.to_ptr(), column, filter, length);
+	                                                     int[] filter){
+		GT.INSTANCE.gt_feature_index_fo_add_where_clause_int_filter(fifo.to_ptr(), column, filter, filter.length);
 	}
 	
 	public void addWhereClauseStrFilter(FeatureIndexFo fifo,
 	                                                     String column,
-	                                                     String[] filter,
-	                                                     int length){
+	                                                     String[] filter){
 		
 		StringArray strArr = new StringArray(filter);
 		
-		GT.INSTANCE.gt_feature_index_fo_add_where_clause_str_filter(fifo.to_ptr(), column, strArr, length);
+		GT.INSTANCE.gt_feature_index_fo_add_where_clause_str_filter(fifo.to_ptr(), column, strArr, filter.length);
 	}
 
+	public void addWhereClauseDoubleFilter(FeatureIndexFo fifo,
+												String column,
+												double[] filter){
+		
+		GT.INSTANCE.gt_feature_index_fo_add_where_clause_double_filter(fifo.to_ptr(), column, filter, filter.length);
+	}
+	
 	public void resetWhereClauseIntFilter(FeatureIndexFo fifo){
 		GT.INSTANCE.gt_feature_index_fo_reset_where_clause_int_filter(fifo.to_ptr());
 	}
@@ -112,28 +117,51 @@ public class AnnoDBFo extends AnnoDBSchema {
 		GT.INSTANCE.gt_feature_index_fo_reset_where_clause_str_filter(fifo.to_ptr());
 	}
 
+	public void resetWhereClauseDoubleFilter(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_reset_where_clause_double_filter(fifo.to_ptr());
+	}
+	
 	public void addProjectFilter(FeatureIndexFo fifo,
-	                                            int[] filter,
-	                                            int length){
-		GT.INSTANCE.gt_feature_index_fo_add_project_filter(fifo.to_ptr(), filter, length);
+	                                            int[] filter){
+		GT.INSTANCE.gt_feature_index_fo_add_project_filter(fifo.to_ptr(), filter, filter.length);
 	}
 	
 	public void addTissueFilter(FeatureIndexFo fifo,
-	                                           int[] filter,
-	                                           int length){
-		GT.INSTANCE.gt_feature_index_fo_add_tissue_filter(fifo.to_ptr(), filter, length);
+	                                           int[] filter){
+		GT.INSTANCE.gt_feature_index_fo_add_tissue_filter(fifo.to_ptr(), filter, filter.length);
 	}
 
 	public void setAdditionalExperimentFilter(FeatureIndexFo fifo,
-	                                                          int[] filter,
-	                                                          int length){
-		GT.INSTANCE.gt_feature_index_fo_set_additional_experiment_filter(fifo.to_ptr(), filter, length);
+	                                                          int[] filter){
+		GT.INSTANCE.gt_feature_index_fo_set_additional_experiment_filter(fifo.to_ptr(), filter, filter.length);
 	}
 	                                                          
 	public void unsetAdditionalExperimentFilter(FeatureIndexFo fifo){
 		GT.INSTANCE.gt_feature_index_fo_unset_additional_experiment_filter(fifo.to_ptr());
 	}
-
+	
+	public void addSomaticFilter(FeatureIndexFo fifo,
+									String[] filter){
+		
+		StringArray strArr = new StringArray(filter);
+		
+		GT.INSTANCE.gt_feature_index_fo_add_somatic_filter(fifo.to_ptr(), strArr, filter.length);
+	}
+	
+	public void addConfidenceFilter(FeatureIndexFo fifo,
+										String[] filter){
+		StringArray strArr = new StringArray(filter);
+		
+		GT.INSTANCE.gt_feature_index_fo_add_confidence_filter(fifo.to_ptr(), strArr, filter.length);
+	}
+	
+	public void addSnptoolFilter(FeatureIndexFo fifo,
+									String[] filter){
+		StringArray strArr = new StringArray(filter);
+		
+		GT.INSTANCE.gt_feature_index_fo_add_snptool_filter(fifo.to_ptr(), strArr, filter.length);
+	}
+	
 	public Array getFeatures(FeatureIndexFo fifo,
 	                                     String seqid,
 	                                     Range range) throws GTerrorJava{
@@ -157,6 +185,7 @@ public class AnnoDBFo extends AnnoDBSchema {
 	                                                    
 	public Array processMutations(Array mutations,
 	                             RDB rdb,
+	                             String trackId,
 	                             String[] biotypeFilter) throws GTerrorJava{
 		
 		GTerror err = new GTerror();
@@ -168,6 +197,7 @@ public class AnnoDBFo extends AnnoDBSchema {
 		GT.INSTANCE.gt_feature_index_fo_process_mutations(results.to_ptr(),
 																	mutations.to_ptr(),
 																	rdb.to_ptr(),
+																	trackId,
 																	strArr,
 																	biotypeFilter.length,
 																	err.to_ptr());
