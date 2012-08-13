@@ -19,6 +19,12 @@ import junit.framework.TestSuite;
 
 public class AnnoDBFoTest extends TestSuite {
 
+	public static final String ID = "ID";
+	public static final String NAME = "Name";
+	public static final String FEATURE_TYPE = "feature_type";
+	public static final String STUDY_ID = "study_id";
+	public static final String NOF_MUTATIONS = "nof_mutations";
+	
 static RDB rdbfo;
 	
 	@BeforeClass
@@ -58,7 +64,7 @@ static RDB rdbfo;
 			e.printStackTrace();
 		}
 		
-		assertTrue(results.size() == 11);
+		assertTrue(results.size() == 9);
 		//extend...
 		
 		FeatureNode fn;
@@ -139,30 +145,30 @@ static RDB rdbfo;
 		
 		try {
 			fn = new FeatureNode("10", "mutation", 89625776, 89625776, ".");
-			fn.add_attribute("STUDY_ID", "1");
-			fn.add_attribute("ID", "test1");
-			fn.add_attribute("NAME", "1");
-			fn.add_attribute("ROOT", "NO");
+			fn.add_attribute(STUDY_ID, "1");
+			fn.add_attribute(ID, "test1");
+			fn.add_attribute(NAME, "1");
+			fn.add_attribute(FEATURE_TYPE, "mutation");
 			
 			testResults.add(fn);
 			
 			fn = new FeatureNode("10", "mutation", 99632776, 99632776, ".");
-			fn.add_attribute("STUDY_ID", "1");
-			fn.add_attribute("ID", "test1");
-			fn.add_attribute("NAME", "2");
-			fn.add_attribute("ROOT", "NO");
+			fn.add_attribute(STUDY_ID, "1");
+			fn.add_attribute(ID, "test1");
+			fn.add_attribute(NAME, "2");
+			fn.add_attribute(FEATURE_TYPE, "mutation");
 			
 			testResults.add(fn);
 			
 			fn = new FeatureNode("10", "mutation", 89903054, 89903054, ".");
-			fn.add_attribute("STUDY_ID", "1");
-			fn.add_attribute("ID", "test1");
-			fn.add_attribute("NAME", "3");
-			fn.add_attribute("ROOT", "NO");
+			fn.add_attribute(STUDY_ID, "1");
+			fn.add_attribute(ID, "test1");
+			fn.add_attribute(NAME, "3");
+			fn.add_attribute(FEATURE_TYPE, "mutation");
 			
 			testResults.add(fn);
 			
-			sortedResults = adb.processMutations(testResults, rdbe, biofil);
+			sortedResults = adb.processMutations(testResults, rdbe, "mutation", biofil);
 			
 		} catch (GTerrorJava e) {
 			e.printStackTrace();
@@ -177,33 +183,33 @@ static RDB rdbfo;
 		fn = fni.next();
 			
 		assertTrue(fn.get_seqid().equals("10"));
-		assertTrue(fn.get_type().equals("gene"));
+		assertTrue(fn.get_type().equals("mutation"));
 			
-		assertTrue(fn.get_attribute("NOF_MUTATIONS").equals("1"));
+		assertTrue(fn.get_attribute(NOF_MUTATIONS).equals("1"));
 			
 		rng = fn.get_range();
 			
 		assertTrue(rng.get_start() == 99624757);
 		assertTrue(rng.get_end() == 99790585);
 			
-		assertTrue(fn.get_attribute("ID").equals("CRTAC1"));
-		assertTrue(fn.get_attribute("NAME").equals("ENSG00000095713"));
-		assertTrue(fn.get_attribute("ROOT").equals("NO"));
+		assertTrue(fn.get_attribute(ID).equals("ENSG00000095713"));
+		assertTrue(fn.get_attribute(NAME).equals("CRTAC1 (1)"));
+		assertTrue(fn.get_attribute(FEATURE_TYPE).equals("mutation_root"));
 			
 		fn = fni.next();
 			
 		assertTrue(fn.get_seqid().equals("10"));
-		assertTrue(fn.get_type().equals("mutation"));
+		assertTrue(fn.get_type().equals("mutation_mutations"));
 			
 		rng = fn.get_range();
 			
 		assertTrue(rng.get_start() == 99632776);
 		assertTrue(rng.get_end() == 99632776);
 			
-		assertTrue(fn.get_attribute("STUDY_ID").equals("1"));
-		assertTrue(fn.get_attribute("ID").equals("test1"));
-		assertTrue(fn.get_attribute("NAME").equals("2"));
-		assertTrue(fn.get_attribute("ROOT").equals("NO"));
+		assertTrue(fn.get_attribute(STUDY_ID).equals("1"));
+		assertTrue(fn.get_attribute(ID).equals("test1"));
+		assertTrue(fn.get_attribute(NAME).equals("2"));
+		assertTrue(fn.get_attribute(FEATURE_TYPE).equals("mutation"));
 		
 		fni.dispose();
 		
@@ -212,33 +218,33 @@ static RDB rdbfo;
 		fn = fni.next();
 			
 		assertTrue(fn.get_seqid().equals("10"));
-		assertTrue(fn.get_type().equals("gene"));
+		assertTrue(fn.get_type().equals("mutation"));
 			
-		assertTrue(fn.get_attribute("NOF_MUTATIONS").equals("1"));
+		assertTrue(fn.get_attribute(NOF_MUTATIONS).equals("1"));
 			
 		rng = fn.get_range();
 			
 		assertTrue(rng.get_start() == 89622870);
 		assertTrue(rng.get_end() == 89731687);
 			
-		assertTrue(fn.get_attribute("ID").equals("PTEN"));
-		assertTrue(fn.get_attribute("NAME").equals("ENSG00000171862"));
-		assertTrue(fn.get_attribute("ROOT").equals("NO"));
+		assertTrue(fn.get_attribute(ID).equals("ENSG00000171862"));
+		assertTrue(fn.get_attribute(NAME).equals("PTEN (1)"));
+		assertTrue(fn.get_attribute(FEATURE_TYPE).equals("mutation_root"));
 			
 		fn = fni.next();
 			
 		assertTrue(fn.get_seqid().equals("10"));
-		assertTrue(fn.get_type().equals("mutation"));
+		assertTrue(fn.get_type().equals("mutation_mutations"));
 			
 		rng = fn.get_range();
 			
 		assertTrue(rng.get_start() == 89625776);
 		assertTrue(rng.get_end() == 89625776);
 			
-		assertTrue(fn.get_attribute("STUDY_ID").equals("1"));
-		assertTrue(fn.get_attribute("ID").equals("test1"));
-		assertTrue(fn.get_attribute("NAME").equals("1"));
-		assertTrue(fn.get_attribute("ROOT").equals("NO"));
+		assertTrue(fn.get_attribute(STUDY_ID).equals("1"));
+		assertTrue(fn.get_attribute(ID).equals("test1"));
+		assertTrue(fn.get_attribute(NAME).equals("1"));
+		assertTrue(fn.get_attribute(FEATURE_TYPE).equals("mutation"));
 		
 		fni.dispose();
 		
@@ -247,17 +253,17 @@ static RDB rdbfo;
 		assertTrue(fn.get_seqid().equals("10"));
 		assertTrue(fn.get_type().equals("mutation"));
 			
-		assertTrue(fn.get_attribute("NOF_MUTATIONS").equals("1"));
+		assertTrue(fn.get_attribute(NOF_MUTATIONS).equals("1"));
 			
 		rng = fn.get_range();
 			
 		assertTrue(rng.get_start() == 89903054);
 		assertTrue(rng.get_end() == 89903054);
 			
-		assertTrue(fn.get_attribute("STUDY_ID").equals("1"));
-		assertTrue(fn.get_attribute("ID").equals("test1"));
-		assertTrue(fn.get_attribute("NAME").equals("3"));
-		assertTrue(fn.get_attribute("ROOT").equals("NO"));
+		assertTrue(fn.get_attribute(STUDY_ID).equals("1"));
+		assertTrue(fn.get_attribute(ID).equals("test1"));
+		assertTrue(fn.get_attribute(NAME).equals("3"));
+		assertTrue(fn.get_attribute(FEATURE_TYPE).equals("mutation"));
 		
 		for(int i = 0; i < sortedResults.size(); i++){
 			
