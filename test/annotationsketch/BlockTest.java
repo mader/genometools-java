@@ -123,7 +123,7 @@ public class BlockTest
     assertTrue(blist.get(0).get_size() == b.get_size());
     b = blist.get(1).clone_block();
     assertTrue(blist.get(1).get_size() == b.get_size());
-    b.dispose();
+    b.delete();
   }
 
   @Test
@@ -139,19 +139,19 @@ public class BlockTest
     assertTrue(b.get_strand() == '+');
     b.set_strand('?');
     assertTrue(b.get_strand() == '?');
-    b.dispose();
+    b.delete();
     b = blist.get(1).clone_block();
     assertTrue(b.get_strand() == '-');
     b.set_strand('.');
     assertTrue(b.get_strand() == '.');
-    b.dispose();
+    b.delete();
   }
 
   @Test(expected=GTerrorJava.class)
   public void test_set_strand_fail() throws GTerrorJava {
     Block b = blist.get(0).clone_block();
     b.set_strand('X');
-    b.dispose();
+    b.delete();
   }
 }
 

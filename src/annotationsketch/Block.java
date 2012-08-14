@@ -27,13 +27,13 @@ import extended.FeatureNode;
 public class Block {
   private Pointer block_ptr;
   private static char STRANDCHARS[] = { '+', '-', '.', '?' };
-  private boolean disposed;
+  private boolean deleted;
 
   public Block(Pointer ptr) {
     synchronized (this) {
       block_ptr = GT.INSTANCE.gt_block_ref(ptr);
     }
-    disposed = false;
+    deleted = false;
   }
 
   public Range get_range() {
@@ -95,20 +95,10 @@ public class Block {
     return block_ptr;
   }
 
-  public synchronized void dispose() {
-    if(!disposed){
+  public synchronized void delete() {
+    if(!deleted){
       GT.INSTANCE.gt_block_delete(block_ptr);
-      disposed = true;
-    }
-  }
-  
-  protected void finalize() throws Throwable {
-    try {
-      if(!disposed){
-        dispose();
-      }
-    } finally {
-      super.finalize();
+      deleted = true;
     }
   }
 }
