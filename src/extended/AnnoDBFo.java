@@ -41,6 +41,10 @@ public class AnnoDBFo extends AnnoDBSchema {
 		GT.INSTANCE.gt_feature_index_fo_filter_mutations_only(fifo.to_ptr());
 	}
 	
+	public void  translocationsOnly(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_filter_translocations_only(fifo.to_ptr());
+	}
+	
 	public void  resetType(FeatureIndexFo fifo){
 		GT.INSTANCE.gt_feature_index_fo_reset_filter_type(fifo.to_ptr());
 	}
@@ -162,9 +166,11 @@ public class AnnoDBFo extends AnnoDBSchema {
 		GT.INSTANCE.gt_feature_index_fo_add_snptool_filter(fifo.to_ptr(), strArr, filter.length);
 	}
 	
-	public Array getFeatures(FeatureIndexFo fifo,
-	                                     String seqid,
-	                                     Range range) throws GTerrorJava{
+	public void setLocation(FeatureIndexFo fifo, String seqid, Range range){
+		GT.INSTANCE.gt_feature_index_fo_set_location(fifo.to_ptr(), seqid, range);
+	}
+	
+	public Array getFeatures(FeatureIndexFo fifo) throws GTerrorJava{
 		
 		GTerror err = new GTerror();
 		
@@ -172,8 +178,6 @@ public class AnnoDBFo extends AnnoDBSchema {
 		
 		GT.INSTANCE.gt_feature_index_fo_get_features(fifo.to_ptr(),
 															results.to_ptr(),
-															seqid,
-															range,
 															err.to_ptr());
 		
 		if(err.is_set()){
@@ -207,5 +211,30 @@ public class AnnoDBFo extends AnnoDBSchema {
 		}
 		
 		return results;
+	}
+	
+	public Array processTranslocations(FeatureIndexFo fifo,
+										Array translocations,
+            							RDB rdb,
+            							String trackId,
+            							String[] biotypeFilter) throws GTerrorJava{
+
+		GTerror err = new GTerror();
+
+		StringArray strArr = new StringArray(biotypeFilter);
+
+		GT.INSTANCE.gt_feature_index_fo_process_translocations(fifo.to_ptr(),
+																translocations.to_ptr(),
+																rdb.to_ptr(),
+																trackId,
+																strArr,
+																biotypeFilter.length,
+																err.to_ptr());
+
+		if(err.is_set()){
+			throw new GTerrorJava(err.get_err());
+		}
+
+		return translocations;
 	}
 }

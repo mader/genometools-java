@@ -407,6 +407,7 @@ public class GTMapping implements GT {
   
   public native void  gt_feature_index_fo_filter_segment_only(Pointer fi);
   public native void  gt_feature_index_fo_filter_mutations_only(Pointer fi);
+  public native void  gt_feature_index_fo_filter_translocations_only(Pointer fi);
   public native void  gt_feature_index_fo_reset_filter_type(Pointer fi);
 
   public native void  gt_feature_index_fo_unset_all_filters(Pointer fi);
@@ -473,10 +474,10 @@ public class GTMapping implements GT {
 																StringArray filter,
 																int length);
   
+  public native void gt_feature_index_fo_set_location(Pointer fi, String seqid, Range range);
+  
   public native int gt_feature_index_fo_get_features(Pointer fi,
                                       Pointer results,
-                                      String seqid,
-                                      Range range,
                                       Pointer err);
                                                       
   public native int gt_feature_index_fo_process_mutations(Pointer results,
@@ -486,6 +487,14 @@ public class GTMapping implements GT {
                                         StringArray biotype_filter,
                                         int b_length,
                                         Pointer err);
+  
+  public native int gt_feature_index_fo_process_translocations(Pointer fi,
+		  															Pointer translocations,
+		  															Pointer rdb,
+		  															String track_id,
+		  															StringArray biotype_filter,
+		  															int b_length,
+		  															Pointer err);
   
   /*------------------------------GtLogger------------------------------*/
   public native Pointer gt_logger_new(int enabled, String prefix, Pointer target);

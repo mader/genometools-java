@@ -412,6 +412,7 @@ public interface GT extends Library {
   
   void  gt_feature_index_fo_filter_segment_only(Pointer fi);
   void  gt_feature_index_fo_filter_mutations_only(Pointer fi);
+  void  gt_feature_index_fo_filter_translocations_only(Pointer fi);
   void  gt_feature_index_fo_reset_filter_type(Pointer fi);
 
   void  gt_feature_index_fo_unset_all_filters(Pointer fi);
@@ -478,10 +479,10 @@ public interface GT extends Library {
           										StringArray filter,
           										int length);
 
+  void gt_feature_index_fo_set_location(Pointer fi, String seqid, Range range);
+  
   int gt_feature_index_fo_get_features(Pointer fi,
                                       Pointer results,
-                                      String seqid,
-                                      Range range,
                                       Pointer err);
                                                       
   int gt_feature_index_fo_process_mutations(Pointer results,
@@ -491,6 +492,14 @@ public interface GT extends Library {
                                         StringArray biotype_filter,
                                         int b_length,
                                         Pointer err);
+  
+  int gt_feature_index_fo_process_translocations(Pointer fi,
+          											Pointer translocations,
+          											Pointer rdb,
+          											String track_id,
+          											StringArray biotype_filter,
+          											int b_length,
+          											Pointer err);
   
   /*------------------------------GtLogger------------------------------*/
   Pointer gt_logger_new(int enabled, String prefix, Pointer target);
