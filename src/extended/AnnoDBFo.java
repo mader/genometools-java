@@ -198,7 +198,12 @@ public class AnnoDBFo extends AnnoDBSchema {
 		
 		return results;
 	}
-	                                                    
+	                           
+	public void sortSegmentsForCoverage(Array segments) throws GTerrorJava {
+		
+		GT.INSTANCE.gt_feature_index_fo_sort_segments_for_coverage(segments.to_ptr());
+	}
+	
 	public Array processMutations(Array mutations,
 	                             RDB rdb,
 	                             String trackId,

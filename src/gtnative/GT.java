@@ -488,7 +488,9 @@ public interface GT extends Library {
   int gt_feature_index_fo_get_features(Pointer fi,
                                       Pointer results,
                                       Pointer err);
-                                                      
+  
+  int gt_feature_index_fo_sort_segments_for_coverage(Pointer segments);
+  
   int gt_feature_index_fo_process_mutations(Pointer results,
                                         Pointer mutations,
                                         Pointer rdb,
