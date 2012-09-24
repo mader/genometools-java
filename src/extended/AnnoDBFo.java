@@ -44,6 +44,10 @@ public class AnnoDBFo extends AnnoDBSchema {
 	public void  translocationsOnly(FeatureIndexFo fifo){
 		GT.INSTANCE.gt_feature_index_fo_filter_translocations_only(fifo.to_ptr());
 	}
+
+	public void  genericOnly(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_filter_generic_only(fifo.to_ptr());
+	}
 	
 	public void  resetType(FeatureIndexFo fifo){
 		GT.INSTANCE.gt_feature_index_fo_reset_filter_type(fifo.to_ptr());
@@ -123,6 +127,14 @@ public class AnnoDBFo extends AnnoDBSchema {
 
 	public void resetWhereClauseDoubleFilter(FeatureIndexFo fifo){
 		GT.INSTANCE.gt_feature_index_fo_reset_where_clause_double_filter(fifo.to_ptr());
+	}
+	
+	public void addGenericFilter(FeatureIndexFo fifo,
+            						String[] filter){
+		
+		StringArray strArr = new StringArray(filter);
+		
+		GT.INSTANCE.gt_feature_index_fo_add_generic_filter(fifo.to_ptr(), strArr, filter.length);
 	}
 	
 	public void addProjectFilter(FeatureIndexFo fifo,

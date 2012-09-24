@@ -413,6 +413,7 @@ public interface GT extends Library {
   void  gt_feature_index_fo_filter_segment_only(Pointer fi);
   void  gt_feature_index_fo_filter_mutations_only(Pointer fi);
   void  gt_feature_index_fo_filter_translocations_only(Pointer fi);
+  void  gt_feature_index_fo_filter_generic_only(Pointer fi);
   void  gt_feature_index_fo_reset_filter_type(Pointer fi);
 
   void  gt_feature_index_fo_unset_all_filters(Pointer fi);
@@ -455,6 +456,9 @@ public interface GT extends Library {
   void gt_feature_index_fo_reset_where_clause_str_filter(Pointer fi);
   void gt_feature_index_fo_reset_where_clause_double_filter(Pointer fi);
 
+  void gt_feature_index_fo_add_generic_filter(Pointer fi,
+												StringArray filter,
+												int length);
   void gt_feature_index_fo_add_project_filter(Pointer fi,
                                               int[] filter,
                                               int length);
