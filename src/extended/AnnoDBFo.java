@@ -26,11 +26,16 @@ import core.GTerror;
 import core.GTerrorJava;
 import core.Range;
 import annotationsketch.FeatureIndexFo;
+import annotationsketch.Layout;
 
 public class AnnoDBFo extends AnnoDBSchema {
 
 	public AnnoDBFo() {
 		super.adb_ptr = GT.INSTANCE.gt_anno_db_fo_new();
+	}
+	
+	public void set_layout_block_sort(Layout l){
+		GT.INSTANCE.set_layout_block_sort(l.to_ptr());
 	}
 	
 	public void  segmentOnly(FeatureIndexFo fifo){

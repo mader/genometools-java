@@ -410,6 +410,8 @@ public interface GT extends Library {
   
   Pointer gt_anno_db_fo_new();
   
+  void set_layout_block_sort(Pointer l);
+  
   void  gt_feature_index_fo_filter_segment_only(Pointer fi);
   void  gt_feature_index_fo_filter_mutations_only(Pointer fi);
   void  gt_feature_index_fo_filter_translocations_only(Pointer fi);

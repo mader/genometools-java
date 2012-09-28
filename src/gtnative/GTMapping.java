@@ -405,6 +405,8 @@ public class GTMapping implements GT {
   
   public native Pointer gt_anno_db_fo_new();
   
+  public native void set_layout_block_sort(Pointer l);
+  
   public native void  gt_feature_index_fo_filter_segment_only(Pointer fi);
   public native void  gt_feature_index_fo_filter_mutations_only(Pointer fi);
   public native void  gt_feature_index_fo_filter_translocations_only(Pointer fi);
