@@ -38,8 +38,8 @@ public class AnnoDBFo extends AnnoDBSchema {
 		GT.INSTANCE.set_layout_block_sort(l.to_ptr());
 	}
 	
-	public void  segmentOnly(FeatureIndexFo fifo){
-		GT.INSTANCE.gt_feature_index_fo_filter_segment_only(fifo.to_ptr());
+	public void  segmentOnly(FeatureIndexFo fifo, int type){
+		GT.INSTANCE.gt_feature_index_fo_filter_segment_only(fifo.to_ptr(), type);
 	}
 	
 	public void  mutationsOnly(FeatureIndexFo fifo){
@@ -132,6 +132,11 @@ public class AnnoDBFo extends AnnoDBSchema {
 
 	public void resetWhereClauseDoubleFilter(FeatureIndexFo fifo){
 		GT.INSTANCE.gt_feature_index_fo_reset_where_clause_double_filter(fifo.to_ptr());
+	}
+	
+	public void addSegmentTypeFilter(FeatureIndexFo fifo, int[] filter){
+
+		GT.INSTANCE.gt_feature_index_fo_add_segment_status_filter(fifo.to_ptr(), filter, filter.length);
 	}
 	
 	public void addGenericFilter(FeatureIndexFo fifo,
