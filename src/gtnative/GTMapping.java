@@ -415,13 +415,9 @@ public class GTMapping implements GT {
 
   public native void  gt_feature_index_fo_unset_all_filters(Pointer fi);
 
-  public native void gt_feature_index_fo_set_segments_lower_th(Pointer fi,
-                                                 double lower_th);
-  public native  void gt_feature_index_fo_unset_segments_lower_th(Pointer fi);
-
-  public native void gt_feature_index_fo_set_segments_upper_th(Pointer fi,
-                                                 double upper_th);
-  public native void gt_feature_index_fo_unset_segments_upper_th(Pointer fi);
+  public native void gt_feature_index_fo_set_segments_th(Pointer fi,
+                                                            double th);
+  public native  void gt_feature_index_fo_unset_segments_th(Pointer fi);
 
   public native void gt_feature_index_fo_set_track_id(Pointer fi,
                                         String track_id);

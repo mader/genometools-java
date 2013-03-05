@@ -62,20 +62,12 @@ public class AnnoDBFo extends AnnoDBSchema {
 		GT.INSTANCE.gt_feature_index_fo_unset_all_filters(fifo.to_ptr());
 	}
 
-	public void setSegmentsLowerTh(FeatureIndexFo fifo, double lower_th){
-		GT.INSTANCE.gt_feature_index_fo_set_segments_lower_th(fifo.to_ptr(), lower_th);
+	public void setSegmentsTh(FeatureIndexFo fifo, double th){
+		GT.INSTANCE.gt_feature_index_fo_set_segments_th(fifo.to_ptr(), th);
 	}
 	
-	public void unsetSegmentsLowerTh(FeatureIndexFo fifo){
-		GT.INSTANCE.gt_feature_index_fo_unset_segments_lower_th(fifo.to_ptr());
-	}
-
-	public void setSegmentsUpperTh(FeatureIndexFo fifo, double upper_th){
-		GT.INSTANCE.gt_feature_index_fo_set_segments_upper_th(fifo.to_ptr(), upper_th);
-	}
-	
-	public void unsetSegmentsUpperTh(FeatureIndexFo fifo){
-		GT.INSTANCE.gt_feature_index_fo_unset_segments_upper_th(fifo.to_ptr());
+	public void unsetSegmentsTh(FeatureIndexFo fifo){
+		GT.INSTANCE.gt_feature_index_fo_unset_segments_th(fifo.to_ptr());
 	}
 
 	public void setTrackId(FeatureIndexFo fifo, String track_id){

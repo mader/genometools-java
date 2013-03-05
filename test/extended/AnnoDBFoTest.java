@@ -53,7 +53,7 @@ static RDB rdbfo;
 		Range r = new Range(88986342, 90713681);
 		
 		adb.segmentOnly(fifo, 0);
-		adb.setSegmentsLowerTh(fifo, -0.9);
+		adb.setSegmentsTh(fifo, -0.9);
 		adb.setTrackId(fifo, "test1");
 		adb.setSegmentsSorted(fifo, false);
 		adb.addProjectFilter(fifo, projectFilter);

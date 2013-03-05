@@ -420,13 +420,9 @@ public interface GT extends Library {
 
   void  gt_feature_index_fo_unset_all_filters(Pointer fi);
 
-  void gt_feature_index_fo_set_segments_lower_th(Pointer fi,
-                                                 double lower_th);
-  void gt_feature_index_fo_unset_segments_lower_th(Pointer fi);
-
-  void gt_feature_index_fo_set_segments_upper_th(Pointer fi,
-                                                 double upper_th);
-  void gt_feature_index_fo_unset_segments_upper_th(Pointer fi);
+  void gt_feature_index_fo_set_segments_th(Pointer fi,
+                                            double th);
+  void gt_feature_index_fo_unset_segments_th(Pointer fi);
 
   void gt_feature_index_fo_set_track_id(Pointer fi,
                                         String track_id);
