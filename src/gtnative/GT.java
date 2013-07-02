@@ -17,10 +17,6 @@
 
 package gtnative;
 
-import ltr.PBSOptions;
-import ltr.PPTOptions;
-import ltr.PdomOptions;
-
 import com.sun.jna.Callback;
 import com.sun.jna.Library;
 import com.sun.jna.NativeLong;
@@ -683,9 +679,10 @@ public interface GT extends Library {
   void gt_encseq_builder_delete(Pointer eb);
 
   /*------------------------------GtLTRdigestStream------------------------*/
-  Pointer gt_ltrdigest_stream_new(Pointer in_stream, int tests_to_run,
-      Pointer encseq, PBSOptions pbs_opts, PPTOptions ppt_opts,
-      PdomOptions pdom_opts, Pointer err_p);
+  // Needs to be adapted corresponding to gt commit 45ee10cd00a455d
+  //Pointer gt_ltrdigest_stream_new(Pointer in_stream, int tests_to_run,
+  //    Pointer encseq, PBSOptions pbs_opts, PPTOptions ppt_opts,
+  //    PdomOptions pdom_opts, Pointer err_p);
 
   /*------------------------------GtRange------------------------------*/
   NativeLong gt_range_length(Range rng);

@@ -62,8 +62,9 @@ public class LTRdigestStream extends GenomeStream {
       tests_to_run |= 1;
     }
 
-    genome_stream = GT.INSTANCE.gt_ltrdigest_stream_new(instream.to_ptr(),
-        tests_to_run, encseq, pbs_opts, ppt_opts, pdom_opts, err.to_ptr());
+    // Needs to be adapted corresponding to gt commit 45ee10cd00a455d
+    //genome_stream = GT.INSTANCE.gt_ltrdigest_stream_new(instream.to_ptr(),
+    //   tests_to_run, encseq, pbs_opts, ppt_opts, pdom_opts, err.to_ptr());
     if (genome_stream == Pointer.NULL) {
       GT.INSTANCE.gt_encseq_delete(encseq);
       disposed_extensions = false;

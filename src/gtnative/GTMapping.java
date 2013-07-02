@@ -17,10 +17,6 @@
 
 package gtnative;
 
-import ltr.PBSOptions;
-import ltr.PPTOptions;
-import ltr.PdomOptions;
-
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
@@ -685,9 +681,11 @@ public class GTMapping implements GT {
   public native void gt_encseq_builder_delete(Pointer eb);
 
   /*------------------------------GtLTRdigestStream------------------------*/
-  public native Pointer gt_ltrdigest_stream_new(Pointer in_stream,
-      int tests_to_run, Pointer encseq, PBSOptions pbs_opts,
-      PPTOptions ppt_opts, PdomOptions pdom_opts, Pointer err_p);
+  
+  // Needs to be adapted corresponding to gt commit 45ee10cd00a455d
+  //public native Pointer gt_ltrdigest_stream_new(Pointer in_stream,
+  //    int tests_to_run, Pointer encseq, PBSOptions pbs_opts,
+  //    PPTOptions ppt_opts, PdomOptions pdom_opts, Pointer err_p);
 
   /*------------------------------Allocators------------------------------*/
   private static native void gt_lib_init();
