@@ -320,13 +320,184 @@ public class GTMapping implements GT {
   public native NativeLong gt_str_array_size(Pointer str_array);
 
   public native void gt_str_array_delete(Pointer str_array);
-    
+
+/*------------------------------GtFeatureCollection------------------------------*/
+  
+  public native Pointer gt_feature_collection_new();
+  
+  public native Pointer gt_feature_collection_new_from_array(Pointer array);
+  
+  public native void gt_feature_collection_add(Pointer fc, Pointer gn);
+  
+  public native void gt_feature_collection_add_array(Pointer fc, Pointer array);
+  
+  public native Pointer gt_feature_collection_get(Pointer fc, int index);
+  
+  public native NativeLong gt_feature_collection_size(Pointer fc);
+  
+  public native Pointer gt_feature_collection_to_array(Pointer fc);
+  
+  public native void gt_feature_collection_delete_contents(Pointer fc);
+  
+  public native void gt_feature_collection_delete(Pointer fc);
+  
  /*------------------------------GtAnnoDB------------------------------*/
   
   public native void gt_anno_db_schema_delete(Pointer schema);
   
   public native Pointer gt_anno_db_schema_get_feature_index(Pointer schema,
           Pointer db, Pointer err);
+  
+  /*------------------------------GtAnnoDBEnsembl------------------------------*/
+  
+  public native Pointer gt_anno_db_ensembl_new();
+  
+  public native int gt_anno_db_feature_index_get_version(Pointer gfi, Pointer err);
+  
+  public native Pointer gt_ensembl_gene_adaptor_new(int ensembl_version);
+  
+  public native int gt_ensembl_fetch_gene_for_symbol(Pointer ga,
+		  								Pointer gfi,
+		  								PointerByReference gn,
+		  								String gene_name,
+		  								Pointer err);
+  
+  public native int gt_ensembl_fetch_gene_for_stable_id(Pointer ga,
+		  									Pointer gfi,
+		  									PointerByReference gn,
+		  									String stable_id,
+		  									Pointer err);
+  
+  public native int gt_ensembl_fetch_genes_for_range(Pointer ga,
+		  								Pointer gfi,
+		  								Pointer results,
+		  								String seqid,
+		  								Range qry_range,
+		  								StringArray biotype_filter,
+		  								int b_length,
+		  								Pointer err);
+  
+  public native void gt_ensembl_gene_adaptor_delete(Pointer ga);
+  
+  public native Pointer gt_ensembl_karyo_adaptor_new(int ensembl_version);
+  
+  public native int gt_ensembl_fetch_range_for_karyoband(Pointer ka,
+		  									Pointer gfi,
+		  									Range range,
+		  									String chr,
+		  									String band,
+		  									Pointer err);
+  
+  public native int gt_ensembl_fetch_karyobands_for_range(Pointer ka,
+		  										Pointer gfi,
+		  										Pointer results,
+		  										String seqid,
+		  										Range qry_range,
+		  										Pointer err);
+  
+  public native void gt_ensembl_karyo_adaptor_delete(Pointer ka);
+  
+  /*------------------------------GtAnnoDBFO------------------------------*/
+  
+  public native Pointer gt_anno_db_fo_new();
+  
+  public native void set_layout_block_sort(Pointer l);
+  
+  public native void  gt_feature_index_fo_filter_segment_only(Pointer fi, int type);
+  public native void  gt_feature_index_fo_filter_mutations_only(Pointer fi);
+  public native void  gt_feature_index_fo_filter_translocations_only(Pointer fi);
+  public native void  gt_feature_index_fo_filter_generic_only(Pointer fi);
+  public native void  gt_feature_index_fo_reset_filter_type(Pointer fi);
+
+  public native void  gt_feature_index_fo_unset_all_filters(Pointer fi);
+
+  public native void gt_feature_index_fo_set_segments_th(Pointer fi,
+                                                            double th);
+  public native  void gt_feature_index_fo_unset_segments_th(Pointer fi);
+
+  public native void gt_feature_index_fo_set_track_id(Pointer fi,
+                                        String track_id);
+  public native void gt_feature_index_fo_unset_track_id(Pointer fi);
+
+  public native void gt_feature_index_fo_set_segments_sorted(Pointer fi,
+                                               boolean sorted);
+
+  public native void gt_feature_index_fo_set_score(Pointer fi,
+                                     double score,
+                                     boolean grater_than);
+
+  public native void gt_feature_index_fo_unset_score(Pointer fi);
+
+  public native void gt_feature_index_fo_add_where_clause_int_filter(Pointer fi,
+                                                       String column,
+                                                       int[] filter,
+                                                       int length);
+  public native void gt_feature_index_fo_add_where_clause_str_filter(Pointer fi,
+                                                       String column,
+                                                       StringArray filter,
+                                                       int length);
+  public native void gt_feature_index_fo_add_where_clause_double_filter(Pointer fi,
+																			String column,
+																			double[] filter,
+																			int length);
+
+  public native void gt_feature_index_fo_reset_where_clause_int_filter(Pointer fi);
+  public native void gt_feature_index_fo_reset_where_clause_str_filter(Pointer fi);
+  public native void gt_feature_index_fo_reset_where_clause_double_filter(Pointer fi);
+  
+  public native void gt_feature_index_fo_add_segment_status_filter(Pointer fi,
+																		int[] filter,
+																		int length);
+  public native void gt_feature_index_fo_add_generic_filter(Pointer fi,
+																StringArray filter,
+																int length);
+  public native void gt_feature_index_fo_add_project_filter(Pointer fi,
+                                              int[] filter,
+                                              int length);
+  public native void gt_feature_index_fo_add_tissue_filter(Pointer fi,
+                                             int[] filter,
+                                             int length);
+
+  public native void gt_feature_index_fo_set_additional_experiment_filter(Pointer fi,
+                                                            int[] filter,
+                                                            int length);
+                                                            
+  public native void gt_feature_index_fo_unset_additional_experiment_filter(
+                                                          Pointer fi);
+
+  public native void gt_feature_index_fo_add_somatic_filter(Pointer fi,
+																StringArray filter,
+																int length);
+  public native void gt_feature_index_fo_add_confidence_filter(Pointer fi,
+																	StringArray filter,
+																	int length);
+  public native void gt_feature_index_fo_add_snptool_filter(Pointer fi,
+																StringArray filter,
+																int length);
+  
+  public native void gt_feature_index_fo_set_location(Pointer fi, String seqid, Range range);
+  
+  public native int gt_feature_index_fo_get_features(Pointer fi,
+                                      Pointer results,
+                                      Pointer err);
+  
+  public native int gt_feature_index_fo_sort_segments_for_coverage(Pointer segments);
+  
+  public native int gt_feature_index_fo_process_mutations(Pointer results,
+                                        Pointer mutations,
+                                        Pointer rdb,
+                                        String track_id,
+                                        StringArray biotype_filter,
+                                        int b_length,
+                                        Pointer err);
+  
+  public native int gt_feature_index_fo_process_translocations(Pointer fi,
+		  															Pointer translocations,
+		  															Pointer rdb,
+		  															String track_id,
+		  															StringArray biotype_filter,
+		  															int b_length,
+		  															Pointer err);
   
   /*------------------------------GtLogger------------------------------*/
   public native Pointer gt_logger_new(int enabled, String prefix, Pointer target);
