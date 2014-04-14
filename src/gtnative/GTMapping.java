@@ -123,10 +123,6 @@ public class GTMapping implements GT {
 
   public native Pointer gt_diagram_new_from_array(Pointer gt_array,
       Range gt_range, Pointer gt_style);
-
-  public native Pointer gt_diagram_new_from_feature_collection(Pointer features,
-          Range range,
-          Pointer style);
   
   public native void gt_diagram_set_track_selector_func(Pointer gt_diagram,
       GT.TRACKSELECTOR func);

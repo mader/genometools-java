@@ -124,10 +124,6 @@ public interface GT extends Library {
 
   Pointer gt_diagram_new_from_array(Pointer gt_array, Range gt_range,
       Pointer gt_style);
-
-  Pointer gt_diagram_new_from_feature_collection(Pointer features,
-          Range range,
-          Pointer style);
   
   void gt_diagram_set_track_selector_func(Pointer gt_diagram, TRACKSELECTOR func);
 
