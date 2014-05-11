@@ -57,9 +57,6 @@ public class GTMapping implements GT {
 
   public native void gt_genome_node_delete(Pointer gn);
 
-  public native void gt_genome_node_change_seqid(Pointer genome_node,
-      Pointer GtStr);
-
   public native Pointer gt_feature_node_new(Pointer seqid, String type,
       NativeLong start, NativeLong end, int strand);
 

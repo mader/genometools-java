@@ -37,7 +37,7 @@ public class GenomeNode {
   protected void set_disposed(boolean bool) {
     disposed = bool;
   }
-  
+
   public GenomeNode(Pointer node_ptr) {
     synchronized (this) {
       genome_node_ptr = new TransparentPointer(GT.INSTANCE
@@ -52,9 +52,9 @@ public class GenomeNode {
       disposed = true;
     }
   }
-  
+
   protected void finalize() {
-    
+
   }
 
   public Range get_range() {
@@ -89,11 +89,6 @@ public class GenomeNode {
       return false;
     GenomeNode gn = (GenomeNode) obj;
     return (this.to_ptr().equals(gn.to_ptr()));
-  }
-
-  public void change_seqid(String seqid) {
-    Str id = new Str(seqid);
-    GT.INSTANCE.gt_genome_node_change_seqid(genome_node_ptr, id.to_ptr());
   }
 
   public Pointer to_ptr() {

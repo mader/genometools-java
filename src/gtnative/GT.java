@@ -55,8 +55,6 @@ public interface GT extends Library {
 
   void gt_genome_node_delete(Pointer gn);
 
-  void gt_genome_node_change_seqid(Pointer genome_node, Pointer GtStr);
-
   /*------------------------------GtFeatureNode------------------------------*/
   Pointer gt_feature_node_new(Pointer seqid, String type, NativeLong start,
       NativeLong end, int strand);
