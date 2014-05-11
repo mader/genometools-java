@@ -404,10 +404,6 @@ public interface GT extends Library {
 
   void gt_encseq_encoder_disable_multiseq_support(Pointer ee);
 
-  void gt_encseq_encoder_create_esq_tab(Pointer ee);
-
-  void gt_encseq_encoder_do_not_create_esq_tab(Pointer ee);
-
   void gt_encseq_encoder_create_des_tab(Pointer ee);
 
   void gt_encseq_encoder_do_not_create_des_tab(Pointer ee);
@@ -440,10 +436,6 @@ public interface GT extends Library {
   void gt_encseq_loader_require_multiseq_support(Pointer el);
 
   void gt_encseq_loader_drop_multiseq_support(Pointer el);
-
-  void gt_encseq_loader_require_esq_tab(Pointer el);
-
-  void gt_encseq_loader_do_not_require_esq_tab(Pointer el);
 
   void gt_encseq_loader_require_des_tab(Pointer el);
 

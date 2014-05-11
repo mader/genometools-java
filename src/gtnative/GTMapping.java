@@ -404,10 +404,6 @@ public class GTMapping implements GT {
 
   public native void gt_encseq_encoder_disable_multiseq_support(Pointer ee);
 
-  public native void gt_encseq_encoder_create_esq_tab(Pointer ee);
-
-  public native void gt_encseq_encoder_do_not_create_esq_tab(Pointer ee);
-
   public native void gt_encseq_encoder_create_des_tab(Pointer ee);
 
   public native void gt_encseq_encoder_do_not_create_des_tab(Pointer ee);
@@ -440,10 +436,6 @@ public class GTMapping implements GT {
   public native void gt_encseq_loader_require_multiseq_support(Pointer el);
 
   public native void gt_encseq_loader_drop_multiseq_support(Pointer el);
-
-  public native void gt_encseq_loader_require_esq_tab(Pointer el);
-
-  public native void gt_encseq_loader_do_not_require_esq_tab(Pointer el);
 
   public native void gt_encseq_loader_require_des_tab(Pointer el);
 

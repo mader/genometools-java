@@ -38,13 +38,13 @@ public class AddOneNodeVisitorTest {
     node = new FeatureNode("test", "type", 1000, 8000, ".");
     testvisitor = new AddOneNodeVisitor("newtype");
   }
-  
+
   @AfterClass
   public static void tearDown() {
     node.dispose();
     testvisitor.dispose();
   }
-  
+
   @Test
   public void test_accept() throws GTerrorJava {
     FeatureNodeIteratorDirect fni = new FeatureNodeIteratorDirect(node);
@@ -54,11 +54,11 @@ public class AddOneNodeVisitorTest {
       childnodes.add(n);
     }
     assertTrue(childnodes.size() == 0);
-    
+
     node.accept(testvisitor);
-    
+
     fni.dispose();
-    
+
     fni = new FeatureNodeIteratorDirect(node);
     childnodes = new ArrayList<FeatureNode>();
     while((n = fni.next()) != null) {
@@ -67,7 +67,7 @@ public class AddOneNodeVisitorTest {
     assertTrue(childnodes.size() == 1);
     assertEquals(childnodes.get(0).get_seqid(), node.get_seqid());
     assertEquals(childnodes.get(0).get_type(), "newtype");
-    
+
     fni.dispose();
   }
 }
