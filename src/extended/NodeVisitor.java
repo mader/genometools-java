@@ -29,14 +29,14 @@ public abstract class NodeVisitor {
   public void set_disposed(boolean bool) {
     disposed = bool;
   }
-  
+
   public synchronized void dispose() {
     if (!disposed) {
       GT.INSTANCE.gt_node_visitor_delete(this.visitor);
       disposed = true;
     }
   }
-  
+
   protected void finalize() {
     if (!disposed) {
       dispose();

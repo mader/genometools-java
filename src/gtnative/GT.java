@@ -33,13 +33,13 @@ public interface GT extends Library {
   public static final GT INSTANCE = GTMapping.getInstance();
 
   /*------------------------------RDB------------------------------*/
-  
+
   void gt_rdb_delete(Pointer db);
-  
+
   Pointer gt_rdb_mysql_new(String server, int port,
           String database, String username,
           String password, Pointer err);
-  
+
   /*------------------------------GtGenomeNode------------------------------*/
   int gt_genome_node_accept(Pointer gn, Pointer gv, Pointer err);
 
@@ -54,8 +54,6 @@ public interface GT extends Library {
   Pointer gt_genome_node_get_seqid(Pointer gn);
 
   void gt_genome_node_delete(Pointer gn);
-
-  void gt_genome_node_change_seqid(Pointer genome_node, Pointer GtStr);
 
   /*------------------------------GtFeatureNode------------------------------*/
   Pointer gt_feature_node_new(Pointer seqid, String type, NativeLong start,
@@ -124,7 +122,7 @@ public interface GT extends Library {
 
   Pointer gt_diagram_new_from_array(Pointer gt_array, Range gt_range,
       Pointer gt_style);
-  
+
   void gt_diagram_set_track_selector_func(Pointer gt_diagram, TRACKSELECTOR func);
 
   void gt_diagram_reset_track_selector_func(Pointer diagram_ptr);
@@ -321,14 +319,14 @@ public interface GT extends Library {
   NativeLong gt_str_array_size(Pointer str_array);
 
   void gt_str_array_delete(Pointer str_array);
-  
+
   /*------------------------------GtAnnoDB------------------------------*/
-  
+
   void gt_anno_db_schema_delete(Pointer schema);
-  
+
   Pointer gt_anno_db_schema_get_feature_index(Pointer schema,
           Pointer db, Pointer err);
-  
+
   /*------------------------------GtLogger------------------------------*/
   Pointer gt_logger_new(int enabled, String prefix, Pointer target);
 
@@ -406,10 +404,6 @@ public interface GT extends Library {
 
   void gt_encseq_encoder_disable_multiseq_support(Pointer ee);
 
-  void gt_encseq_encoder_create_esq_tab(Pointer ee);
-
-  void gt_encseq_encoder_do_not_create_esq_tab(Pointer ee);
-
   void gt_encseq_encoder_create_des_tab(Pointer ee);
 
   void gt_encseq_encoder_do_not_create_des_tab(Pointer ee);
@@ -442,10 +436,6 @@ public interface GT extends Library {
   void gt_encseq_loader_require_multiseq_support(Pointer el);
 
   void gt_encseq_loader_drop_multiseq_support(Pointer el);
-
-  void gt_encseq_loader_require_esq_tab(Pointer el);
-
-  void gt_encseq_loader_do_not_require_esq_tab(Pointer el);
 
   void gt_encseq_loader_require_des_tab(Pointer el);
 
@@ -564,16 +554,5 @@ public interface GT extends Library {
   String gt_sequence_node_get_sequence(Pointer node);
 
   NativeLong gt_sequence_node_get_sequence_length(Pointer node);
-
-  /*------------------------------GtBioseq------------------------------*/
-  Pointer gt_bioseq_new(String sequence_file, Pointer err_p);
-
-  NativeLong gt_bioseq_number_of_sequences(Pointer bioseq);
-
-  String gt_bioseq_get_description(Pointer bioseq, NativeLong idx);
-
-  NativeLong gt_bioseq_get_sequence_length(Pointer bioseq, NativeLong idx);
-
-  void gt_bioseq_delete(Pointer bioseq_ptr);
 
 }
